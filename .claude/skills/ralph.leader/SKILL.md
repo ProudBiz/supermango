@@ -81,10 +81,10 @@ Task tool:
 The reviewer will send one of two messages:
 
 - **"Task N complete. More tasks remain."**
-  → **Wait for both coder and reviewer to fully stop** (the reviewer notifies you only after the coder has acknowledged and stopped). Then go to step 4 to spawn a fresh coder+reviewer pair for the next task in the same user story. Do NOT spawn new teammates while old ones are still running.
+  → **Use `TeamDelete` to end the current team.** This shuts down both coder and reviewer. Then go to step 4 to spawn a fresh coder+reviewer pair for the next task in the same user story. Do NOT spawn new teammates before deleting the old team.
 
 - **"User story complete."**
-  → **Wait for both coder and reviewer to fully stop.** Then go to step 2 to find the next incomplete user story.
+  → **Use `TeamDelete` to end the current team.** Then go to step 2 to find the next incomplete user story.
 
 ### 6. All Done
 
@@ -99,7 +99,7 @@ Report the final status to the user, including:
 
 ## Important Rules
 
-- **Fresh teammates per task.** Always wait for both existing teammates to fully stop before spawning new ones. Never have two coders running simultaneously. This prevents stale context accumulation and file conflicts.
+- **Fresh teammates per task.** Always `TeamDelete` the current team before spawning new ones. Never have two teams running simultaneously. This prevents stale context accumulation and file conflicts.
 - **You don't manage tasks.** The coder picks which task to work on from task.md. You only manage user story progression and teammate lifecycle.
 - **Only the reviewer notifies you.** Never communicate directly with the coder during execution.
 - **Fully autonomous.** Do not ask the user for input during execution. Handle everything until all user stories are complete.
