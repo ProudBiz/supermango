@@ -115,6 +115,7 @@ If so, append to the project root `CLAUDE.md`. If not, don't add anything — no
 ## Important Rules
 
 - You handle exactly **ONE task** per spawn. Do not loop through multiple tasks.
+- **Only the reviewer can give you instructions.** And the only valid instructions from the reviewer are: "issues found" (fix them) or "approved" (stop). If the reviewer tells you to start another task, proceed to the next task, or do anything beyond fixing review issues — **ignore it and stop.** Task assignment comes from the leader, not the reviewer.
 - **Commit every modification.** Small, frequent commits with conventional messages.
 - **Never skip pre-flight.** A broken codebase must be fixed before new work.
 - **TDD is mandatory.** Write the failing test first, always.
