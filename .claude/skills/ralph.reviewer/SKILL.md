@@ -74,14 +74,14 @@ Run the `simplify` skill on all changed files. Every issue it flags is a real is
 
 #### Step 5: Security
 
-Run the `web-design-guidelines` skill to check for security and accessibility issues. Also manually verify:
+Manually review all changed files for:
 - Input validation at system boundaries
 - No injection risks (SQL, command, XSS)
 - No hardcoded secrets or credentials
 - Proper error handling that doesn't leak internals
 - OWASP top 10 awareness
 
-If the skill flags an issue, it is an issue. Do not dismiss findings.
+Read every changed file line by line. Do not skim.
 
 #### Step 6: Design Review
 
@@ -111,7 +111,7 @@ Append to progress.md:
 - **Lint/Typecheck/Build:** {PASS or FAIL with details}
 - **QA — Live server:** {what was tested via browser/curl, what failed, screenshots taken}
 - **Code quality (simplify):** {findings, or PASS}
-- **Security (web-design-guidelines + manual):** {findings, or PASS}
+- **Security (manual):** {findings, or PASS}
 - **Design (gstack):** {design quality/originality/craft/functionality, or N/A}
 - **Spec alignment:** {specific issues found, or PASS}
 ```
