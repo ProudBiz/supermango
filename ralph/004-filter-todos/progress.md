@@ -25,3 +25,17 @@
   - `getActiveTodoCount()` uses SQL `count()` aggregate — efficient
   - Test coverage is thorough: edge cases (empty DB, all completed, mixed) covered
 - **Task DONE**
+
+### [Coder] Iteration 2
+- **Task:** Task 2: Build filter tabs UI with URL search params
+- **Status:** DONE
+- **Files changed:** src/components/FilterTabs.tsx, src/components/FilterTabs.test.tsx, src/app/page.tsx, src/app/page.test.tsx
+- **What was done:** Created FilterTabs component with three filter links (All, Active, Completed) styled as a button group with active tab highlighting (bg-gray-900). Links use URL search params (?filter=active, ?filter=completed, / for all). Displays active todo count with singular/plural ("N items left"). Updated Home page to accept searchParams (Promise-based for Next.js 16), parse and validate the filter param, pass it to getTodos(), and render FilterTabs between the form and list. Added 11 FilterTabs tests and 3 new page integration tests.
+- **Self-validation:**
+  - Three filter buttons/tabs displayed between form and list — PASS
+  - Tabs styled as button group, active tab visually highlighted — PASS
+  - Clicking tab navigates to correct URL search param — PASS
+  - Page reads filter search param and passes to getTodos() — PASS
+  - Count of active todos displayed (e.g., "3 items left") — PASS
+  - Filter tabs and count are mobile-friendly — PASS
+  - Page component accepts searchParams and uses them server-side — PASS
