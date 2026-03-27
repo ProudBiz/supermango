@@ -68,44 +68,33 @@ Do NOT skip this step. Do NOT assume anything works because unit tests pass. Tes
 
 Stop the server when done.
 
-#### Step 4: Code Quality — Using Real Tools
+#### Step 4: Code Quality
 
-Run the `simplify` skill on all changed files. This catches unnecessary complexity, redundant code, and poor abstractions.
+Run the `simplify` skill on all changed files. Every issue it flags is a real issue. Fix or justify each one.
 
-Then use the PR Review Toolkit agents for deeper analysis:
-- **code-simplifier** — clarity, consistency, maintainability
-- **silent-failure-hunter** — error handling gaps, swallowed errors
-- **type-design-analyzer** — type quality (if TypeScript)
+#### Step 5: Security
 
-Every issue these tools flag is a real issue. Fix or justify each one.
-
-#### Step 5: Security — Using Real Tools
-
-Run security scanning tools available on the machine:
-- **Semgrep** — real-time vulnerability detection on changed files
-- **Aikido Security** — SAST + secrets detection
-
-Also manually verify:
+Run the `web-design-guidelines` skill to check for security and accessibility issues. Also manually verify:
 - Input validation at system boundaries
 - No injection risks (SQL, command, XSS)
 - No hardcoded secrets or credentials
 - Proper error handling that doesn't leak internals
 - OWASP top 10 awareness
 
-If any scanner flags an issue, it is an issue. Do not dismiss tool findings.
+If the skill flags an issue, it is an issue. Do not dismiss findings.
 
-#### Step 6: Design Review — Visual Verification
+#### Step 6: Design Review
+
+If the task has no UI component, skip this step.
 
 Start the dev server if not already running. Use `gstack` to take screenshots of every affected page/component.
 
-Evaluate the implementation against these criteria:
+Evaluate against these criteria:
 
 - **Design quality:** Does the design feel like a coherent whole rather than a collection of parts? Colors, typography, layout, imagery, and details should combine to create a distinct mood and identity.
 - **Originality:** Is there evidence of custom decisions, or is this template layouts, library defaults, and AI-generated patterns? A human designer should recognize deliberate creative choices. Unmodified stock components — or telltale signs of AI generation like purple gradients over white cards — fail here.
 - **Craft:** Technical execution: typography hierarchy, spacing consistency, color harmony, contrast ratios. This is a competence check. Failing means broken fundamentals.
 - **Functionality:** Usability independent of aesthetics. Can users understand what the interface does, find primary actions, and complete tasks without guessing?
-
-If the task has no UI component, skip this step.
 
 #### Step 7: Spec Alignment
 - Does this task's implementation serve the broader goals in spec.md?
@@ -121,9 +110,9 @@ Append to progress.md:
 - **Tests:** {PASS or FAIL with details}
 - **Lint/Typecheck/Build:** {PASS or FAIL with details}
 - **QA — Live server:** {what was tested via browser/curl, what failed, screenshots taken}
-- **Code quality — Tools:** {simplify/PR toolkit findings, or PASS}
-- **Security — Tools:** {semgrep/aikido findings + manual checks, or PASS}
-- **Design — Visual:** {design quality/originality/craft/functionality assessment, or N/A if no UI}
+- **Code quality (simplify):** {findings, or PASS}
+- **Security (web-design-guidelines + manual):** {findings, or PASS}
+- **Design (gstack):** {design quality/originality/craft/functionality, or N/A}
 - **Spec alignment:** {specific issues found, or PASS}
 ```
 
