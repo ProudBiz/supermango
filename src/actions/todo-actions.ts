@@ -55,6 +55,21 @@ export async function toggleTodo(id: number) {
   revalidatePath("/");
 }
 
+export async function updateTodoText(id: number, text: string) {
+  const trimmed = text.trim();
+  if (!trimmed) {
+    throw new Error("Todo text cannot be empty");
+  }
+
+  const existing = db.select().from(todos).where(eq(todos.id, id)).get();
+  if (!existing) {
+    throw new Error("Todo not found");
+  }
+
+  db.update(todos).set({ text: trimmed }).where(eq(todos.id, id)).run();
+  revalidatePath("/");
+}
+
 export async function deleteTodo(id: number) {
   const existing = db.select().from(todos).where(eq(todos.id, id)).get();
   if (!existing) {

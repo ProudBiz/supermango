@@ -277,3 +277,69 @@ describe("deleteTodo", () => {
     expect(remaining[0].text).toBe("Keep me");
   });
 });
+
+describe("updateTodoText", () => {
+  beforeEach(() => {
+    db = createTestDb();
+  });
+
+  it("updates the text of an existing todo", async () => {
+    db.insert(todos).values({ text: "Original text" }).run();
+    const [todo] = db.select().from(todos).all();
+
+    const { updateTodoText } = await import("./todo-actions");
+    await updateTodoText(todo.id, "Updated text");
+
+    const [updated] = db.select().from(todos).all();
+    expect(updated.text).toBe("Updated text");
+  });
+
+  it("trims whitespace from the new text", async () => {
+    db.insert(todos).values({ text: "Original" }).run();
+    const [todo] = db.select().from(todos).all();
+
+    const { updateTodoText } = await import("./todo-actions");
+    await updateTodoText(todo.id, "  Trimmed text  ");
+
+    const [updated] = db.select().from(todos).all();
+    expect(updated.text).toBe("Trimmed text");
+  });
+
+  it("rejects empty string", async () => {
+    db.insert(todos).values({ text: "Original" }).run();
+    const [todo] = db.select().from(todos).all();
+
+    const { updateTodoText } = await import("./todo-actions");
+    await expect(updateTodoText(todo.id, "")).rejects.toThrow("Todo text cannot be empty");
+
+    const [unchanged] = db.select().from(todos).all();
+    expect(unchanged.text).toBe("Original");
+  });
+
+  it("rejects whitespace-only string", async () => {
+    db.insert(todos).values({ text: "Original" }).run();
+    const [todo] = db.select().from(todos).all();
+
+    const { updateTodoText } = await import("./todo-actions");
+    await expect(updateTodoText(todo.id, "   ")).rejects.toThrow("Todo text cannot be empty");
+
+    const [unchanged] = db.select().from(todos).all();
+    expect(unchanged.text).toBe("Original");
+  });
+
+  it("throws for non-existent ID", async () => {
+    const { updateTodoText } = await import("./todo-actions");
+    await expect(updateTodoText(999, "New text")).rejects.toThrow("Todo not found");
+  });
+
+  it("calls revalidatePath after updating", async () => {
+    db.insert(todos).values({ text: "Original" }).run();
+    const [todo] = db.select().from(todos).all();
+
+    const { revalidatePath } = await import("next/cache");
+    const { updateTodoText } = await import("./todo-actions");
+    await updateTodoText(todo.id, "Updated");
+
+    expect(revalidatePath).toHaveBeenCalledWith("/");
+  });
+});
