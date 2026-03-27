@@ -98,7 +98,7 @@ The reviewer will respond via SendMessage:
 
 - **If issues found:** Read progress.md for the reviewer's issue details. Fix every issue. Re-commit. Append a new iteration to progress.md (increment the iteration number). Notify the reviewer again.
 
-- **If approved:** Your job is done. **Stop.** The leader will spawn a fresh coder for the next task if needed.
+- **If approved:** Reply to the reviewer via SendMessage: "Acknowledged." Then update CLAUDE.md if needed (see step 11), and **stop**. The leader will spawn a fresh coder for the next task if needed.
 
 ### 11. Update CLAUDE.md
 

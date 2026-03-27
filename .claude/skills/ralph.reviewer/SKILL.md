@@ -97,7 +97,13 @@ Append to progress.md:
 - **Task DONE**
 ```
 
-Then check: are **all tasks** in task.md now complete? (Every task has a PASS entry in progress.md.)
+**First, notify the coder** via SendMessage:
+
+> "Task {N} approved. You are done."
+
+Wait for the coder to confirm (the coder will reply "Acknowledged" before stopping).
+
+**Then, after coder confirms**, check: are **all tasks** in task.md now complete? (Every task has a PASS entry in progress.md.)
 
 - **If more tasks remain:** Notify the leader via SendMessage:
 
@@ -129,7 +135,7 @@ Not every review produces learnings. Only update when the knowledge would help f
 
 ## Important Rules
 
-- **You are the single coordinator.** Only you notify the leader. Never tell the coder to proceed to the next task — the leader handles that.
+- **You are the single coordinator.** Only you notify the leader. Always notify the coder of the result first, wait for coder's acknowledgment, then notify the leader.
 - **Be thorough but fair.** Flag real issues, not style preferences. If something works correctly and follows existing patterns, it passes.
 - **progress.md is append-only.** Never edit or delete existing entries.
 - **No iteration limit.** Keep reviewing until the work meets all criteria.
