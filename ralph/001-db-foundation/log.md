@@ -23,3 +23,15 @@
 - **Design (gstack):** N/A — no UI changes
 - **Spec alignment:** PASS — schema matches spec (id, title, completed, createdAt), factory supports test isolation, config files complete
 - **Task DONE**
+
+### [Coder] Round 2
+- **Task:** Migration and Seed Helper
+- **Status:** DONE
+- **Files changed:** `db/seed.ts`, `__tests__/helpers/db.ts`, `__tests__/seed.test.ts`
+- **What was done:** Created seed function that inserts 3 fixture todos (mix of completed/incomplete). Created test helper `createTestDb({ seed? })` that creates an in-memory DB, applies schema via raw CREATE TABLE SQL, and optionally seeds it. Ran `drizzle-kit push` to create the todos table in `./sqlite.db`. Wrote 4 tests covering empty DB creation, seeded DB with fixture validation, and completed/incomplete fixture coverage.
+- **Self-validation:**
+  - ✅ `drizzle-kit push` runs successfully and creates the todos table in `./sqlite.db`
+  - ✅ `db/seed.ts` exports a function that accepts a Drizzle DB instance and inserts 3 fixture todos
+  - ✅ `__tests__/helpers/db.ts` exports a helper that creates an in-memory DB, applies schema via raw `CREATE TABLE` SQL, and optionally seeds it
+  - ✅ The test helper's CREATE TABLE SQL matches `db/schema.ts` column definitions
+  - ✅ `pnpm typecheck` passes, `pnpm build` clean, 19 tests pass (3 files)
