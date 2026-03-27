@@ -5,7 +5,7 @@ Multi-agent orchestration system using Claude Code teammates.
 ## Skills
 
 - `/ralph.planner` — Interactive brainstorming, generates spec.md and task.md files
-- `/ralph.leader` — Autonomous orchestrator, spawns coder+reviewer pairs
+- `/ralph.loop` — Autonomous orchestrator, spawns coder+reviewer pairs
 - `ralph.coder` — Teammate skill, TDD implementation
 - `ralph.reviewer` — Teammate skill, QA/design/code/security review
 

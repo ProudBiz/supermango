@@ -44,6 +44,7 @@ Before writing code, analyze the codebase:
 - Understand relevant files, patterns, and structure
 - Plan which files to create or modify
 - Plan TDD steps based on the task's acceptance criteria
+- When working with libraries, frameworks, or APIs, use the `find-docs` skill (Context7) to look up the latest documentation. Don't guess API signatures or configuration — verify them.
 - Figure this out autonomously — do NOT ask the leader or reviewer
 
 ### 5. TDD Loop
@@ -52,7 +53,7 @@ For each requirement in the task:
 
 1. **Write a failing test** that captures the expected behavior
 2. **Run the test** to confirm it fails for the right reason
-3. **Implement minimal code** to make the test pass
+3. **Implement minimal code** to make the test pass. When building UI components or pages, use the `frontend-design` skill to generate distinctive, production-grade interfaces.
 4. **Run the test** to confirm it passes
 5. **Commit** with a conventional commit message (e.g., `feat: add login endpoint`)
 
