@@ -33,3 +33,15 @@
 - **Security (manual):** PASS — parameterized queries via Drizzle ORM, React auto-escaping prevents XSS, input validation at boundary, no hardcoded secrets, errors don't leak internals.
 - **Design (gstack):** N/A — styling is Story 003 scope. Functional layout is correct.
 - **Spec alignment:** PASS — implementation matches spec.md requirements for Server Components, Server Actions, useActionState, action prop binding, revalidatePath.
+
+### [Coder] Round 3
+- **Task:** Server Actions and Page Component
+- **Status:** DONE
+- **Files changed:** `app/add-form.tsx` (modified), `app/actions.ts` (modified), `__tests__/actions.test.ts` (modified)
+- **What was done:** Fixed two reviewer issues: (1) Input focus after successful add — wrapped `focus()` call in `requestAnimationFrame` to re-focus after the browser's form action lifecycle moves focus to the submit button. (2) Removed unnecessary SELECT before DELETE in `deleteTodo` — DELETE on a non-existent row is a SQL no-op, so the existence check was an extra DB round-trip. Updated test to expect `revalidatePath` call even for non-existent IDs.
+- **Self-validation:**
+  - Input clears and retains focus after successful add (via requestAnimationFrame) — PASS
+  - deleteTodo simplified: no unnecessary SELECT — PASS
+  - `pnpm test` passes (28 tests) — PASS
+  - `pnpm build` passes — PASS
+  - TypeScript clean — PASS
