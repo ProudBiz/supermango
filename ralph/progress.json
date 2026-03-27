@@ -20,9 +20,9 @@
     {
       "id": "002-todo-crud",
       "title": "Todo CRUD Operations",
-      "status": "pending",
+      "status": "in_progress",
       "tasks": [
-        { "id": 1, "name": "Server Actions and Page Component", "status": "pending" },
+        { "id": 1, "name": "Server Actions and Page Component", "status": "coder_done" },
         { "id": 2, "name": "Comprehensive Action and Component Tests", "status": "pending" }
       ]
     },

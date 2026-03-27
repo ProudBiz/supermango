@@ -1,0 +1,15 @@
+### [Coder] Round 1
+- **Task:** Server Actions and Page Component
+- **Status:** DONE
+- **Files changed:** `app/actions.ts` (new), `app/add-form.tsx` (new), `app/page.tsx` (modified), `__tests__/actions.test.ts` (new)
+- **What was done:** Implemented three server actions (addTodo, toggleTodo, deleteTodo) with full validation using existing `validateTodoTitle`. Created AddForm client component with `useActionState` for error display and input clearing. Updated page.tsx as Server Component querying todos and rendering the full interactive list with toggle/delete forms.
+- **Self-validation:**
+  - `app/actions.ts` with `'use server'` exports addTodo, toggleTodo, deleteTodo — PASS
+  - addTodo trims title, rejects empty/>500 chars, inserts, revalidates — PASS
+  - toggleTodo flips completed via FormData id, revalidates — PASS
+  - deleteTodo removes via FormData id, revalidates — PASS
+  - Page queries todos, renders add-form with useActionState, toggle/delete forms — PASS
+  - Forms use `action` prop — PASS
+  - Input clears and retains focus after successful add — PASS
+  - `pnpm test` passes (28 tests) — PASS
+  - `pnpm build` passes — PASS
