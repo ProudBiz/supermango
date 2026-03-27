@@ -270,16 +270,16 @@ You are an autonomous coding agent. Each iteration you read the project state, d
 
 ## Step 2: Find Current Work
 
-Scan `progress.json` for the first story that is NOT `done`. Check rules in order — first match wins:
+Scan `progress.json` for the first story that is NOT `done` and NOT `known_issue`. Check rules in order — first match wins:
 
 1. If a story has status `qa_issues` → go to **Step 4: Fix QA Issues**
 2. If a story has status `qa` → go to **Step 5: Run QA**
-3. If a story has status `in_progress` and ALL its tasks have `reviewer_pass` → go to **Step 5: Run QA** (transition to QA)
-4. If a story has status `in_progress` or `pending` → find the first task that is NOT `reviewer_pass`:
+3. If a story has status `in_progress` and ALL its tasks have `reviewer_pass` or `known_issue` → go to **Step 5: Run QA** (transition to QA)
+4. If a story has status `in_progress` or `pending` → find the first task that is NOT `reviewer_pass` and NOT `known_issue`:
    - Task `pending` → go to **Step 3a: Run Coder**
    - Task `coder_done` → go to **Step 3b: Run Reviewer**
    - Task `reviewer_issues` → go to **Step 3a: Run Coder** (fixing issues)
-5. If ALL stories have status `done` → go to **Step 6: Complete**
+5. If ALL stories have status `done` or `known_issue` → go to **Step 6: Complete**
 
 ## Step 3a: Run Coder
 

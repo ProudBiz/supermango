@@ -82,14 +82,15 @@ Self-dispatching prompt. Same prompt every iteration. The agent reads state and 
 - Task `coder_done` → read `.claude/skills/ralph.reviewer/SKILL.md`, follow it
 - Task `reviewer_issues` → read `.claude/skills/ralph.coder/SKILL.md`, follow it (fix issues from log.md)
 - Task `reviewer_pass` → skip to next task
+- Task `known_issue` → skip to next task
 
-**Story-level dispatch (all tasks `reviewer_pass`):**
+**Story-level dispatch (all tasks `reviewer_pass` or `known_issue`):**
 - Story not yet QA'd → run QA validation (reviewer's 7 verification steps scoped to the full story, not per-task — no separate QA skill file)
 - Story `qa_issues` → read `.claude/skills/ralph.coder/SKILL.md`, follow it (fix QA issues from log.md)
 - Story `qa_pass` → mark story `done`, move to next story
 
 **Completion:**
-- All stories `done` → output `<promise>COMPLETE</promise>`
+- All stories `done` or `known_issue` → output `<promise>COMPLETE</promise>`
 
 **5-round cap:** If a task cycles coder→reviewer 5 times without `reviewer_pass`, or a story cycles coder→QA 5 times without `qa_pass`, write the issue to `ralph/known-issues.md` and skip to the next task/story.
 
