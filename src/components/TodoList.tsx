@@ -1,3 +1,5 @@
+import TodoItem from "./TodoItem";
+
 interface Todo {
   id: number;
   text: string;
@@ -17,12 +19,12 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
   return (
     <ul className="divide-y divide-gray-100">
       {todos.map((todo) => (
-        <li
+        <TodoItem
           key={todo.id}
-          className="flex items-center gap-3 px-2 py-3 text-gray-800"
-        >
-          <span>{todo.text}</span>
-        </li>
+          id={todo.id}
+          text={todo.text}
+          completed={todo.completed}
+        />
       ))}
     </ul>
   );
