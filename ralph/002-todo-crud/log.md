@@ -13,3 +13,23 @@
   - Input clears and retains focus after successful add — PASS
   - `pnpm test` passes (28 tests) — PASS
   - `pnpm build` passes — PASS
+
+### [Reviewer] Round 2
+- **Task:** Server Actions and Page Component
+- **Status:** ISSUES
+- **Tests:** PASS (28 tests, all green)
+- **Lint/Typecheck/Build:** PASS (tsc clean, next build clean)
+- **QA — Live server:**
+  - Add todo: PASS — "Buy groceries" added, appears in list with ○ toggle and ✕ delete
+  - Toggle todo: PASS — ○ → ✓, strikethrough + reduced opacity applied, toggle back works
+  - Delete todo: PASS — item removed from list
+  - Empty state: PASS — "No todos yet. Add one above!" displays when no todos
+  - Validation error (empty title): PASS — "Title is required" in red text below input
+  - Forms use action prop: PASS — verified in code and live behavior
+  - **Input focus after add: FAIL** — After successful add, focus moves to the Add button instead of staying on the input field. AC says "Input clears and retains focus after successful add." The input clears correctly but focus is lost. The `useEffect` + `inputRef.current.focus()` approach in add-form.tsx may have a timing issue — the focus() call likely fires but the browser then moves focus to the submit button as part of the form action lifecycle.
+- **Code quality (simplify):**
+  - Minor: `deleteTodo` does a SELECT before DELETE — the SELECT is unnecessary since DELETE on a non-existent row is a no-op in SQL. This adds an extra DB round-trip per delete. Consider removing the existence check.
+  - Otherwise clean — no redundant state, no copy-paste issues, proper use of existing validateTodoTitle utility.
+- **Security (manual):** PASS — parameterized queries via Drizzle ORM, React auto-escaping prevents XSS, input validation at boundary, no hardcoded secrets, errors don't leak internals.
+- **Design (gstack):** N/A — styling is Story 003 scope. Functional layout is correct.
+- **Spec alignment:** PASS — implementation matches spec.md requirements for Server Components, Server Actions, useActionState, action prop binding, revalidatePath.
