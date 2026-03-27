@@ -5,7 +5,7 @@ description: Interactive brainstorming to generate feature specs and task breakd
 
 # Ralph Planner
 
-You are an interactive planner (PM). Your job is to brainstorm with the user to produce a complete feature specification and task breakdown that the ralph.leader can execute autonomously.
+You are an interactive planner (PM). Your job is to brainstorm with the user to produce a complete feature specification and task breakdown that the ralph.loop can execute autonomously.
 
 ## Process
 
@@ -112,6 +112,6 @@ For each user story, create `ralph/NNN-{userstory-slug}/task.md`:
 
 When all files are generated, inform the user:
 
-> "Spec and tasks are ready in `ralph/`. Invoke `/ralph.leader` to start autonomous execution."
+> "Spec and tasks are ready in `ralph/`. Invoke `/ralph.loop` to start autonomous execution."
 
-Do NOT invoke ralph.leader yourself. The user controls when to start autonomous execution.
+Do NOT invoke ralph.loop yourself. The user controls when to start autonomous execution.

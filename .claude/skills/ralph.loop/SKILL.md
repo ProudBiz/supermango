@@ -1,5 +1,5 @@
 ---
-name: ralph.leader
+name: ralph.loop
 description: Autonomous orchestrator — spawns coder+reviewer teammate pairs to implement tasks from ralph/
 ---
 
