@@ -1,0 +1,12 @@
+{
+  "name": "supermango",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multi-agent orchestration system using Claude Code",
+  "scripts": {
+    "loop": "bash ralph/ralph-loop.sh",
+    "loop:once": "bash ralph/ralph-once.sh"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.12.3"
+}
