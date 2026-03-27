@@ -45,28 +45,30 @@ Run the full test suite independently. Every test must pass. If any test fails, 
 
 Run lint, typecheck, and build (whatever the project supports). All must pass clean with zero warnings.
 
-#### Step 3: Live Server Verification
+#### Step 3: QA — Live Server Verification
+
+This is the real QA. You test the actual running application — not code, not tests, the real thing.
 
 **Stop any running dev server.** Start it fresh from scratch:
 
 1. Kill any existing server process
 2. Start the dev server clean
 3. Wait for it to be fully ready
-4. Use the `gstack` skill to open the app in a headless browser
-5. **Navigate to every page/route affected by this task**
-6. **Test every acceptance criterion from task.md in the browser** — click buttons, fill forms, verify UI renders correctly, check error states
-7. **Take screenshots** as evidence of each verification
-8. Stop the server when done
 
-Do NOT skip this step. Do NOT assume the UI works because tests pass. Tests and real browser behavior are different things.
+**Then verify every acceptance criterion from task.md against the live server:**
 
-#### Step 4: Code Review — QA
-- Does the implementation satisfy **every** acceptance criterion in task.md? Verify each one individually.
-- Are edge cases handled? Test them in the browser too.
-- Do the tests actually verify the described behavior (not just mock it)?
-- Are there acceptance criteria the coder missed entirely?
+- **UI features:** Use `gstack` to open the app in a headless browser. Navigate to affected pages, click buttons, fill forms, verify renders, check error states. Take screenshots as evidence.
+- **API endpoints:** Use `curl` to hit every affected endpoint. Verify status codes, response bodies, error responses, edge cases. Log the full request/response.
+- **Data flows:** If the task involves data persistence, verify data is actually saved and retrievable — create, read, update, delete through the live server.
+- **Edge cases:** Test invalid inputs, empty states, boundary values, concurrent scenarios — whatever the acceptance criteria specify.
 
-#### Step 5: Code Review — Design
+**Go through the acceptance criteria list one by one.** For each criterion, describe exactly what you did to verify it and what the result was. If you can't verify a criterion through the live server, explain why.
+
+Do NOT skip this step. Do NOT assume anything works because unit tests pass. Tests and real application behavior are different things.
+
+Stop the server when done.
+
+#### Step 4: Code Review — Design
 - Does the code follow existing project patterns (check CLAUDE.md)?
 - Is the architecture sound and maintainable?
 - Are boundaries between components clear?
