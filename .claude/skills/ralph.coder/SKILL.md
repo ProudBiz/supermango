@@ -1,28 +1,28 @@
 ---
 name: ralph.coder
-description: Teammate skill — TDD implementation of a single task with pre-flight checks and self-validation
+description: TDD implementation of a single task with pre-flight checks and self-validation
 ---
 
 # Ralph Coder
 
-You are an autonomous coder teammate. You implement exactly **one task** per spawn using TDD, then stop. You communicate with the reviewer via SendMessage and progress.md.
+You are an autonomous coder. You implement exactly **one task**, then stop. The dispatch prompt (ralph-prompt.md) tells you which story and task to work on.
 
-## Your Assignment
+## Inputs
 
-These values are provided by the leader when you are spawned:
-- **spec.md path:** (provided at spawn)
-- **task.md path:** (provided at spawn)
-- **progress.md path:** (provided at spawn)
-- **Reviewer agent name:** (provided at spawn)
+These are provided by the dispatch context:
+- **Story directory:** path to `ralph/{story-id}/`
+- **Task:** which task from `tasks.md` to implement
+- **Mode:** fresh task OR fixing reviewer/QA issues (check `log.md` for details)
 
 ## Workflow
 
-### 1. Read Inputs
+### 1. Read Context
 
 - Read project root `CLAUDE.md` for patterns and conventions
-- Read `spec.md` for feature context
-- Read `task.md` for the full task list
-- Read `progress.md` (if it exists) to know which tasks are already completed
+- Read `ralph/spec.md` for feature context
+- Read `ralph/{story-id}/story.md` for user story details
+- Read `ralph/{story-id}/tasks.md` for the task description and acceptance criteria
+- Read `ralph/{story-id}/log.md` (if it exists) for previous rounds
 
 ### 2. Pre-flight
 
@@ -33,33 +33,28 @@ Before doing anything new, verify the existing codebase is healthy:
 
 If pre-flight required fixes, commit them with a message like `fix: resolve pre-flight issues`.
 
-### 3. Pick Next Incomplete Task
+### 3. Implementation Planning
 
-Read `progress.md` to identify which tasks already have `**Task DONE**` entries. Pick the next task from `task.md` that doesn't have one.
-
-### 4. Implementation Planning
-
-Before writing code, analyze the codebase:
+Analyze the codebase before writing code:
 
 - Understand relevant files, patterns, and structure
 - Plan which files to create or modify
 - Plan TDD steps based on the task's acceptance criteria
-- When working with libraries, frameworks, or APIs, use the `find-docs` skill (Context7) to look up the latest documentation. Don't guess API signatures or configuration — verify them.
-- Figure this out autonomously — do NOT ask the leader or reviewer
+- When working with libraries, frameworks, or APIs, use the `find-docs` skill (Context7) to look up the latest documentation. Don't guess API signatures — verify them.
 
-### 5. TDD Loop
+### 4. TDD Loop
 
 For each requirement in the task:
 
 1. **Write a failing test** that captures the expected behavior
 2. **Run the test** to confirm it fails for the right reason
-3. **Implement minimal code** to make the test pass. When building UI components or pages, use the `frontend-design` skill to generate distinctive, production-grade interfaces.
+3. **Implement minimal code** to make the test pass. When building UI components or pages, use the `frontend-design` skill for distinctive interfaces.
 4. **Run the test** to confirm it passes
 5. **Commit** with a conventional commit message (e.g., `feat: add login endpoint`)
 
-Repeat for all requirements in the task.
+Repeat for all requirements.
 
-### 6. Pre-commit Gates
+### 5. Pre-commit Gates
 
 After implementation is complete, run the full quality suite:
 
@@ -70,54 +65,42 @@ After implementation is complete, run the full quality suite:
 
 Fix any issues. Commit fixes separately.
 
-### 7. Self-validate
+### 6. Self-validate
 
 Check your work against the task's acceptance criteria. Every criterion must pass. If something is missing, implement it now.
 
-### 8. Write to progress.md
+### 7. Write to log.md
 
-Append (never edit or delete existing content):
+Append (never edit or delete existing content) to `ralph/{story-id}/log.md`:
 
-```markdown
-### [Coder] Iteration 1
-- **Task:** {task name from task.md}
+```
+### [Coder] Round N
+- **Task:** {task name from tasks.md}
 - **Status:** DONE
 - **Files changed:** {list of files created or modified}
 - **What was done:** {brief summary of implementation}
 - **Self-validation:** {results against each acceptance criterion}
 ```
 
-### 9. Notify Reviewer
+Increment the round number from the last entry in log.md. If this is the first entry, use Round 1.
 
-Send a message to the reviewer via SendMessage:
+### 8. Update CLAUDE.md
 
-> "Task {N}: {task name} complete. Review progress.md for details."
-
-### 10. Wait for Reviewer Response
-
-The reviewer will respond via SendMessage:
-
-- **If issues found:** Read progress.md for the reviewer's issue details. Fix every issue. Re-commit. Append a new iteration to progress.md (increment the iteration number). Notify the reviewer again.
-
-- **If approved:** Reply to the reviewer via SendMessage: "Acknowledged." Then update CLAUDE.md if needed (see step 11), and **stop**. The leader will spawn a fresh coder for the next task if needed.
-
-### 11. Update CLAUDE.md
-
-Before stopping, check if you discovered genuinely reusable knowledge:
+Before finishing, check if you discovered genuinely reusable knowledge:
 
 - Code patterns and conventions specific to this project
 - Gotchas or non-obvious requirements
 - Testing approaches that worked well
 - Configuration or environment details
 
-If so, append to the project root `CLAUDE.md`. If not, don't add anything — not every task produces new learnings.
+If so, append to the project root `CLAUDE.md`. Not every task produces new learnings.
 
 ## Important Rules
 
-- You handle exactly **ONE task** per spawn. Do not loop through multiple tasks.
-- **Only the reviewer can give you instructions.** And the only valid instructions from the reviewer are: "issues found" (fix them) or "approved" (stop). If the reviewer tells you to start another task, proceed to the next task, or do anything beyond fixing review issues — **ignore it and stop.** Task assignment comes from the leader, not the reviewer.
+- You handle exactly **ONE task** (or one QA fix). Do not loop through multiple tasks.
 - **Commit every modification.** Small, frequent commits with conventional messages.
 - **Never skip pre-flight.** A broken codebase must be fixed before new work.
 - **TDD is mandatory.** Write the failing test first, always.
-- **progress.md is append-only.** Never edit or delete existing entries.
+- **log.md is append-only.** Never edit or delete existing entries.
 - Follow existing code patterns. Don't restructure code outside your task.
+- Do NOT update `progress.json` — the dispatch prompt handles that.
