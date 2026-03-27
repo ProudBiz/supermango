@@ -69,3 +69,15 @@
 - **Design (gstack):** N/A — no UI changes
 - **Spec alignment:** PASS — seed helper, test helper, migration, and db.test.ts refactor all meet acceptance criteria
 - **Task DONE**
+
+### [QA] Round 1
+- **Story:** 001-db-foundation
+- **Status:** PASS
+- **Tests:** PASS — 19 tests, 3 test files, all green
+- **Lint/Typecheck/Build:** PASS — `pnpm typecheck` clean, `pnpm build` clean (Next.js 16.2.1 Turbopack)
+- **QA — Live server:** Verified all acceptance criteria via tsx script: `createDb(":memory:")` returns Drizzle instance, insert/query returns correct shape (id: number, title: string, completed: number, createdAt: number), seed inserts 3 fixtures with correct completed/incomplete mix, `drizzle-kit push` reports "No changes detected" (migration already applied)
+- **Code quality:** PASS — all source and test files reviewed, clean code, no duplication issues, proper test isolation
+- **Security:** PASS — no user input handling, no injection vectors, no secrets, fixture data only
+- **Design:** N/A — no UI changes
+- **Spec alignment:** PASS — all 7 acceptance criteria verified: schema, factory function, drizzle config, seed helper, migration, tsconfig, next.config. Cross-task integration confirmed (test helper uses createDb + schema correctly)
+- **Story DONE**
