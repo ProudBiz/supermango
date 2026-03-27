@@ -192,10 +192,7 @@ pending → in_progress → qa → qa_pass → done
 - `done` — story complete
 
 **Who updates status:**
-- **Coder** updates task status to `coder_done`, story status to `in_progress` (on first task)
-- **Reviewer** updates task status to `reviewer_pass` or `reviewer_issues`
-- **QA** updates story status to `qa_pass` or `qa_issues`
-- **Dispatcher logic** (in ralph-prompt.md) determines when to transition story to `qa` (all tasks `reviewer_pass`)
+The dispatch prompt (ralph-prompt.md) handles ALL `progress.json` updates. Coder and reviewer skills only write to `log.md` — they do not touch `progress.json`. After the skill completes, the dispatch logic updates the appropriate status in `progress.json` before ending the iteration.
 
 ## log.md Format (append-only)
 
