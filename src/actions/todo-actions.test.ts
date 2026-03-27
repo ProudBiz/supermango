@@ -109,3 +109,96 @@ describe("getTodos", () => {
     expect(result[2].text).toBe("First");
   });
 });
+
+describe("toggleTodo", () => {
+  beforeEach(() => {
+    db = createTestDb();
+  });
+
+  it("toggles a todo from incomplete to complete", async () => {
+    db.insert(todos).values({ text: "Test todo" }).run();
+    const [todo] = db.select().from(todos).all();
+
+    expect(todo.completed).toBe(0);
+
+    const { toggleTodo } = await import("./todo-actions");
+    await toggleTodo(todo.id);
+
+    const [updated] = db.select().from(todos).all();
+    expect(updated.completed).toBe(1);
+  });
+
+  it("toggles a todo from complete back to incomplete", async () => {
+    db.insert(todos).values({ text: "Test todo", completed: 1 }).run();
+    const [todo] = db.select().from(todos).all();
+
+    const { toggleTodo } = await import("./todo-actions");
+    await toggleTodo(todo.id);
+
+    const [updated] = db.select().from(todos).all();
+    expect(updated.completed).toBe(0);
+  });
+
+  it("throws for non-existent ID", async () => {
+    const { toggleTodo } = await import("./todo-actions");
+    await expect(toggleTodo(999)).rejects.toThrow("Todo not found");
+  });
+
+  it("calls revalidatePath after toggling", async () => {
+    db.insert(todos).values({ text: "Test todo" }).run();
+    const [todo] = db.select().from(todos).all();
+
+    const { revalidatePath } = await import("next/cache");
+    const { toggleTodo } = await import("./todo-actions");
+    await toggleTodo(todo.id);
+
+    expect(revalidatePath).toHaveBeenCalledWith("/");
+  });
+});
+
+describe("deleteTodo", () => {
+  beforeEach(() => {
+    db = createTestDb();
+  });
+
+  it("deletes a todo by ID", async () => {
+    db.insert(todos).values({ text: "Test todo" }).run();
+    const [todo] = db.select().from(todos).all();
+
+    const { deleteTodo } = await import("./todo-actions");
+    await deleteTodo(todo.id);
+
+    const result = db.select().from(todos).all();
+    expect(result).toHaveLength(0);
+  });
+
+  it("throws for non-existent ID", async () => {
+    const { deleteTodo } = await import("./todo-actions");
+    await expect(deleteTodo(999)).rejects.toThrow("Todo not found");
+  });
+
+  it("calls revalidatePath after deleting", async () => {
+    db.insert(todos).values({ text: "Test todo" }).run();
+    const [todo] = db.select().from(todos).all();
+
+    const { revalidatePath } = await import("next/cache");
+    const { deleteTodo } = await import("./todo-actions");
+    await deleteTodo(todo.id);
+
+    expect(revalidatePath).toHaveBeenCalledWith("/");
+  });
+
+  it("only deletes the specified todo", async () => {
+    db.insert(todos).values({ text: "Keep me" }).run();
+    db.insert(todos).values({ text: "Delete me" }).run();
+    const allTodos = db.select().from(todos).all();
+    const toDelete = allTodos.find((t) => t.text === "Delete me")!;
+
+    const { deleteTodo } = await import("./todo-actions");
+    await deleteTodo(toDelete.id);
+
+    const remaining = db.select().from(todos).all();
+    expect(remaining).toHaveLength(1);
+    expect(remaining[0].text).toBe("Keep me");
+  });
+});
