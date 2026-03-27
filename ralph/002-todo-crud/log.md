@@ -74,3 +74,21 @@
   - `pnpm test` passes (28 tests) — PASS
   - `pnpm build` passes — PASS
   - TypeScript clean — PASS
+
+### [Reviewer] Round 6
+- **Task:** Server Actions and Page Component
+- **Status:** ISSUES
+- **Tests:** PASS (28 tests, all green)
+- **Lint/Typecheck/Build:** PASS (tsc clean, next build clean)
+- **QA — Live server:**
+  - Add todo: PASS — "Buy groceries" added, appears in list with ○ toggle and ✕ delete
+  - Toggle todo: PASS — ○ → ✓ with strikethrough + reduced opacity, toggle back ✓ → ○ works
+  - Delete todo: PASS — item removed, empty state returns
+  - Empty state: PASS — "No todos yet. Add one above!" displays correctly
+  - Validation error (empty title): PASS — "Title is required" in red text below input
+  - Forms use action prop: PASS — verified in code (`action={formAction}`, `action={toggleTodo}`, `action={deleteTodo}`)
+  - **Input focus after add: FAIL** — After successful add, focus remains on the Add button, not the input field. The a11y snapshot confirms `button "Add" focusable focused` after adding a todo. The `key` prop + `autoFocus` approach from Round 5 did not resolve the issue. The AC states "Input clears and retains focus after successful add." The input clears but focus is lost. The `autoFocus` attribute only fires on initial page mount, not on key-driven remounts during a React server action response cycle. A different approach is needed — consider using a `useEffect` that explicitly calls `.focus()` on the input ref when the key changes, rather than relying on `autoFocus`.
+- **Code quality (simplify):** PASS — no redundant state, no copy-paste issues, proper use of existing validateTodoTitle utility, clean abstractions.
+- **Security (manual):** PASS — parameterized queries via Drizzle ORM, React auto-escaping prevents XSS, input validation at boundary via validateTodoTitle, no hardcoded secrets, errors don't leak internals.
+- **Design (gstack):** N/A — styling is Story 003 scope.
+- **Spec alignment:** PASS — matches spec.md requirements for Server Components, Server Actions, useActionState, action prop binding, revalidatePath.
