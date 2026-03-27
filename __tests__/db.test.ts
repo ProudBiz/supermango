@@ -1,25 +1,15 @@
 import { describe, it, expect } from "vitest";
-import { sql } from "drizzle-orm";
-import { createDb } from "@/db";
 import { todos } from "@/db/schema";
+import { createTestDb } from "./helpers/db";
 
 describe("Database: Schema and Connection", () => {
   it("creates an in-memory DB and returns a Drizzle instance", () => {
-    const db = createDb(":memory:");
+    const db = createTestDb();
     expect(db).toBeDefined();
   });
 
-  it("can create the todos table via raw SQL and insert/query a todo", () => {
-    const db = createDb(":memory:");
-
-    db.run(sql`
-      CREATE TABLE todos (
-        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        title TEXT NOT NULL,
-        completed INTEGER DEFAULT 0 NOT NULL,
-        created_at INTEGER DEFAULT (unixepoch()) NOT NULL
-      )
-    `);
+  it("can insert and query a todo with correct shape", () => {
+    const db = createTestDb();
 
     db.insert(todos)
       .values({ title: "Test todo" })
@@ -38,16 +28,7 @@ describe("Database: Schema and Connection", () => {
   });
 
   it("stores completed as integer (0 or 1)", () => {
-    const db = createDb(":memory:");
-
-    db.run(sql`
-      CREATE TABLE todos (
-        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        title TEXT NOT NULL,
-        completed INTEGER DEFAULT 0 NOT NULL,
-        created_at INTEGER DEFAULT (unixepoch()) NOT NULL
-      )
-    `);
+    const db = createTestDb();
 
     db.insert(todos)
       .values({ title: "Done task", completed: 1 })
@@ -58,16 +39,7 @@ describe("Database: Schema and Connection", () => {
   });
 
   it("auto-increments the id", () => {
-    const db = createDb(":memory:");
-
-    db.run(sql`
-      CREATE TABLE todos (
-        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        title TEXT NOT NULL,
-        completed INTEGER DEFAULT 0 NOT NULL,
-        created_at INTEGER DEFAULT (unixepoch()) NOT NULL
-      )
-    `);
+    const db = createTestDb();
 
     db.insert(todos).values({ title: "First" }).run();
     db.insert(todos).values({ title: "Second" }).run();
