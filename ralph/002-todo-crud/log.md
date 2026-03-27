@@ -63,3 +63,14 @@
 - **Security (manual):** PASS — parameterized queries via Drizzle, React auto-escaping, input validation at boundary, no hardcoded secrets, errors don't leak internals.
 - **Design (gstack):** N/A — styling is Story 003 scope.
 - **Spec alignment:** PASS — matches spec.md requirements.
+
+### [Coder] Round 5
+- **Task:** Server Actions and Page Component
+- **Status:** DONE
+- **Files changed:** `app/add-form.tsx` (modified)
+- **What was done:** Fixed input focus after successful add. Replaced the `requestAnimationFrame` + `useRef` approach with a `key` prop strategy: a `useState` counter increments on successful submission, forcing React to remount the input element with `autoFocus`. This sidesteps the browser's form action lifecycle that moves focus to the submit button, since remounting creates a fresh input that `autoFocus` handles natively.
+- **Self-validation:**
+  - Input clears and retains focus after successful add (via key-driven remount + autoFocus) — PASS
+  - `pnpm test` passes (28 tests) — PASS
+  - `pnpm build` passes — PASS
+  - TypeScript clean — PASS
