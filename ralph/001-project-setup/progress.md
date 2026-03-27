@@ -88,3 +88,6 @@
 - **Design (gstack):** N/A — No UI changes in this task.
 - **Spec alignment:** PASS — All acceptance criteria met: drizzle-orm/better-sqlite3/drizzle-kit installed, todos table schema matches spec (id, text, completed, createdAt), db connection module exports Drizzle instance, drizzle.config.ts configured, migration generated and applied, db:generate and db:migrate scripts added.
 - **Task DONE**
+
+### [Reviewer] Final
+- **USER STORY DONE**
