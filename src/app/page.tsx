@@ -20,6 +20,10 @@ export default function Home() {
     );
   }
 
+  function deleteTodo(id: number) {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  }
+
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     const trimmed = input.trim();
@@ -61,9 +65,15 @@ export default function Home() {
                 onChange={() => toggleTodo(todo.id)}
                 className="h-4 w-4 rounded border-zinc-300 dark:border-zinc-600"
               />
-              <span className={todo.completed ? "line-through opacity-50" : ""}>
+              <span className={`flex-1 ${todo.completed ? "line-through opacity-50" : ""}`}>
                 {todo.text}
               </span>
+              <button
+                onClick={() => deleteTodo(todo.id)}
+                className="ml-auto rounded px-2 py-1 text-xs text-zinc-400 hover:bg-zinc-200 hover:text-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-zinc-200"
+              >
+                Delete
+              </button>
             </li>
           ))}
         </ul>
