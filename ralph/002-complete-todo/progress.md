@@ -10,3 +10,7 @@
   - ✅ Toggling back to active restores normal appearance
   - ✅ All 12 tests pass (7 existing + 5 new)
   - ✅ Lint passes (only pre-existing warning)
+
+### [Reviewer] Iteration 1
+- **Status:** PASS
+- **Task DONE**
