@@ -7,18 +7,18 @@ import { todos } from "@/db/schema";
 import { validateTodoTitle } from "@/lib/validate";
 
 export async function addTodo(
-  prevState: { error: string },
+  prevState: { error: string; successCount: number },
   formData: FormData,
-): Promise<{ error: string }> {
+): Promise<{ error: string; successCount: number }> {
   const result = validateTodoTitle(formData.get("title"));
 
   if (!result.valid) {
-    return { error: result.error };
+    return { error: result.error, successCount: prevState.successCount };
   }
 
   db.insert(todos).values({ title: result.title }).run();
   revalidatePath("/");
-  return { error: "" };
+  return { error: "", successCount: prevState.successCount + 1 };
 }
 
 export async function toggleTodo(formData: FormData): Promise<void> {

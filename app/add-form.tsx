@@ -1,40 +1,39 @@
 "use client";
 
-import { useActionState, useCallback, useRef, useEffect, useState } from "react";
+import { useActionState, useRef, useEffect } from "react";
 import { addTodo } from "./actions";
 
 export function AddForm() {
-  const [state, formAction] = useActionState(addTodo, { error: "" });
-  const [inputKey, setInputKey] = useState(0);
+  const [state, formAction] = useActionState(addTodo, {
+    error: "",
+    successCount: 0,
+  });
   const inputRef = useRef<HTMLInputElement>(null);
-  const prevError = useRef(state.error);
+  const prevSuccessCount = useRef(0);
 
+  // On successful add, clear input and re-focus it.
+  // successCount increments on each successful submission, giving us a
+  // reliable signal even though error stays "" → "".
   useEffect(() => {
-    if (prevError.current !== state.error && state.error === "") {
-      // Successful submission — increment key to remount input with cleared value
-      setInputKey((k) => k + 1);
-    }
-    prevError.current = state.error;
-  }, [state]);
-
-  // Ref callback: when the new input mounts after key change, schedule focus
-  // after the browser's form action focus management completes
-  const setInputRef = useCallback(
-    (node: HTMLInputElement | null) => {
-      inputRef.current = node;
-      if (node && inputKey > 0) {
-        setTimeout(() => node.focus(), 0);
+    if (state.successCount > prevSuccessCount.current) {
+      prevSuccessCount.current = state.successCount;
+      if (inputRef.current) {
+        inputRef.current.value = "";
+        // Schedule focus attempts after the browser's form action lifecycle
+        // moves focus to the submit button
+        const timers = [0, 50, 150].map((delay) =>
+          setTimeout(() => inputRef.current?.focus(), delay),
+        );
+        return () => timers.forEach(clearTimeout);
       }
-    },
-    [inputKey],
-  );
+    }
+  }, [state.successCount]);
 
   return (
     <form action={formAction}>
       <div>
         <input
-          key={inputKey}
-          ref={setInputRef}
+          ref={inputRef}
           type="text"
           name="title"
           placeholder="Add a todo..."

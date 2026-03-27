@@ -35,13 +35,13 @@ describe("Server Actions", () => {
       const formData = new FormData();
       formData.set("title", "Buy groceries");
 
-      const result = await addTodo({ error: "" }, formData);
+      const result = await addTodo({ error: "", successCount: 0 }, formData);
 
       const allTodos = mockDb.current!.select().from(todos).all();
       expect(allTodos).toHaveLength(1);
       expect(allTodos[0].title).toBe("Buy groceries");
       expect(allTodos[0].completed).toBe(0);
-      expect(result).toEqual({ error: "" });
+      expect(result).toEqual({ error: "", successCount: 1 });
       expect(revalidatePath).toHaveBeenCalledWith("/");
     });
 
@@ -49,7 +49,7 @@ describe("Server Actions", () => {
       const formData = new FormData();
       formData.set("title", "  Buy groceries  ");
 
-      await addTodo({ error: "" }, formData);
+      await addTodo({ error: "", successCount: 0 }, formData);
 
       const allTodos = mockDb.current!.select().from(todos).all();
       expect(allTodos[0].title).toBe("Buy groceries");
@@ -59,7 +59,7 @@ describe("Server Actions", () => {
       const formData = new FormData();
       formData.set("title", "");
 
-      const result = await addTodo({ error: "" }, formData);
+      const result = await addTodo({ error: "", successCount: 0 }, formData);
 
       expect(result.error).toBe("Title is required");
       const allTodos = mockDb.current!.select().from(todos).all();
@@ -71,7 +71,7 @@ describe("Server Actions", () => {
       const formData = new FormData();
       formData.set("title", "a".repeat(501));
 
-      const result = await addTodo({ error: "" }, formData);
+      const result = await addTodo({ error: "", successCount: 0 }, formData);
 
       expect(result.error).toBe("Title must be 500 characters or less");
       const allTodos = mockDb.current!.select().from(todos).all();
