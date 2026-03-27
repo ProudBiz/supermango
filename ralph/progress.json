@@ -13,7 +13,7 @@
       "title": "Database Foundation",
       "status": "in_progress",
       "tasks": [
-        { "id": 1, "name": "Schema, Connection, and Config", "status": "coder_done" },
+        { "id": 1, "name": "Schema, Connection, and Config", "status": "reviewer_pass" },
         { "id": 2, "name": "Migration and Seed Helper", "status": "pending" }
       ]
     },
