@@ -44,6 +44,7 @@ Before writing code, analyze the codebase:
 - Understand relevant files, patterns, and structure
 - Plan which files to create or modify
 - Plan TDD steps based on the task's acceptance criteria
+- When working with libraries, frameworks, or APIs, use the `find-docs` skill (Context7) to look up the latest documentation. Don't guess API signatures or configuration — verify them.
 - Figure this out autonomously — do NOT ask the leader or reviewer
 
 ### 5. TDD Loop

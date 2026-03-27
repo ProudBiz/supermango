@@ -28,6 +28,8 @@ Focus on understanding:
 
 Keep going until you have a clear picture. Don't rush — missing requirements here means wasted autonomous cycles later.
 
+When the discussion involves specific libraries, frameworks, or APIs, use the `find-docs` skill (Context7) to look up the latest documentation. Don't rely on your training data for API signatures, configuration options, or version-specific behavior.
+
 ### Phase 3: Draft spec.md
 
 Once you understand the feature, draft `ralph/spec.md` internally (do not write to disk yet):
