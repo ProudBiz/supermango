@@ -46,3 +46,14 @@
 - **Security (manual):** PASS — no user input, no injection vectors, no secrets, fixture data only
 - **Design (gstack):** N/A — no UI changes
 - **Spec alignment:** PASS — seed helper, test helper, and migration all meet acceptance criteria
+
+### [Coder] Round 3
+- **Task:** Migration and Seed Helper
+- **Status:** DONE
+- **Files changed:** `__tests__/db.test.ts`
+- **What was done:** Refactored `db.test.ts` to use `createTestDb()` from `__tests__/helpers/db.ts` instead of manual `createDb(":memory:")` + inline CREATE TABLE SQL (3x duplication). Removed `sql` import from `drizzle-orm` and `createDb` import from `@/db`, replaced with single `createTestDb` import.
+- **Self-validation:**
+  - ✅ No more duplicated CREATE TABLE SQL — all 4 tests use `createTestDb()`
+  - ✅ 19 tests pass across 3 test files
+  - ✅ `pnpm typecheck` clean
+  - ✅ `pnpm build` clean
