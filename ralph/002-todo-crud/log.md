@@ -126,3 +126,19 @@
 - **Security (manual):** PASS — parameterized queries via Drizzle ORM, React auto-escaping prevents XSS, input validation at boundary via validateTodoTitle, no hardcoded secrets, errors don't leak internals.
 - **Design (gstack):** N/A — styling is Story 003 scope.
 - **Spec alignment:** PASS — matches spec.md requirements for Server Components, Server Actions, useActionState, action prop binding, revalidatePath.
+
+### [Coder] Round 9
+- **Task:** Server Actions and Page Component
+- **Status:** DONE
+- **Files changed:** `app/actions.ts` (modified), `app/add-form.tsx` (modified), `__tests__/actions.test.ts` (modified)
+- **What was done:** Root-caused the input focus bug: the success detection compared `error: ""` (initial) to `error: ""` (success), so the effect never fired. Added `successCount` to the action state — increments on each successful add, giving a reliable signal. The `useEffect` now triggers on `successCount` changes, clears the input value, and schedules focus calls at 0/50/150ms to reclaim focus after the browser's form action lifecycle. Verified via live browser a11y snapshot: `textbox "Add a todo..." focusable focused` after adding a todo.
+- **Self-validation:**
+  - addTodo trims title, rejects empty/>500 chars, inserts, revalidates — PASS
+  - toggleTodo flips completed via FormData id, revalidates — PASS
+  - deleteTodo removes via FormData id, revalidates — PASS
+  - Page queries todos, renders add-form with useActionState, toggle/delete forms — PASS
+  - Forms use `action` prop — PASS
+  - Input clears and retains focus after successful add (via successCount + delayed focus) — PASS (verified in browser: a11y snapshot confirms input focused)
+  - `pnpm test` passes (28 tests) — PASS
+  - `pnpm build` passes — PASS
+  - TypeScript clean — PASS
