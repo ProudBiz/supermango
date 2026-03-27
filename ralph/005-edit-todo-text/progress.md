@@ -39,3 +39,21 @@
   - Edit mode works well on mobile (input is full-width, tap-friendly): PASS
   - The todo item component manages edit state as a client component: PASS
   - All 82 tests pass, lint clean, build succeeds: PASS
+
+### [Reviewer] Iteration 1
+- **Status:** PASS
+- **Tests:** PASS — 82 tests across 9 test files, all passing
+- **Lint/Typecheck/Build:** PASS — lint clean, build succeeds with TypeScript check, zero warnings
+- **QA — Live server:** Verified all acceptance criteria against live dev server:
+  - Double-click enters edit mode with pre-filled input and blue focus ring: PASS
+  - Pressing Escape cancels edit, reverts to original text: PASS
+  - Pressing Enter saves change, text updates in list: PASS
+  - Clicking away (blur) saves change: PASS
+  - Empty text rejected with red border visual indicator, stays in edit mode: PASS
+  - Only one todo in edit mode at a time: PASS
+  - Mobile viewport (375x812): input full-width, tap-friendly: PASS
+- **Code quality (simplify):** PASS — three agents reviewed for reuse, quality, and efficiency. Flagged potential shared validation utility and custom hook extraction, but these are 2-3 line patterns where extraction is premature for a small todo app. Investigated potential double-call of handleSave (Enter + blur) — confirmed false positive: React doesn't fire synthetic blur on unmounted elements. Code is clean.
+- **Security (manual):** PASS — React auto-escapes JSX (no XSS), client-side validation backed by server-side validation in action, parameterized queries via Drizzle ORM, no secrets or injection vectors, no internal details leaked in errors.
+- **Design (gstack):** PASS — clean inline editing UX with blue focus ring, red error state, consistent spacing. Mobile layout adapts well. cursor-text hint aids discoverability. Completed todos maintain strikethrough during edit mode entry.
+- **Spec alignment:** PASS — all User Story 005 acceptance criteria met, no conflicts with stories 001-004.
+- **Task DONE**
