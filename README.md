@@ -1,25 +1,25 @@
 # Supermango
 
-Multi-agent orchestration system for autonomous feature implementation using Claude Code teammates.
+Multi-agent orchestration system for autonomous feature implementation using Claude Code with a bash-driven loop.
 
 ## How It Works
 
 ```
-/ralph.planner (interactive)     /ralph.loop (autonomous)
+/ralph.planner (interactive)     pnpm loop (autonomous)
          |                              |
-   brainstorm with user          pick user story
-   CEO review                    spawn coder + reviewer
-   draft spec                    wait for task DONE
-   eng review                    TeamDelete, spawn fresh pair
+   brainstorm with user          read progress.json
+   CEO review                    pick story + task
+   draft spec                    dispatch coder or reviewer
+   eng review                    update progress.json
    review with user              repeat until all done
-   generate tasks                      |
+   generate tasks + progress           |
          |                       coder <-> reviewer
-   "invoke /ralph.loop"          via progress.md
+   "run pnpm loop"              via log.md
 ```
 
-1. **`/ralph.planner`** — Brainstorm with user, generate spec and tasks
-2. **`/ralph.loop`** — Autonomously spawn coder+reviewer pairs per task
-3. **`ralph.coder`** — TDD implementation, one task per spawn
+1. **`/ralph.planner`** — Brainstorm with user, generate spec, stories, tasks, and progress.json
+2. **`pnpm loop`** — Bash loop that pipes a prompt to `claude` per iteration
+3. **`ralph.coder`** — TDD implementation, one task per iteration
 4. **`ralph.reviewer`** — QA (live server), code quality, security, design review
 
 ## Usage
@@ -29,19 +29,26 @@ Multi-agent orchestration system for autonomous feature implementation using Cla
 /ralph.planner
 
 # Step 2: Run autonomous implementation
-/ralph.loop
+pnpm loop
+
+# Or run a single interactive iteration
+pnpm loop:once
 ```
 
 ## Directory Structure
 
 ```
 ralph/
-  spec.md                      # feature spec with user stories
+  ralph-loop.sh              # headless bash loop
+  ralph-once.sh              # interactive single iteration
+  ralph-prompt.md            # self-dispatching prompt
+  spec.md                    # feature spec (goals, non-goals, tech stack)
+  progress.json              # global state (stories, tasks, statuses)
+  known-issues.md            # issues that exceeded retry caps
   001-{userstory}/
-    task.md                    # tasks for this user story
-    progress.md                # coder/reviewer communication log
-  002-{userstory}/
-    ...
+    story.md                 # user story description, acceptance criteria
+    tasks.md                 # task breakdown
+    log.md                   # coder/reviewer/QA detailed log (append-only)
 ```
 
 ## Prerequisites
@@ -61,13 +68,13 @@ ralph/
 3. Draft spec.md
 4. `gstack-plan-eng-review` — architecture, edge cases, test coverage
 5. Review spec with user — section by section approval
-6. Write final spec.md + generate task.md files
+6. Write spec.md, story.md, tasks.md, progress.json
 
 ### Loop Flow
-1. Pick first incomplete user story
-2. Spawn coder + reviewer teammates
-3. Coder: pre-flight, pick task, TDD, self-validate, notify reviewer
+1. Read `progress.json` to find current work
+2. Dispatch coder or reviewer based on task status
+3. Coder: pre-flight, TDD, self-validate, write to log.md
 4. Reviewer: run tests, live server QA (gstack + curl), code quality (simplify), security, design review
-5. If issues: coder fixes, loop. If pass: notify loop.
-6. TeamDelete old pair, spawn fresh pair for next task
-7. Repeat until all user stories complete
+5. If issues: coder fixes, reviewer reviews again (max 5 rounds)
+6. After all tasks pass: QA validates full story
+7. Repeat until all stories complete
