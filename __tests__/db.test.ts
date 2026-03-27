@@ -12,7 +12,6 @@ describe("Database: Schema and Connection", () => {
   it("can create the todos table via raw SQL and insert/query a todo", () => {
     const db = createDb(":memory:");
 
-    // Create table matching schema definition
     db.run(sql`
       CREATE TABLE todos (
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -22,12 +21,10 @@ describe("Database: Schema and Connection", () => {
       )
     `);
 
-    // Insert a todo
     db.insert(todos)
       .values({ title: "Test todo" })
       .run();
 
-    // Query it back
     const results = db.select().from(todos).all();
 
     expect(results).toHaveLength(1);
