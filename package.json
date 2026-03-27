@@ -4,6 +4,13 @@
   "private": true,
   "description": "Multi-agent orchestration system using Claude Code",
   "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
     "loop": "bash ralph/ralph-loop.sh",
     "loop:once": "bash ralph/ralph-once.sh"
   },
