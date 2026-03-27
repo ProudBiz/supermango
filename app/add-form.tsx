@@ -1,24 +1,17 @@
 "use client";
 
-import { useActionState, useRef, useEffect } from "react";
+import { useActionState, useRef, useEffect, useState } from "react";
 import { addTodo } from "./actions";
 
 export function AddForm() {
   const [state, formAction] = useActionState(addTodo, { error: "" });
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [inputKey, setInputKey] = useState(0);
   const prevError = useRef(state.error);
 
   useEffect(() => {
     if (prevError.current !== state.error && state.error === "") {
-      // Successful submission — clear input and retain focus
-      if (inputRef.current) {
-        inputRef.current.value = "";
-        // Use requestAnimationFrame to re-focus after the browser's
-        // form action lifecycle moves focus to the submit button
-        requestAnimationFrame(() => {
-          inputRef.current?.focus();
-        });
-      }
+      // Successful submission — increment key to remount input with autoFocus
+      setInputKey((k) => k + 1);
     }
     prevError.current = state.error;
   }, [state]);
@@ -27,7 +20,7 @@ export function AddForm() {
     <form action={formAction}>
       <div>
         <input
-          ref={inputRef}
+          key={inputKey}
           type="text"
           name="title"
           placeholder="Add a todo..."
