@@ -40,3 +40,24 @@
   - ✅ Page has clean, mobile-first styling with Tailwind CSS
   - ✅ Layout is centered (`mx-auto`), max-width constrained (`max-w-lg`), with proper spacing
   - ✅ 29 tests passing (6 test files), all pre-commit gates green (lint, typecheck, build)
+
+### [Reviewer] Iteration 1
+- **Task:** Build the add todo form and todo list UI
+- **Status:** PASS
+- **Tests:** PASS — 29 tests passing (6 test files), all green
+- **Lint/Typecheck/Build:** PASS — lint clean, tsc clean, next build successful
+- **QA — Live server:** PASS — verified on localhost:3099:
+  - Page loads with heading "Supermango Todo", input, and "Add" button
+  - Empty state shows "No todos yet. Add one above!"
+  - Added "Buy groceries" — appears in list, input clears
+  - Added "Walk the dog" — appears first (newest-first ordering confirmed)
+  - Whitespace-only submission rejected (no new todo created)
+  - Mobile viewport (375x812) renders cleanly with proper responsive layout
+  - No console errors
+- **Code quality (simplify):** PASS — code is minimal and clean. Notes: `flattenChildren` duplicated in test files (pre-existing pattern), `Todo` interface could use Drizzle `$inferSelect` (improvement for future). No blocking issues.
+- **Security (manual):** PASS — `"use client"` directive present, React auto-escapes rendered text (no XSS), no `dangerouslySetInnerHTML`, no hardcoded secrets, form input validated with `required` + trim check, server action invocation via `action=` prop is safe.
+- **Design (gstack):** PASS — clean mobile-first layout, centered with max-width, proper spacing, good input/button styling with focus states, empty state is well-styled.
+- **Spec alignment:** PASS — all 8 acceptance criteria met. Components structured to support future user stories (003 complete/delete, 004 filter, 005 edit).
+- **Task DONE**
+
+### **USER STORY DONE**
