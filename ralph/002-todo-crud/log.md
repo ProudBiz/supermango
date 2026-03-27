@@ -168,3 +168,22 @@
 - **Task:** Comprehensive Action and Component Tests
 - **Status:** PASS
 - **Task DONE**
+
+### [QA] Round 1
+- **Story:** 002-todo-crud
+- **Status:** PASS
+- **Tests:** PASS (36 tests, all green)
+- **Lint/Typecheck/Build:** PASS (tsc clean, next build clean)
+- **QA — Live server:**
+  - Add todo: PASS — "Buy groceries" added, appears in list with ○ toggle and ✕ delete
+  - Toggle todo: PASS — ○ → ✓, toggle back ✓ → ○ works correctly
+  - Delete todo: PASS — item removed from list
+  - Empty state: PASS — "No todos yet. Add one above!" displays when no todos
+  - Validation error (empty title): PASS — "Title is required" in red text below input
+  - Input focus after add: PASS — a11y snapshot confirms `textbox "Add a todo..." focusable focused` after adding
+  - Forms use action prop: PASS — verified in code and live behavior
+- **Code quality (simplify):** PASS — no blocking issues. Minor optimization opportunities noted (atomic toggle, ORDER BY) but not blocking for this story scope.
+- **Security (manual):** PASS — parameterized queries via Drizzle ORM, React auto-escaping prevents XSS, input validation at boundary via validateTodoTitle, no hardcoded secrets, errors don't leak internals.
+- **Design (gstack):** N/A — styling is Story 003 scope.
+- **Spec alignment:** PASS — all acceptance criteria met. Cross-task integration verified: actions, page component, and comprehensive tests work together correctly.
+- **Story DONE**

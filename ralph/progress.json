@@ -20,7 +20,7 @@
     {
       "id": "002-todo-crud",
       "title": "Todo CRUD Operations",
-      "status": "qa",
+      "status": "done",
       "tasks": [
         { "id": 1, "name": "Server Actions and Page Component", "status": "reviewer_pass" },
         { "id": 2, "name": "Comprehensive Action and Component Tests", "status": "reviewer_pass" }
