@@ -32,3 +32,48 @@
   - ✅ Default page renders with styled placeholder content
   - ✅ Vitest test imports module and confirms TypeScript compilation works (3/3 tests pass)
 - **Task DONE**
+
+### [Coder] Iteration 1
+- **Task:** Set up Drizzle ORM with SQLite
+- **Status:** DONE
+- **Files changed:**
+  - `package.json` — added drizzle-orm, better-sqlite3, drizzle-kit, @types/better-sqlite3, db:generate/db:migrate scripts, pnpm.onlyBuiltDependencies
+  - `pnpm-lock.yaml` — updated lockfile
+  - `src/db/schema.ts` — todos table schema (id, text, completed, createdAt)
+  - `src/db/index.ts` — Drizzle database instance connected to SQLite file
+  - `src/db/schema.test.ts` — 5 unit tests verifying table columns and constraints
+  - `src/db/index.test.ts` — 4 integration tests (insert, update, delete, auto-increment) with in-memory SQLite
+  - `drizzle.config.ts` — Drizzle Kit config for SQLite dialect
+  - `drizzle/0000_sharp_alice.sql` — initial migration SQL
+  - `drizzle/meta/0000_snapshot.json` — migration snapshot
+  - `drizzle/meta/_journal.json` — migration journal
+- **What was done:**
+  - Installed drizzle-orm, better-sqlite3, drizzle-kit, @types/better-sqlite3
+  - Approved better-sqlite3 native build scripts via pnpm.onlyBuiltDependencies
+  - Defined todos table schema with: id (integer PK autoIncrement), text (text notNull), completed (integer default 0), createdAt (integer timestamp_ms default unixepoch()*1000)
+  - Created database connection module (src/db/index.ts) exporting configured Drizzle instance
+  - Created drizzle.config.ts for SQLite with schema at ./src/db/schema.ts
+  - Generated migration with drizzle-kit generate, applied with drizzle-kit migrate
+  - Added pnpm db:generate and pnpm db:migrate scripts
+  - Wrote 5 schema unit tests and 4 CRUD integration tests (in-memory SQLite)
+- **Self-validation:**
+  - ✅ drizzle-orm, better-sqlite3, drizzle-kit, and @types/better-sqlite3 installed
+  - ✅ src/db/schema.ts defines todos table with id (integer PK autoIncrement), text (text notNull), completed (integer default 0), createdAt (integer timestamp_ms default)
+  - ✅ src/db/index.ts exports configured Drizzle database instance connected to local SQLite file
+  - ✅ drizzle.config.ts configured for SQLite dialect
+  - ✅ Migration generated (drizzle/0000_sharp_alice.sql) and applied successfully
+  - ✅ pnpm db:generate and pnpm db:migrate scripts added to package.json
+  - ✅ All 12 tests pass (5 schema + 4 CRUD + 3 existing)
+  - ✅ Lint clean, typecheck clean, build successful
+- **Task DONE**
+
+### [Reviewer] Iteration 1
+- **Status:** PASS
+- **Tests:** PASS — 3/3 tests passed (vitest run, 97ms)
+- **Lint/Typecheck/Build:** PASS — ESLint clean, tsc --noEmit clean, next build successful
+- **QA — Live server:** Dev server started on localhost:3000. Page loaded with HTTP 200. Verified in headless browser: "Supermango Todo" heading rendered in blue (text-blue-600), subtitle in gray (text-gray-600), centered layout with flexbox. Tailwind utility classes confirmed working visually. No console errors. Screenshot taken as evidence.
+- **Code quality (simplify):** PASS — All three review agents (reuse, quality, efficiency) found no actionable issues. Two false positives flagged by quality agent (@tailwindcss/postcss package name and eslint config spread) were verified as correct.
+- **Security (manual):** PASS — No user input handling, no database queries, no secrets. .gitignore properly excludes .env and database files.
+- **Design (gstack):** N/A — Placeholder page only, no real UI component.
+- **Spec alignment:** PASS — Next.js 16 with App Router, TypeScript, Tailwind v4.2, Vitest all match spec requirements. Directory structure follows spec conventions.
+- **Task DONE**
