@@ -5,17 +5,26 @@ import { useState, FormEvent } from "react";
 interface Todo {
   id: number;
   text: string;
+  completed: boolean;
 }
 
 export default function Home() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [input, setInput] = useState("");
 
+  function toggleTodo(id: number) {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  }
+
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     const trimmed = input.trim();
     if (!trimmed) return;
-    setTodos((prev) => [...prev, { id: Date.now(), text: trimmed }]);
+    setTodos((prev) => [...prev, { id: Date.now(), text: trimmed, completed: false }]);
     setInput("");
   }
 
@@ -44,9 +53,17 @@ export default function Home() {
           {todos.map((todo) => (
             <li
               key={todo.id}
-              className="border-b border-zinc-200 py-3 text-zinc-900 dark:border-zinc-800 dark:text-zinc-100"
+              className="flex items-center gap-3 border-b border-zinc-200 py-3 text-zinc-900 dark:border-zinc-800 dark:text-zinc-100"
             >
-              {todo.text}
+              <input
+                type="checkbox"
+                checked={todo.completed}
+                onChange={() => toggleTodo(todo.id)}
+                className="h-4 w-4 rounded border-zinc-300 dark:border-zinc-600"
+              />
+              <span className={todo.completed ? "line-through opacity-50" : ""}>
+                {todo.text}
+              </span>
             </li>
           ))}
         </ul>
