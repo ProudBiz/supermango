@@ -45,7 +45,14 @@ describe("Page component", () => {
 
   it("renders empty state when there are no todos", () => {
     render(<Page />);
-    expect(screen.getByText("No todos yet. Add one above!")).toBeDefined();
+    const emptyMsg = screen.getByText("No todos yet. Add one above!");
+    expect(emptyMsg).toBeDefined();
+  });
+
+  it("renders empty state with muted text styling", () => {
+    render(<Page />);
+    const emptyMsg = screen.getByText("No todos yet. Add one above!");
+    expect(emptyMsg.className).toMatch(/text-gray-500/);
   });
 
   it("renders a list of todos with correct items", () => {
@@ -63,7 +70,7 @@ describe("Page component", () => {
     expect(screen.getByText("Todos")).toBeDefined();
   });
 
-  it("renders completed todos with strikethrough styling", () => {
+  it("renders completed todos with line-through class", () => {
     mockDb
       .current!.insert(todos)
       .values({ title: "Done task", completed: 1 })
@@ -72,11 +79,23 @@ describe("Page component", () => {
     render(<Page />);
 
     const todoText = screen.getByText("Done task");
-    expect(todoText.style.textDecoration).toBe("line-through");
-    expect(todoText.style.opacity).toBe("0.5");
+    expect(todoText.className).toMatch(/line-through/);
   });
 
-  it("renders uncompleted todos without strikethrough", () => {
+  it("renders completed todo rows with opacity-50 class", () => {
+    mockDb
+      .current!.insert(todos)
+      .values({ title: "Done task", completed: 1 })
+      .run();
+
+    render(<Page />);
+
+    const todoText = screen.getByText("Done task");
+    const row = todoText.closest("li");
+    expect(row?.className).toMatch(/opacity-50/);
+  });
+
+  it("renders uncompleted todos without line-through class", () => {
     mockDb
       .current!.insert(todos)
       .values({ title: "Open task", completed: 0 })
@@ -85,8 +104,7 @@ describe("Page component", () => {
     render(<Page />);
 
     const todoText = screen.getByText("Open task");
-    expect(todoText.style.textDecoration).toBe("none");
-    expect(todoText.style.opacity).toBe("1");
+    expect(todoText.className).not.toMatch(/line-through/);
   });
 
   it("renders toggle and delete buttons for each todo", () => {
@@ -107,5 +125,31 @@ describe("Page component", () => {
     render(<Page />);
 
     expect(screen.getByText("✓")).toBeDefined(); // completed toggle
+  });
+
+  it("renders item count footer", () => {
+    mockDb.current!.insert(todos).values({ title: "Task 1" }).run();
+    mockDb
+      .current!.insert(todos)
+      .values({ title: "Task 2", completed: 1 })
+      .run();
+    mockDb.current!.insert(todos).values({ title: "Task 3" }).run();
+
+    render(<Page />);
+
+    expect(screen.getByText("3 items, 1 completed")).toBeDefined();
+  });
+
+  it("does not render item count when no todos exist", () => {
+    render(<Page />);
+
+    expect(screen.queryByText(/items/)).toBeNull();
+  });
+
+  it("renders centered container with max-w-lg", () => {
+    const { container } = render(<Page />);
+    const main = container.querySelector("main");
+    expect(main?.className).toMatch(/max-w-lg/);
+    expect(main?.className).toMatch(/mx-auto/);
   });
 });
