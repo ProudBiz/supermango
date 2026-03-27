@@ -67,6 +67,19 @@ describe("Server Actions", () => {
       expect(revalidatePath).not.toHaveBeenCalled();
     });
 
+    it("returns error for whitespace-only title", async () => {
+      const formData = new FormData();
+      formData.set("title", "   ");
+
+      const result = await addTodo({ error: "", successCount: 0 }, formData);
+
+      expect(result.error).toBe("Title is required");
+      expect(result.successCount).toBe(0);
+      const allTodos = mockDb.current!.select().from(todos).all();
+      expect(allTodos).toHaveLength(0);
+      expect(revalidatePath).not.toHaveBeenCalled();
+    });
+
     it("returns error for title over 500 characters", async () => {
       const formData = new FormData();
       formData.set("title", "a".repeat(501));
