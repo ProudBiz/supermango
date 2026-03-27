@@ -147,3 +147,19 @@
 - **Task:** Server Actions and Page Component
 - **Status:** PASS
 - **Task DONE**
+
+### [Coder] Round 11
+- **Task:** Comprehensive Action and Component Tests
+- **Status:** DONE
+- **Files changed:** `__tests__/actions.test.ts` (modified), `__tests__/page.test.tsx` (new)
+- **What was done:** Added comprehensive tests as the deliverable for Task 2. Added whitespace-only title rejection test for addTodo. Created new component test file for page.tsx covering: empty state rendering, todo list with correct items, page title, completed/uncompleted styling (strikethrough + opacity), toggle/delete buttons per todo, and checkmark for completed todos.
+- **Self-validation:**
+  - addTodo tests: happy path, empty title, whitespace-only title, >500 chars — PASS
+  - toggleTodo tests: 0→1, 1→0, non-existent ID no-op — PASS
+  - deleteTodo tests: delete existing, non-existent ID no-op — PASS
+  - Component test: page renders todo list with correct items — PASS
+  - Component test: shows empty state with 0 todos — PASS
+  - All tests use in-memory DB test helper from `__tests__/helpers/db.ts` — PASS
+  - All tests mock `next/cache` and `db/index.ts` — PASS
+  - `pnpm test` passes (36 tests, all green) — PASS
+  - `pnpm build` passes — PASS
