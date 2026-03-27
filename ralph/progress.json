@@ -11,9 +11,9 @@
     {
       "id": "001-db-foundation",
       "title": "Database Foundation",
-      "status": "pending",
+      "status": "in_progress",
       "tasks": [
-        { "id": 1, "name": "Schema, Connection, and Config", "status": "pending" },
+        { "id": 1, "name": "Schema, Connection, and Config", "status": "coder_done" },
         { "id": 2, "name": "Migration and Seed Helper", "status": "pending" }
       ]
     },

@@ -1,0 +1,13 @@
+### [Coder] Round 1
+- **Task:** Schema, Connection, and Config
+- **Status:** DONE
+- **Files changed:** `db/schema.ts`, `db/index.ts`, `drizzle.config.ts`, `next.config.ts`, `__tests__/db.test.ts`
+- **What was done:** Created the Drizzle ORM schema for the todos table, the database connection module with a testable `createDb(path?)` factory function, drizzle-kit config, and `next.config.ts` with `serverExternalPackages`. Wrote 4 tests covering in-memory DB creation, insert/query with shape verification, completed field storage, and autoincrement behavior.
+- **Self-validation:**
+  - ✅ `db/schema.ts` defines todos table with id (integer, PK, autoincrement), title (text, not null), completed (integer, default 0), createdAt (integer, default unixepoch())
+  - ✅ `db/index.ts` exports `createDb(path?)` returning Drizzle instance; default uses `./sqlite.db`
+  - ✅ `drizzle.config.ts` configured for SQLite dialect with better-sqlite3
+  - ✅ `tsconfig.json` exists with proper Next.js TypeScript settings
+  - ✅ `next.config.ts` created with `serverExternalPackages: ['better-sqlite3']`
+  - ✅ `pnpm typecheck` passes
+  - ✅ Tests import `createDb` with `:memory:`, create schema via raw SQL, insert/query, verify shape
