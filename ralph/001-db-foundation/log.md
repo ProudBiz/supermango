@@ -35,3 +35,14 @@
   - ✅ `__tests__/helpers/db.ts` exports a helper that creates an in-memory DB, applies schema via raw `CREATE TABLE` SQL, and optionally seeds it
   - ✅ The test helper's CREATE TABLE SQL matches `db/schema.ts` column definitions
   - ✅ `pnpm typecheck` passes, `pnpm build` clean, 19 tests pass (3 files)
+
+### [Reviewer] Round 2
+- **Task:** Migration and Seed Helper
+- **Status:** ISSUES
+- **Tests:** PASS — 19 tests, 3 test files, all green
+- **Lint/Typecheck/Build:** PASS — `pnpm typecheck` clean, `pnpm build` clean (Next.js 16.2.1 Turbopack)
+- **QA — Live server:** N/A for pure DB infrastructure. Verified: `npx drizzle-kit push` reports "No changes detected" (migration already applied). CREATE TABLE SQL in test helper matches `db/schema.ts` columns exactly. Seed inserts 3 fixtures with correct mix of completed/incomplete.
+- **Code quality (simplify):** ISSUE — `__tests__/db.test.ts` still has the CREATE TABLE SQL duplicated 3 times inline. The Round 1 reviewer explicitly deferred this cleanup to Task 2, which created the `createTestDb()` helper for exactly this purpose. The coder must refactor `db.test.ts` to use `createTestDb()` instead of manual `createDb(":memory:")` + raw SQL. This is the whole point of the test helper.
+- **Security (manual):** PASS — no user input, no injection vectors, no secrets, fixture data only
+- **Design (gstack):** N/A — no UI changes
+- **Spec alignment:** PASS — seed helper, test helper, and migration all meet acceptance criteria
