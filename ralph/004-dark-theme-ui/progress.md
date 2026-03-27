@@ -1,0 +1,12 @@
+### [Coder] Iteration 1
+- **Task:** Apply dark theme styling
+- **Status:** DONE
+- **Files changed:** src/app/page.tsx, src/app/layout.tsx, src/app/globals.css, src/__tests__/dark-theme.test.tsx
+- **What was done:** Converted the app from a conditional dark/light theme (using `dark:` Tailwind prefixes and `prefers-color-scheme` media query) to an always-dark theme. Applied #0a0a0a background, #e0e0e0 light text, subtle contrast on input/button/list elements using zinc-900/zinc-800/zinc-700 tones, hover states on buttons and delete links, generous spacing (py-2.5, py-3.5, px-4/px-5), rounded-lg corners, focus ring on input, and responsive max-w-md centered layout. Updated page metadata title to "Todos". Added `dark` class to html element. Created dark-theme test suite.
+- **Self-validation:**
+  - ✅ Dark background (#0a0a0a) with light text (#e0e0e0)
+  - ✅ Input field, buttons, and list items have subtle contrast against the background (zinc-900 input bg, zinc-100 button, zinc-800 borders)
+  - ✅ Clean, modern font (Geist Sans) and generous spacing (py-2.5, py-3.5, px-4)
+  - ✅ Layout is centered (max-w-md) and readable on both mobile and desktop (responsive flex layout)
+  - ✅ Hover states on interactive elements (button: hover:bg-zinc-300, delete: hover:bg-zinc-800 hover:text-zinc-200, input: focus:border-zinc-500 focus:ring)
+  - ✅ Polished aesthetic with consistent zinc color palette, rounded corners, transitions
