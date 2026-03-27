@@ -92,3 +92,19 @@
 - **Security (manual):** PASS — parameterized queries via Drizzle ORM, React auto-escaping prevents XSS, input validation at boundary via validateTodoTitle, no hardcoded secrets, errors don't leak internals.
 - **Design (gstack):** N/A — styling is Story 003 scope.
 - **Spec alignment:** PASS — matches spec.md requirements for Server Components, Server Actions, useActionState, action prop binding, revalidatePath.
+
+### [Coder] Round 7
+- **Task:** Server Actions and Page Component
+- **Status:** DONE
+- **Files changed:** `app/add-form.tsx` (modified)
+- **What was done:** Fixed input focus after successful add using a ref callback with `setTimeout(0)`. Previous approaches (requestAnimationFrame, key+autoFocus, useEffect on key change) all fired before the browser's form action lifecycle moved focus to the submit button. The `setTimeout(0)` defers the `.focus()` call past the browser's event loop, ensuring focus returns to the input. Verified via live browser a11y snapshot: `textbox "Add a todo..." focusable focused` after adding a todo.
+- **Self-validation:**
+  - addTodo trims title, rejects empty/>500 chars, inserts, revalidates — PASS
+  - toggleTodo flips completed via FormData id, revalidates — PASS
+  - deleteTodo removes via FormData id, revalidates — PASS
+  - Page queries todos, renders add-form with useActionState, toggle/delete forms — PASS
+  - Forms use `action` prop — PASS
+  - Input clears and retains focus after successful add (via ref callback + setTimeout) — PASS (verified in browser)
+  - `pnpm test` passes (28 tests) — PASS
+  - `pnpm build` passes — PASS
+  - TypeScript clean — PASS

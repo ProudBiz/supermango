@@ -22,7 +22,7 @@
       "title": "Todo CRUD Operations",
       "status": "in_progress",
       "tasks": [
-        { "id": 1, "name": "Server Actions and Page Component", "status": "reviewer_issues" },
+        { "id": 1, "name": "Server Actions and Page Component", "status": "coder_done" },
         { "id": 2, "name": "Comprehensive Action and Component Tests", "status": "pending" }
       ]
     },
