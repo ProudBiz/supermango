@@ -1,3 +1,14 @@
 node_modules/
 .DS_Store
 .serena/
+
+# Next.js
+/.next/
+/out/
+next-env.d.ts
+
+# TypeScript
+*.tsbuildinfo
+
+# Environment
+.env*.local
