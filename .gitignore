@@ -1,6 +1,7 @@
 node_modules/
 .DS_Store
 .serena/
+.gstack/
 
 # Next.js
 /.next/
@@ -12,3 +13,6 @@ next-env.d.ts
 
 # Environment
 .env*.local
+
+# Runtime
+sqlite.db
