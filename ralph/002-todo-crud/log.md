@@ -45,3 +45,21 @@
   - `pnpm test` passes (28 tests) — PASS
   - `pnpm build` passes — PASS
   - TypeScript clean — PASS
+
+### [Reviewer] Round 4
+- **Task:** Server Actions and Page Component
+- **Status:** ISSUES
+- **Tests:** PASS (28 tests, all green)
+- **Lint/Typecheck/Build:** PASS (tsc clean, next build clean)
+- **QA — Live server:**
+  - Add todo: PASS — "Buy groceries" added, appears in list with ○ toggle and ✕ delete
+  - Toggle todo: PASS — ○ → ✓ with strikethrough + reduced opacity, toggle back ✓ → ○ works
+  - Delete todo: PASS — item removed, empty state returns
+  - Empty state: PASS — "No todos yet. Add one above!" displays correctly
+  - Validation error (empty title): PASS — "Title is required" in red text below input
+  - Forms use action prop: PASS — verified in code
+  - **Input focus after add: FAIL** — After successful add, focus remains on the Add button, not the input field. The `requestAnimationFrame` fix from Round 3 did not resolve the issue. The a11y tree confirms `button "Add" focusable focused` after adding a todo. The AC states "Input clears and retains focus after successful add." The input clears but focus is lost. A stronger approach is needed — e.g., using a `key` prop on the form to force remount with `autoFocus`, or using a `useRef` callback that fires on the new render cycle after the server action completes.
+- **Code quality (simplify):** PASS — no redundant state, no copy-paste, no unnecessary abstractions. Code is clean.
+- **Security (manual):** PASS — parameterized queries via Drizzle, React auto-escaping, input validation at boundary, no hardcoded secrets, errors don't leak internals.
+- **Design (gstack):** N/A — styling is Story 003 scope.
+- **Spec alignment:** PASS — matches spec.md requirements.
