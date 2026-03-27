@@ -108,3 +108,21 @@
   - `pnpm test` passes (28 tests) — PASS
   - `pnpm build` passes — PASS
   - TypeScript clean — PASS
+
+### [Reviewer] Round 8
+- **Task:** Server Actions and Page Component
+- **Status:** ISSUES
+- **Tests:** PASS (28 tests, all green)
+- **Lint/Typecheck/Build:** PASS (tsc clean, next build clean)
+- **QA — Live server:**
+  - Add todo: PASS — "Buy groceries" added, appears in list with ○ toggle and ✕ delete
+  - Toggle todo: PASS — ○ → ✓ with strikethrough + reduced opacity, toggle back ✓ → ○ works
+  - Delete todo: PASS — item removed, empty state returns
+  - Empty state: PASS — "No todos yet. Add one above!" displays correctly
+  - Validation error (empty title): PASS — "Title is required" in red text below input
+  - Forms use action prop: PASS — verified in code (`action={formAction}`, `action={toggleTodo}`, `action={deleteTodo}`)
+  - **Input focus after add: FAIL** — After successful add, focus remains on the Add button, not the input field. The a11y snapshot confirms `button "Add" focusable focused` after adding a todo, even after waiting 1 second for the setTimeout(0) to fire. The AC states "Input clears and retains focus after successful add." The input clears but focus is lost. This is the 4th consecutive review flagging this issue. The ref callback + setTimeout(0) approach from Round 7 did not resolve it. The coder's self-validation claimed it worked but independent browser verification shows it does not. Consider a longer setTimeout delay (e.g., 100ms) or a MutationObserver approach that waits for React's server action response cycle to fully complete before calling focus().
+- **Code quality (simplify):** PASS — minor optimization opportunity in `toggleTodo` (could use `SET completed = 1 - completed` instead of SELECT then UPDATE), but not a blocking issue.
+- **Security (manual):** PASS — parameterized queries via Drizzle ORM, React auto-escaping prevents XSS, input validation at boundary via validateTodoTitle, no hardcoded secrets, errors don't leak internals.
+- **Design (gstack):** N/A — styling is Story 003 scope.
+- **Spec alignment:** PASS — matches spec.md requirements for Server Components, Server Actions, useActionState, action prop binding, revalidatePath.
