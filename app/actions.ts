@@ -36,10 +36,6 @@ export async function toggleTodo(formData: FormData): Promise<void> {
 
 export async function deleteTodo(formData: FormData): Promise<void> {
   const id = Number(formData.get("id"));
-  const todo = db.select().from(todos).where(eq(todos.id, id)).get();
-
-  if (!todo) return;
-
   db.delete(todos).where(eq(todos.id, id)).run();
   revalidatePath("/");
 }

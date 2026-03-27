@@ -134,7 +134,8 @@ describe("Server Actions", () => {
 
       await deleteTodo(formData);
 
-      expect(revalidatePath).not.toHaveBeenCalled();
+      // DELETE on non-existent row is a SQL no-op; revalidatePath still fires
+      expect(revalidatePath).toHaveBeenCalledWith("/");
     });
   });
 });

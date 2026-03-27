@@ -13,7 +13,11 @@ export function AddForm() {
       // Successful submission — clear input and retain focus
       if (inputRef.current) {
         inputRef.current.value = "";
-        inputRef.current.focus();
+        // Use requestAnimationFrame to re-focus after the browser's
+        // form action lifecycle moves focus to the submit button
+        requestAnimationFrame(() => {
+          inputRef.current?.focus();
+        });
       }
     }
     prevError.current = state.error;
