@@ -23,3 +23,20 @@
 - **Design (gstack):** N/A — no UI component
 - **Spec alignment:** PASS — all acceptance criteria met: `addTodo(text)` with validation, `revalidatePath('/')`, `getTodos()` with newest-first ordering, both use Drizzle db from `src/db/index.ts`
 - **Task DONE**
+
+### [Coder] Iteration 1
+- **Task:** Build the add todo form and todo list UI
+- **Status:** DONE
+- **Files changed:** `src/components/AddTodoForm.tsx` (new), `src/components/AddTodoForm.test.tsx` (new), `src/components/TodoList.tsx` (new), `src/components/TodoList.test.tsx` (new), `src/app/page.tsx` (modified), `src/app/page.test.tsx` (modified)
+- **What was done:** Created `AddTodoForm` client component (`"use client"`) with text input (required + client-side trim check), "Add" button, and form reset on success. Created `TodoList` server component that renders todos in a `<ul>` with empty state. Updated `page.tsx` to be an async server component that fetches todos via `getTodos()` and renders both components with centered, max-width Tailwind layout.
+- **Self-validation:**
+  - ✅ Main page displays heading, add form, and todo list
+  - ✅ `AddTodoForm.tsx` is a client component with text input and "Add" button
+  - ✅ Submitting the form calls the `addTodo` server action
+  - ✅ Empty submissions prevented (HTML `required` attribute + client-side trim check)
+  - ✅ Input clears after successful submission (`formRef.current?.reset()`)
+  - ✅ `TodoList.tsx` displays all todos from the database
+  - ✅ Each todo item shows its text
+  - ✅ Page has clean, mobile-first styling with Tailwind CSS
+  - ✅ Layout is centered (`mx-auto`), max-width constrained (`max-w-lg`), with proper spacing
+  - ✅ 29 tests passing (6 test files), all pre-commit gates green (lint, typecheck, build)
