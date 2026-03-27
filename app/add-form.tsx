@@ -31,17 +31,25 @@ export function AddForm() {
 
   return (
     <form action={formAction}>
-      <div>
+      <div className="flex gap-2">
         <input
           ref={inputRef}
           type="text"
           name="title"
           placeholder="Add a todo..."
           autoFocus
+          className="flex-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <button type="submit">Add</button>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Add
+        </button>
       </div>
-      {state.error && <p style={{ color: "red" }}>{state.error}</p>}
+      {state.error && (
+        <p className="text-red-500 text-sm mt-1">{state.error}</p>
+      )}
     </form>
   );
 }

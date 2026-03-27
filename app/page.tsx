@@ -5,38 +5,54 @@ import { AddForm } from "./add-form";
 
 export default function Page() {
   const allTodos = db.select().from(todos).all();
+  const completedCount = allTodos.filter((t) => t.completed === 1).length;
 
   return (
-    <main>
-      <h1>Todos</h1>
+    <main className="max-w-lg mx-auto px-4 py-8">
+      <h1 className="text-2xl font-bold mb-6">Todos</h1>
       <AddForm />
       {allTodos.length === 0 ? (
-        <p>No todos yet. Add one above!</p>
+        <p className="text-center text-gray-500 py-8">
+          No todos yet. Add one above!
+        </p>
       ) : (
-        <ul>
-          {allTodos.map((todo) => (
-            <li key={todo.id}>
-              <form action={toggleTodo} style={{ display: "inline" }}>
-                <input type="hidden" name="id" value={todo.id} />
-                <button type="submit">
-                  {todo.completed ? "✓" : "○"}
-                </button>
-              </form>
-              <span
-                style={{
-                  textDecoration: todo.completed ? "line-through" : "none",
-                  opacity: todo.completed ? 0.5 : 1,
-                }}
+        <>
+          <ul className="mt-4 divide-y divide-gray-200">
+            {allTodos.map((todo) => (
+              <li
+                key={todo.id}
+                className={`flex items-center gap-2 py-2 ${todo.completed ? "opacity-50" : ""}`}
               >
-                {todo.title}
-              </span>
-              <form action={deleteTodo} style={{ display: "inline" }}>
-                <input type="hidden" name="id" value={todo.id} />
-                <button type="submit">✕</button>
-              </form>
-            </li>
-          ))}
-        </ul>
+                <form action={toggleTodo}>
+                  <input type="hidden" name="id" value={todo.id} />
+                  <button
+                    type="submit"
+                    className="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700"
+                  >
+                    {todo.completed ? "✓" : "○"}
+                  </button>
+                </form>
+                <span
+                  className={`flex-1 ${todo.completed ? "line-through" : ""}`}
+                >
+                  {todo.title}
+                </span>
+                <form action={deleteTodo}>
+                  <input type="hidden" name="id" value={todo.id} />
+                  <button
+                    type="submit"
+                    className="text-gray-400 hover:text-red-500 text-sm"
+                  >
+                    ✕
+                  </button>
+                </form>
+              </li>
+            ))}
+          </ul>
+          <p className="text-sm text-gray-500 mt-4 text-center">
+            {allTodos.length} items, {completedCount} completed
+          </p>
+        </>
       )}
     </main>
   );
