@@ -3,7 +3,7 @@
     {
       "id": "000-reviewer-stress-test",
       "title": "Reviewer Stress Test",
-      "status": "qa",
+      "status": "done",
       "tasks": [
         { "id": 1, "name": "Validation Utility with Strict TDD", "status": "reviewer_pass" }
       ]
