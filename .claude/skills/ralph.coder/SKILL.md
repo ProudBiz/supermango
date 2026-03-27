@@ -53,7 +53,7 @@ For each requirement in the task:
 
 1. **Write a failing test** that captures the expected behavior
 2. **Run the test** to confirm it fails for the right reason
-3. **Implement minimal code** to make the test pass
+3. **Implement minimal code** to make the test pass. When building UI components or pages, use the `frontend-design` skill to generate distinctive, production-grade interfaces.
 4. **Run the test** to confirm it passes
 5. **Commit** with a conventional commit message (e.g., `feat: add login endpoint`)
 
