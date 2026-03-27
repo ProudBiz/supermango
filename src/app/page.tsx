@@ -1,10 +1,19 @@
-export default function Home() {
+import { getTodos } from "@/actions/todo-actions";
+import AddTodoForm from "@/components/AddTodoForm";
+import TodoList from "@/components/TodoList";
+
+export default async function Home() {
+  const todos = await getTodos();
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-8">
-      <h1 className="text-4xl font-bold text-blue-600">Supermango Todo</h1>
-      <p className="mt-4 text-lg text-gray-600">
-        Coming soon — a todo app powered by Next.js, SQLite, and Drizzle ORM.
-      </p>
+    <main className="mx-auto max-w-lg px-4 py-8">
+      <h1 className="mb-6 text-3xl font-bold text-gray-900">
+        Supermango Todo
+      </h1>
+      <AddTodoForm />
+      <div className="mt-6">
+        <TodoList todos={todos} />
+      </div>
     </main>
   );
 }
