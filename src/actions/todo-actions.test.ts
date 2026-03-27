@@ -108,6 +108,81 @@ describe("getTodos", () => {
     expect(result[1].text).toBe("Second");
     expect(result[2].text).toBe("First");
   });
+
+  it("returns all todos when filter is 'all'", async () => {
+    db.insert(todos).values({ text: "Active", completed: 0 }).run();
+    db.insert(todos).values({ text: "Done", completed: 1 }).run();
+
+    const { getTodos } = await import("./todo-actions");
+    const result = await getTodos("all");
+
+    expect(result).toHaveLength(2);
+  });
+
+  it("returns only active todos when filter is 'active'", async () => {
+    db.insert(todos).values({ text: "Active one", completed: 0 }).run();
+    db.insert(todos).values({ text: "Done one", completed: 1 }).run();
+    db.insert(todos).values({ text: "Active two", completed: 0 }).run();
+
+    const { getTodos } = await import("./todo-actions");
+    const result = await getTodos("active");
+
+    expect(result).toHaveLength(2);
+    expect(result.every((t) => t.completed === 0)).toBe(true);
+  });
+
+  it("returns only completed todos when filter is 'completed'", async () => {
+    db.insert(todos).values({ text: "Active one", completed: 0 }).run();
+    db.insert(todos).values({ text: "Done one", completed: 1 }).run();
+    db.insert(todos).values({ text: "Done two", completed: 1 }).run();
+
+    const { getTodos } = await import("./todo-actions");
+    const result = await getTodos("completed");
+
+    expect(result).toHaveLength(2);
+    expect(result.every((t) => t.completed === 1)).toBe(true);
+  });
+
+  it("returns all todos when filter is undefined", async () => {
+    db.insert(todos).values({ text: "Active", completed: 0 }).run();
+    db.insert(todos).values({ text: "Done", completed: 1 }).run();
+
+    const { getTodos } = await import("./todo-actions");
+    const result = await getTodos();
+
+    expect(result).toHaveLength(2);
+  });
+});
+
+describe("getActiveTodoCount", () => {
+  beforeEach(() => {
+    db = createTestDb();
+  });
+
+  it("returns 0 when no todos exist", async () => {
+    const { getActiveTodoCount } = await import("./todo-actions");
+    const count = await getActiveTodoCount();
+    expect(count).toBe(0);
+  });
+
+  it("returns count of incomplete todos only", async () => {
+    db.insert(todos).values({ text: "Active one", completed: 0 }).run();
+    db.insert(todos).values({ text: "Active two", completed: 0 }).run();
+    db.insert(todos).values({ text: "Done one", completed: 1 }).run();
+
+    const { getActiveTodoCount } = await import("./todo-actions");
+    const count = await getActiveTodoCount();
+    expect(count).toBe(2);
+  });
+
+  it("returns 0 when all todos are completed", async () => {
+    db.insert(todos).values({ text: "Done one", completed: 1 }).run();
+    db.insert(todos).values({ text: "Done two", completed: 1 }).run();
+
+    const { getActiveTodoCount } = await import("./todo-actions");
+    const count = await getActiveTodoCount();
+    expect(count).toBe(0);
+  });
 });
 
 describe("toggleTodo", () => {
