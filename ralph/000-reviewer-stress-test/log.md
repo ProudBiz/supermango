@@ -1,0 +1,17 @@
+### [Coder] Round 1
+- **Task:** Validation Utility with Strict TDD
+- **Status:** DONE
+- **Files changed:** `tsconfig.json`, `vitest.config.ts`, `lib/validate.ts`, `__tests__/validate.test.ts`
+- **What was done:** Created tsconfig.json and vitest.config.ts as pre-flight fixes. Wrote 11 failing tests covering all acceptance criteria (valid title, empty string, whitespace-only, null, undefined, non-string input, 500-char boundary, 501-char boundary, trimming, length-after-trim valid, length-after-trim invalid). Then implemented `validateTodoTitle` in `lib/validate.ts` with `ValidationResult` discriminated union type. All tests pass.
+- **Self-validation:**
+  - `lib/validate.ts` exports `validateTodoTitle(title: unknown): ValidationResult` — PASS
+  - `ValidationResult` type: `{ valid: true; title: string } | { valid: false; error: string }` — PASS
+  - Trims whitespace before validation — PASS
+  - Returns `{ valid: false, error: "Title is required" }` for empty/null/undefined/whitespace — PASS
+  - Returns `{ valid: false, error: "Title must be 500 characters or less" }` for >500 chars — PASS
+  - Returns `{ valid: true, title: "<trimmed>" }` for valid input — PASS
+  - Input typed as `unknown` (no `as` casts) — PASS
+  - Tests cover all required cases — PASS (11 tests)
+  - `pnpm test` passes — PASS
+  - `pnpm typecheck` passes — PASS
+  - `pnpm lint` passes — PASS
