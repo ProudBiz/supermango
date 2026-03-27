@@ -1,1 +1,38 @@
-{"stories":[{"id":"001-test","title":"Test","status":"in_progress","tasks":[{"id":1,"name":"Test task","status":"coder_done"}]}]}
+{
+  "stories": [
+    {
+      "id": "000-reviewer-stress-test",
+      "title": "Reviewer Stress Test",
+      "status": "in_progress",
+      "tasks": [
+        { "id": 1, "name": "Validation Utility with Strict TDD", "status": "coder_done" }
+      ]
+    },
+    {
+      "id": "001-db-foundation",
+      "title": "Database Foundation",
+      "status": "pending",
+      "tasks": [
+        { "id": 1, "name": "Schema, Connection, and Config", "status": "pending" },
+        { "id": 2, "name": "Migration and Seed Helper", "status": "pending" }
+      ]
+    },
+    {
+      "id": "002-todo-crud",
+      "title": "Todo CRUD Operations",
+      "status": "pending",
+      "tasks": [
+        { "id": 1, "name": "Server Actions and Page Component", "status": "pending" },
+        { "id": 2, "name": "Comprehensive Action and Component Tests", "status": "pending" }
+      ]
+    },
+    {
+      "id": "003-ui-edge-cases",
+      "title": "UI & Edge Cases",
+      "status": "pending",
+      "tasks": [
+        { "id": 1, "name": "Tailwind Styling and Edge States", "status": "pending" }
+      ]
+    }
+  ]
+}
