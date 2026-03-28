@@ -1,7 +1,7 @@
 import { desc } from "drizzle-orm";
 import db from "@/db";
 import { todos } from "@/db/schema";
-import { addTodo } from "@/app/actions";
+import { addTodo, toggleTodo, deleteTodo } from "@/app/actions";
 
 export default async function Home() {
   const allTodos = db.select().from(todos).orderBy(desc(todos.createdAt)).all();
@@ -29,9 +29,37 @@ export default async function Home() {
         {allTodos.map((todo) => (
           <li
             key={todo.id}
-            className="rounded-md border border-gray-200 bg-white px-4 py-3 text-sm"
+            className="flex items-center gap-3 rounded-md border border-gray-200 bg-white px-4 py-3 text-sm"
           >
-            {todo.title}
+            <form action={toggleTodo}>
+              <input type="hidden" name="id" value={todo.id} />
+              <button type="submit">
+                <input
+                  type="checkbox"
+                  checked={todo.completed === 1}
+                  readOnly
+                  tabIndex={-1}
+                  className="pointer-events-none"
+                />
+              </button>
+            </form>
+            <span
+              className={
+                todo.completed === 1 ? "flex-1 line-through opacity-50" : "flex-1"
+              }
+            >
+              {todo.title}
+            </span>
+            <form action={deleteTodo}>
+              <input type="hidden" name="id" value={todo.id} />
+              <button
+                type="submit"
+                aria-label="Delete"
+                className="text-gray-400 hover:text-red-500 text-lg leading-none"
+              >
+                ×
+              </button>
+            </form>
           </li>
         ))}
       </ul>
