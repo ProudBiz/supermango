@@ -31,7 +31,7 @@
       "title": "UI & Edge Cases",
       "status": "in_progress",
       "tasks": [
-        { "id": 1, "name": "Tailwind Styling and Edge States", "status": "reviewer_issues" }
+        { "id": 1, "name": "Tailwind Styling and Edge States", "status": "coder_done" }
       ]
     }
   ]
