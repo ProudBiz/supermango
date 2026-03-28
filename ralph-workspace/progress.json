@@ -16,7 +16,7 @@
     {
       "id": "002-web-link-list",
       "title": "Web Link List",
-      "status": "qa",
+      "status": "done",
       "dependsOn": "001-slack-link-summarizer",
       "tasks": [
         { "id": 1, "name": "Next.js Page — Link List", "status": "reviewer_pass" }

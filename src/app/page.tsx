@@ -73,29 +73,24 @@ function ErrorState() {
 }
 
 export default function Home() {
-  let links: LinkRecord[];
+  let links: LinkRecord[] | null = null;
   try {
     links = getLinks();
   } catch {
-    return (
-      <main className="max-w-2xl mx-auto px-6 py-12">
-        <Header />
-        <ErrorState />
-      </main>
-    );
+    // DB error — render error state
   }
 
   return (
     <main className="max-w-2xl mx-auto px-6 py-12">
       <Header />
-      {links.length === 0 ? (
+      {links === null ? (
+        <ErrorState />
+      ) : links.length === 0 ? (
         <EmptyState />
       ) : (
-        <section>
-          {links.map((link) => (
-            <LinkEntry key={link.id} link={link} />
-          ))}
-        </section>
+        links.map((link) => (
+          <LinkEntry key={link.id} link={link} />
+        ))
       )}
     </main>
   );
