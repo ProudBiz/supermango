@@ -33,13 +33,12 @@ export default async function Home() {
           >
             <form action={toggleTodo}>
               <input type="hidden" name="id" value={todo.id} />
-              <button type="submit">
+              <button type="submit" className="flex items-center">
                 <input
                   type="checkbox"
-                  checked={todo.completed === 1}
-                  readOnly
+                  defaultChecked={todo.completed === 1}
                   tabIndex={-1}
-                  className="pointer-events-none"
+                  className="pointer-events-none cursor-pointer"
                 />
               </button>
             </form>
