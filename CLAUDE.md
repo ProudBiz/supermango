@@ -16,8 +16,9 @@ Multi-agent orchestration system using Claude Code with bash-driven loop.
 ## Conventions
 
 - Skills live in `.claude/skills/{skill-name}/SKILL.md`
-- Feature specs and tasks live in `ralph/` directory
-- Global state tracked in `ralph/progress.json`
-- Coder and reviewer communicate via `ralph/NNN-{userstory}/log.md`
+- Engine scripts live in `ralph-engine/` directory
+- Feature specs and tasks live in `ralph-workspace/` directory
+- Global state tracked in `ralph-workspace/progress.json`
+- Coder and reviewer communicate via `ralph-workspace/NNN-{userstory}/log.md`
 - All log.md entries are append-only
 - Commit every modification with conventional commit messages
