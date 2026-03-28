@@ -1,6 +1,6 @@
 # Supermango
 
-Multi-agent orchestration system for autonomous feature implementation using Claude Code with a bash-driven loop.
+Ralph loop engine with planner, coder, and reviewer for autonomous feature implementation.
 
 ## How It Works
 
@@ -22,7 +22,7 @@ Multi-agent orchestration system for autonomous feature implementation using Cla
 
 %> pnpm loop (autonomous)
          |
-   read state (spec, progress.json)
+   read state (spec, brainstorm, progress.json)
    find next story + task
    dispatch coder or reviewer
    update progress.json
@@ -53,7 +53,7 @@ Multi-agent orchestration system for autonomous feature implementation using Cla
 # Step 2: Run autonomous implementation
 pnpm loop
 
-# Or run a single interactive iteration
+# Or run a single iteration (full output visible)
 pnpm loop:once
 ```
 

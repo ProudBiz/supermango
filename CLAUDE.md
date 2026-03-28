@@ -1,6 +1,6 @@
 # Supermango
 
-Multi-agent orchestration system using Claude Code with bash-driven loop.
+Ralph loop engine with planner, coder, and reviewer for autonomous feature implementation.
 
 ## Skills
 

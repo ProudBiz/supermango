@@ -2,7 +2,7 @@
   "name": "supermango",
   "version": "1.0.0",
   "private": true,
-  "description": "Multi-agent orchestration system using Claude Code",
+  "description": "Ralph loop engine with planner, coder, and reviewer",
   "scripts": {
     "loop": "bash ralph-engine/ralph-loop.sh",
     "loop:once": "bash ralph-engine/ralph-once.sh"
