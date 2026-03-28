@@ -88,7 +88,13 @@ Read every changed file line by line.
 
 If the task has no UI component, skip this step.
 
-Start the dev server if not already running. Use `gstack` to take screenshots of every affected page/component.
+Start the dev server if not already running. Invoke the `/gstack` skill to take screenshots:
+
+```
+$B goto http://localhost:3000
+$B screenshot ralph-workspace/{story-id}/design-screenshot.png
+$B responsive ralph-workspace/{story-id}/responsive    # mobile + tablet + desktop
+```
 
 Evaluate:
 - **Design quality:** Does it feel like a coherent whole?
