@@ -34,3 +34,15 @@
   - `findLinkByUrl()` returns existing record or null: PASS
   - `listLinks()` returns all links ordered by created_at descending: PASS
   - Table schema matches the specified columns (id, url, title, summary, channel_id, channel_name, message_ts, slack_user_id, created_at): PASS
+
+### [Reviewer] Round 2
+- **Task:** SQLite Database Layer
+- **Status:** PASS
+- **Tests:** PASS — 13/13 tests pass (5 setup + 8 DB layer)
+- **Lint/Typecheck/Build:** PASS — `tsc --noEmit` clean, `next build` clean
+- **QA — Live server:** PASS — Verified all DB functions against a real SQLite file: WAL mode enabled, saveLink inserts and returns with ID/createdAt, findLinkByUrl returns hit and null for miss, listLinks returns descending order
+- **Code quality (simplify):** Fixed `saveLink()` to use `RETURNING *` instead of separate SELECT (eliminated redundant DB round-trip). Fixed TOCTOU pattern in test cleanup (existsSync+unlinkSync → try/catch). Skipped: unbounded listLinks (spec says no pagination), fresh prepared statements (negligible overhead), SELECT * (all columns needed).
+- **Security (manual):** PASS — All queries use parameterized statements, no hardcoded secrets, no user input at system boundary
+- **Design (gstack):** N/A — No UI component in this task
+- **Spec alignment:** PASS — Data model matches spec (single links table, all columns), WAL mode for concurrent access, findLinkByUrl supports duplicate detection, listLinks supports most-recent-first display, only successful summaries stored
+- **Task DONE**
