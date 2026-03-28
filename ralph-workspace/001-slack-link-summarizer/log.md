@@ -112,3 +112,15 @@
   - Returns cached summary for duplicate URLs: PASS (findLinkByUrl check, posts cached, skips extraction)
   - Handles multiple links with separate replies: PASS (loops URLs, separate postMessage per URL)
   - Saves each link to SQLite: PASS (saveLink called for each successful URL)
+
+### [Reviewer] Round 5
+- **Task:** Slack Bot Core
+- **Status:** PASS
+- **Tests:** PASS — 46/46 tests pass (5 setup + 8 DB layer + 8 extractor + 9 summarizer + 16 handler)
+- **Lint/Typecheck/Build:** PASS — `tsc --noEmit` clean, `next build` clean
+- **QA — Live server:** PASS — Bot starts and logs "Bolt app started" via Socket Mode. Verified handler integration against real SQLite: single URL processes end-to-end (⏳→summary→✅→saved to DB), duplicate URL returns cached summary without re-extraction, bot messages ignored (zero calls), error flow posts "Couldn't summarize: HTTP 403" and swaps to ❌.
+- **Code quality (simplify):** PASS — Three parallel review agents found no actionable issues. `channelName: ""` noted (Slack message event lacks channel name — acceptable placeholder, not a bug). Sequential URL processing is intentional for rate-limit safety. Module-level `/g` regex with `lastIndex` reset is correct for synchronous usage. Two similar error blocks are only 2 instances — premature to extract.
+- **Security (manual):** PASS — No injection risks (parameterized SQL, no shell commands, no HTML rendering of user input). No hardcoded secrets. Bot self-triggering prevented (bot_id + subtype check + no URLs in summaries). Error messages don't leak internals. SSRF is by-design (link summarizer fetches user-shared URLs).
+- **Design (gstack):** N/A — No UI component in this task
+- **Spec alignment:** PASS — Socket Mode via @slack/bolt, message.channels listener, Slack URL format handling (<url>, <url|text>, bare), bot filtering, reaction flow (⏳→✅/❌), plain text thread replies, specific error reasons, duplicate detection, multi-link support, SQLite persistence. Architecture matches brainstorm.md two-process design. Demo scenario supported.
+- **Task DONE**
