@@ -1,0 +1,19 @@
+### [Coder] Round 1
+- **Task:** Tailwind Styling and Edge States
+- **Status:** DONE
+- **Files changed:** postcss.config.mjs (new), app/globals.css (new), app/layout.tsx, app/page.tsx, app/add-form.tsx, __tests__/page.test.tsx
+- **What was done:** Set up Tailwind CSS v4 infrastructure (postcss config, globals.css, layout import). Applied Tailwind styling to all components: centered max-w-lg container, styled heading, flex add-form with focus ring, todo list with dividers and flex rows, completed todo line-through + opacity-50, empty state with muted text, red validation error text, and item count footer. Updated existing tests from inline style checks to CSS class checks; added new tests for empty state styling, completed row opacity class, item count footer, and container classes.
+- **Self-validation:**
+  - Centered container with `max-w-lg mx-auto` and padding: PASS
+  - Page title styled as heading: PASS
+  - Add-form full-width input + button row with focus ring: PASS
+  - Todo list vertical stack with subtle dividers: PASS
+  - Each todo row: toggle, title, delete "x" aligned right: PASS
+  - Completed todos: line-through on title, opacity-50 on row: PASS
+  - Empty state "No todos yet. Add one above!" centered, muted: PASS
+  - Validation error red text below input: PASS
+  - Item count footer: PASS
+  - Responsive on all viewports (single column, no breakpoints): PASS
+  - All 41 tests pass: PASS
+  - `pnpm lint` passes: PASS
+  - `pnpm build` passes: PASS
