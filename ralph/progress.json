@@ -29,7 +29,7 @@
     {
       "id": "003-ui-edge-cases",
       "title": "UI & Edge Cases",
-      "status": "qa",
+      "status": "done",
       "tasks": [
         { "id": 1, "name": "Tailwind Styling and Edge States", "status": "reviewer_pass" }
       ]
