@@ -35,3 +35,20 @@
 - **Design (gstack):** PASS — clean centered layout, clear typography hierarchy, consistent spacing, appropriate color usage (blue primary, red errors, muted empty state)
 - **Spec alignment:** PASS — implements all polish requirements from spec.md without conflicting with stories 001/002
 - **Task DONE**
+
+### [QA] Round 1
+- **Story:** 003-polish
+- **Status:** PASS
+- **Tests:** PASS — 27 tests pass (3 test files)
+- **Lint/Typecheck/Build:** PASS — typecheck clean, build succeeds with no warnings
+- **QA — Live server:**
+  - Empty state: "No todos yet. Add one above!" displays centered and muted on clean DB — PASS
+  - Submit empty form: "Title cannot be empty" red error text appears below input — PASS
+  - Add valid todo ("Buy groceries"): input clears, focus retained, todo appears in list, empty state disappears — PASS
+  - Mobile viewport (375x667): single column layout, no horizontal overflow — PASS
+  - Screenshots: `screenshots/qa-01-empty-state.png`, `screenshots/qa-02-empty-error.png`, `screenshots/qa-03-todo-added.png`, `screenshots/qa-04-mobile.png`
+- **Code quality:** PASS — clean component structure, proper useActionState usage, no issues
+- **Security:** PASS — server-side validation, Drizzle parameterized queries, React auto-escaping, no secrets or leaked internals
+- **Design:** PASS — clean centered layout, clear typography, consistent spacing, appropriate color usage
+- **Spec alignment:** PASS — all polish requirements met, no conflicts with stories 001/002
+- **Story DONE**
