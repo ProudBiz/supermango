@@ -14,3 +14,17 @@
 - **Task:** Toggle + Delete Actions
 - **Status:** PASS
 - **Task DONE**
+
+### [Coder] Round 2
+- **Task:** Toggle + Delete UI + Browser Test
+- **Status:** DONE
+- **Files changed:** `app/page.tsx`, `__tests__/page.test.tsx`
+- **What was done:** Updated the todo list UI to include a checkbox button for toggling completion and an × button for deleting each todo. Completed todos render with `line-through` and `opacity-50` classes. Used `defaultChecked` (not `checked`) to ensure the checkbox attribute renders correctly in server-side HTML. Added 3 component tests covering toggle/delete controls, strikethrough/opacity styles, and checkbox checked state. Browser-verified the full flow: add todo, toggle complete (strikethrough + checked checkbox), toggle back (normal text + unchecked), and delete (removed from list).
+- **Self-validation:**
+  - ✅ Each todo row has a checkbox button to toggle completion status
+  - ✅ Each todo row has a delete button (small "×" aligned right)
+  - ✅ Completed todos display with strikethrough text and opacity-50
+  - ✅ Toggling a todo updates its visual state immediately on page reload
+  - ✅ Deleting a todo removes it from the list
+  - ✅ All 19 tests pass, typecheck clean, build succeeds
+  - ✅ Browser test confirmed full toggle and delete flow
