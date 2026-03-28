@@ -28,3 +28,8 @@
   - ✅ Deleting a todo removes it from the list
   - ✅ All 19 tests pass, typecheck clean, build succeeds
   - ✅ Browser test confirmed full toggle and delete flow
+
+### [Reviewer] Round 2
+- **Task:** Toggle + Delete UI + Browser Test
+- **Status:** PASS
+- **Task DONE**
