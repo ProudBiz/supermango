@@ -1,0 +1,20 @@
+### [Coder] Round 1
+- **Task:** Empty State + Validation + Input UX + Browser Test
+- **Status:** DONE
+- **Files changed:**
+  - `app/actions.ts` — added validation (empty title, >500 chars) with `{ error: string | null }` return type; updated `addTodo` signature for `useActionState` (`_prevState, formData`)
+  - `app/add-todo-form.tsx` — new client component using `useActionState` for error display, input clear + focus retention on success
+  - `app/page.tsx` — added empty state message, replaced inline form with `<AddTodoForm />`
+  - `__tests__/actions.test.ts` — added validation tests: empty returns error, whitespace returns error, 501-char returns error, 500-char succeeds, success returns null error
+  - `__tests__/page.test.tsx` — added empty state rendering tests (shown when empty, hidden when todos exist)
+  - `__tests__/add-todo-form.test.tsx` — new test file: renders input/button, input receives focus, no error initially
+- **What was done:** Implemented input validation in addTodo action (empty/whitespace → "Title cannot be empty", >500 chars → "Title must be 500 characters or less"), extracted form into AddTodoForm client component using React 19 useActionState for error display and auto-clear/focus, added empty state UI with centered muted text.
+- **Self-validation:**
+  - Empty state displays "No todos yet. Add one above!" centered and muted: PASS
+  - addTodo rejects empty titles with error message: PASS
+  - addTodo rejects whitespace-only titles with error message: PASS
+  - addTodo rejects titles over 500 characters with error message: PASS
+  - Error messages display as red text below input: PASS (text-red-600)
+  - After successful add, input clears and retains focus: PASS (useEffect watches state)
+  - Form uses useActionState: PASS
+  - All 27 tests pass, typecheck clean, build succeeds: PASS

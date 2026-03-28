@@ -21,9 +21,9 @@
     {
       "id": "003-polish",
       "title": "Polish & Edge Cases",
-      "status": "pending",
+      "status": "in_progress",
       "tasks": [
-        { "id": 1, "name": "Empty State + Validation + Input UX + Browser Test", "status": "pending" }
+        { "id": 1, "name": "Empty State + Validation + Input UX + Browser Test", "status": "coder_done" }
       ]
     }
   ]
