@@ -148,3 +148,4 @@ If you discover genuinely reusable patterns during review, append them to the pr
 - **log.md is append-only.** Never edit or delete existing entries.
 - **Verify independently.** Don't trust the coder's self-validation — run tests, start the server fresh, test in the browser, read the actual code.
 - Do NOT update `progress.json` — the dispatch prompt handles that.
+- **No browser MCP tools.** Never use `mcp__chrome-devtools__*`, `mcp__claude-in-chrome__*`, or any other browser-related MCP tools. All browser interaction goes through the `/gstack` skill using `$B` commands.
