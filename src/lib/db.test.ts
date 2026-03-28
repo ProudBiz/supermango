@@ -16,13 +16,8 @@ describe("Database Layer", () => {
 
   afterEach(() => {
     db.close();
-    if (fs.existsSync(TEST_DB_PATH)) {
-      fs.unlinkSync(TEST_DB_PATH);
-    }
-    // Clean WAL/SHM files
-    for (const ext of ["-wal", "-shm"]) {
-      const f = TEST_DB_PATH + ext;
-      if (fs.existsSync(f)) fs.unlinkSync(f);
+    for (const suffix of ["", "-wal", "-shm"]) {
+      try { fs.unlinkSync(TEST_DB_PATH + suffix); } catch {}
     }
   });
 

@@ -70,11 +70,11 @@ export function initDb(dbPath: string): Database.Database {
 }
 
 export function saveLink(db: Database.Database, input: SaveLinkInput): LinkRecord {
-  const stmt = db.prepare(`
+  const row = db.prepare(`
     INSERT INTO links (url, title, summary, channel_id, channel_name, message_ts, slack_user_id)
     VALUES (?, ?, ?, ?, ?, ?, ?)
-  `);
-  const info = stmt.run(
+    RETURNING *
+  `).get(
     input.url,
     input.title,
     input.summary,
@@ -82,11 +82,7 @@ export function saveLink(db: Database.Database, input: SaveLinkInput): LinkRecor
     input.channelName,
     input.messageTs,
     input.slackUserId,
-  );
-
-  const row = db
-    .prepare("SELECT * FROM links WHERE id = ?")
-    .get(info.lastInsertRowid) as LinkRow;
+  ) as LinkRow;
 
   return rowToRecord(row);
 }
