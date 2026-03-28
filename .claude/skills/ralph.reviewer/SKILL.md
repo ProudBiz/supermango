@@ -48,7 +48,16 @@ This is the real QA. You test the actual running application.
 
 **Then verify every acceptance criterion from tasks.md against the live server:**
 
-- **UI features:** Use `gstack` to open the app in a headless browser. Navigate to affected pages, click buttons, fill forms, verify renders, check error states. Take screenshots as evidence.
+- **UI features:** Invoke the `/gstack` skill for all browser testing. Use `$B` commands:
+  ```
+  $B goto http://localhost:3000
+  $B snapshot -i                    # get interactive elements with @e refs
+  $B fill @e2 "test input"          # fill form fields by @e ref
+  $B click @e3                      # click buttons by @e ref
+  $B snapshot -D                    # diff to see what changed
+  $B screenshot /path/to/evidence.png  # capture evidence
+  ```
+  Navigate to affected pages, interact with elements using `@e` refs from snapshots, and take screenshots as evidence.
 - **API endpoints:** Use `curl` to hit every affected endpoint. Verify status codes, response bodies, error responses, edge cases.
 - **Data flows:** If the task involves data persistence, verify data is actually saved and retrievable — create, read, update, delete through the live server.
 - **Server actions / backend logic:** Write and run a small script or use the server to exercise the code against the real database.
