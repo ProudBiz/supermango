@@ -51,3 +51,8 @@
   - `pnpm lint` passes: PASS
   - `pnpm typecheck` passes: PASS
   - `pnpm build` passes: PASS
+
+### [Reviewer] Round 2
+- **Task:** Tailwind Styling and Edge States
+- **Status:** PASS
+- **Task DONE**
