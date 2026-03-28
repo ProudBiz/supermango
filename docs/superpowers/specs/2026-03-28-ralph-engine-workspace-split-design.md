@@ -49,8 +49,10 @@ REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 WORKSPACE="$REPO_DIR/ralph-workspace"
 ```
 
-- Prompt file: `$SCRIPT_DIR/ralph-prompt.md` (stays with engine)
-- Artifact files: `$WORKSPACE/spec.md`, `$WORKSPACE/progress.json`
+Validation checks split across both paths:
+- `$SCRIPT_DIR/ralph-prompt.md` — prompt stays with engine
+- `$WORKSPACE/spec.md` — artifact, validated against workspace
+- `$WORKSPACE/progress.json` — artifact, validated against workspace
 
 Both `ralph-loop.sh` and `ralph-once.sh` get this update.
 
@@ -64,10 +66,11 @@ Both `ralph-loop.sh` and `ralph-once.sh` get this update.
 - `.claude/skills/ralph.planner/SKILL.md` — output paths to `ralph-workspace/`
 - `.claude/skills/ralph.coder/SKILL.md` — read paths to `ralph-workspace/`
 - `.claude/skills/ralph.reviewer/SKILL.md` — read paths to `ralph-workspace/`
-- `CONTRIBUTING.md` — directory description
-- `README.md` — directory description
-
 Historical docs in `docs/superpowers/` are left as-is (they document the state at time of writing).
+
+## Migration
+
+Delete the old `ralph/` directory after moving files to `ralph-engine/` and `ralph-workspace/`.
 
 ## Non-Goals
 
