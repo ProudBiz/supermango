@@ -22,3 +22,4 @@ Multi-agent orchestration system using Claude Code with bash-driven loop.
 - Coder and reviewer communicate via `ralph-workspace/NNN-{userstory}/log.md`
 - All log.md entries are append-only
 - Commit every modification with conventional commit messages
+- When searching for documentation, use the `find-docs` skill (Context7) first before using WebSearch
