@@ -5,8 +5,8 @@ You are an autonomous coding agent. Each iteration you read the project state, d
 ## Step 1: Read State
 
 1. Read `CLAUDE.md` for project patterns and conventions
-2. Read `ralph/spec.md` for feature goals and context
-3. Read `ralph/progress.json` for global task state
+2. Read `ralph-workspace/spec.md` for feature goals and context
+3. Read `ralph-workspace/progress.json` for global task state
 
 ## Step 2: Find Current Work
 
@@ -23,17 +23,17 @@ Scan `progress.json` for the first story that is NOT `done` and NOT `known_issue
 
 ## Step 3a: Run Coder
 
-Read the story's `tasks.md` and `log.md` from `ralph/{story-id}/`.
+Read the story's `tasks.md` and `log.md` from `ralph-workspace/{story-id}/`.
 
 **Count rounds:** Look at `log.md` for alternating [Coder]/[Reviewer] entries for the current task. If the coder has already been invoked 5 times for this task (5 coder→reviewer cycles without `reviewer_pass`), this task is stuck:
-- Write the issue to `ralph/known-issues.md` (copy the last reviewer's issues from `log.md`)
+- Write the issue to `ralph-workspace/known-issues.md` (copy the last reviewer's issues from `log.md`)
 - Set the task status to `known_issue` in `progress.json`
 - End this iteration (next iteration picks up the next task)
 
 **Otherwise:** Read `.claude/skills/ralph.coder/SKILL.md` and follow its instructions exactly.
 
 Context for the coder:
-- **Story directory:** `ralph/{story-id}/`
+- **Story directory:** `ralph-workspace/{story-id}/`
 - **Task:** Task {N}: {task name}
 - **Mode:** If task status is `reviewer_issues`, tell the coder: "Reviewer found issues. Read log.md for details and fix them." If task status is `pending`, tell the coder: "This is a fresh task."
 
@@ -45,12 +45,12 @@ End this iteration.
 
 ## Step 3b: Run Reviewer
 
-Read the story's `tasks.md` and `log.md` from `ralph/{story-id}/`.
+Read the story's `tasks.md` and `log.md` from `ralph-workspace/{story-id}/`.
 
 Read `.claude/skills/ralph.reviewer/SKILL.md` and follow its instructions exactly.
 
 Context for the reviewer:
-- **Story directory:** `ralph/{story-id}/`
+- **Story directory:** `ralph-workspace/{story-id}/`
 - **Task:** Task {N}: {task name}
 - **Mode:** "Coder completed work. Review it."
 
@@ -64,17 +64,17 @@ End this iteration.
 
 ## Step 4: Fix QA Issues
 
-Read the story's `log.md` from `ralph/{story-id}/`.
+Read the story's `log.md` from `ralph-workspace/{story-id}/`.
 
 **Count rounds:** Look at `log.md` for alternating [Coder]/[QA] entries at the story level. If the coder has been invoked 5 times for QA fixes without `qa_pass`, this story is stuck:
-- Write the issue to `ralph/known-issues.md` (copy the last QA issues from `log.md`)
+- Write the issue to `ralph-workspace/known-issues.md` (copy the last QA issues from `log.md`)
 - Set the story status to `known_issue` in `progress.json`
 - End this iteration (next iteration picks up the next story)
 
 **Otherwise:** Read `.claude/skills/ralph.coder/SKILL.md` and follow its instructions.
 
 Context for the coder:
-- **Story directory:** `ralph/{story-id}/`
+- **Story directory:** `ralph-workspace/{story-id}/`
 - **Task:** "QA fix — {summary of QA issues from log.md}"
 - **Mode:** "QA found issues with the full story. Read log.md for details and fix them."
 
@@ -84,7 +84,7 @@ End this iteration.
 
 ## Step 5: Run QA
 
-Read the story's `story.md`, `tasks.md`, and `log.md` from `ralph/{story-id}/`.
+Read the story's `story.md`, `tasks.md`, and `log.md` from `ralph-workspace/{story-id}/`.
 
 Run QA validation for the full story. This means performing the reviewer's 7 verification steps (tests, lint/typecheck/build, live server QA, code quality, security, design review, spec alignment) but scoped to ALL tasks in the story together, not just a single task. Read `.claude/skills/ralph.reviewer/SKILL.md` for the verification steps.
 
