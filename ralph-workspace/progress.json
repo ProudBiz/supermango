@@ -12,9 +12,9 @@
     {
       "id": "002-toggle-delete",
       "title": "Toggle & Delete Todos",
-      "status": "pending",
+      "status": "in_progress",
       "tasks": [
-        { "id": 1, "name": "Toggle + Delete Actions", "status": "pending" },
+        { "id": 1, "name": "Toggle + Delete Actions", "status": "coder_done" },
         { "id": 2, "name": "Toggle + Delete UI + Browser Test", "status": "pending" }
       ]
     },
