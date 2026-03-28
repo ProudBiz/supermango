@@ -4,9 +4,43 @@
   "private": true,
   "description": "Multi-agent orchestration system using Claude Code",
   "scripts": {
+    "next": "next dev",
+    "next:build": "next build",
+    "bot": "npx tsx src/bolt/index.ts",
+    "dev": "concurrently \"pnpm next\" \"pnpm bot\"",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "loop": "bash ralph-engine/ralph-loop.sh",
     "loop:once": "bash ralph-engine/ralph-once.sh"
   },
   "license": "MIT",
-  "packageManager": "pnpm@10.12.3"
+  "packageManager": "pnpm@10.12.3",
+  "pnpm": {
+    "onlyBuiltDependencies": ["better-sqlite3", "esbuild", "sharp", "protobufjs"]
+  },
+  "dependencies": {
+    "@google/genai": "^1.46.0",
+    "@mozilla/readability": "^0.6.0",
+    "@slack/bolt": "^4.6.0",
+    "better-sqlite3": "^12.8.0",
+    "dotenv": "^17.3.1",
+    "linkedom": "^0.18.12",
+    "next": "^16.2.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.2",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "concurrently": "^9.2.1",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.2"
+  }
 }
