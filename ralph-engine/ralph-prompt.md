@@ -6,7 +6,8 @@ You are an autonomous coding agent. Each iteration you read the project state, d
 
 1. Read `CLAUDE.md` for project patterns and conventions
 2. Read `ralph-workspace/spec.md` for feature goals and context
-3. Read `ralph-workspace/progress.json` for global task state
+3. Read `ralph-workspace/brainstorm.md` for design intent, architecture decisions, and test strategy
+4. Read `ralph-workspace/progress.json` for global task state
 
 ## Step 2: Find Current Work
 
