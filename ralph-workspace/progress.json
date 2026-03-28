@@ -9,7 +9,7 @@
         { "id": 2, "name": "SQLite Database Layer", "status": "reviewer_pass" },
         { "id": 3, "name": "Link Content Extraction", "status": "reviewer_pass" },
         { "id": 4, "name": "Gemini Summarization", "status": "reviewer_pass" },
-        { "id": 5, "name": "Slack Bot Core", "status": "pending" },
+        { "id": 5, "name": "Slack Bot Core", "status": "coder_done" },
         { "id": 6, "name": "Bot Entry Point and Process Scripts", "status": "pending" }
       ]
     },
