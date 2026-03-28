@@ -75,7 +75,9 @@ Run the `simplify` skill on all changed files. Every issue it flags is a real is
 
 #### Step 5: Security
 
-Manually review all changed files for:
+Run `/security-review` to scan all pending changes for security vulnerabilities.
+
+Then manually review all changed files for:
 - Input validation at system boundaries
 - No injection risks (SQL, command, XSS)
 - No hardcoded secrets or credentials
