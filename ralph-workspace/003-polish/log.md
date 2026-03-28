@@ -18,3 +18,20 @@
   - After successful add, input clears and retains focus: PASS (useEffect watches state)
   - Form uses useActionState: PASS
   - All 27 tests pass, typecheck clean, build succeeds: PASS
+
+### [Reviewer] Round 1
+- **Task:** Empty State + Validation + Input UX + Browser Test
+- **Status:** PASS
+- **Tests:** PASS — 27 tests pass (3 test files)
+- **Lint/Typecheck/Build:** PASS — typecheck clean, build succeeds with no warnings
+- **QA — Live server:**
+  - Empty state: "No todos yet. Add one above!" displays centered and muted when no todos exist — PASS
+  - Submit empty form: "Title cannot be empty" red error text appears below input — PASS
+  - Add valid todo ("Buy groceries"): input clears, focus retained, todo appears in list, empty state disappears — PASS
+  - Mobile viewport (375x667): no horizontal overflow, single column layout — PASS
+  - Screenshots: `screenshots/01-empty-state.png`, `screenshots/02-empty-error.png`, `screenshots/03-todo-added.png`, `screenshots/04-mobile-viewport.png`
+- **Code quality (simplify):** PASS — minor observations (toggle could use single SQL UPDATE, nested interactive elements in toggle button) but none are in scope for this task
+- **Security (manual):** PASS — input validated server-side, Drizzle parameterized queries, React auto-escaping, no secrets, no internal details leaked
+- **Design (gstack):** PASS — clean centered layout, clear typography hierarchy, consistent spacing, appropriate color usage (blue primary, red errors, muted empty state)
+- **Spec alignment:** PASS — implements all polish requirements from spec.md without conflicting with stories 001/002
+- **Task DONE**
