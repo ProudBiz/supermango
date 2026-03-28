@@ -209,8 +209,14 @@ These are embedded directly in Phase 2 of the planner skill, not invoked as exte
 
 ## Spec Review
 
-Instead of heavyweight gstack reviews, Phase 5 dispatches a lightweight subagent:
+Instead of heavyweight gstack reviews, Phase 5 dispatches a lightweight subagent via the Agent tool (general-purpose subagent):
 - Check for: TODOs, placeholders, contradictions, vague acceptance criteria, missing sections
 - Fix issues found
 - Max 3 iterations
 - If subagent unavailable, skip and present unreviewed spec
+
+## Fallbacks
+
+- `find-docs` (Context7) unavailable: proceed with training knowledge, flag uncertainty in `brainstorm.md`
+- Spec review subagent unavailable: skip review, present unreviewed spec to user
+- Phase timing: ~100 min across 5 phases + ~20 min buffer for iteration and back-and-forth
