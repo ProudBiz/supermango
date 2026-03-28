@@ -57,10 +57,11 @@ For each non-browser surface with a resolved QA method:
 For each env var identified in Step 3:
 
 1. Ask the user for the value — one secret at a time
-2. Write to `.env` immediately after receiving each value
-3. Confirm `.env` is listed in `.gitignore` (add if missing)
-4. **Never** log, echo, print, or commit secret values
-5. Reference secrets by env var name only in all artifacts (brainstorm.md, tasks.md, spec.md)
+2. If the user doesn't have the secret yet (e.g., "I haven't created the Slack app yet"), add a setup prerequisite task in tasks.md with the env var name and write a placeholder in `.env`: `SLACK_TEST_USER_TOKEN=# TODO: create Slack test app and paste token here`
+3. Write to `.env` immediately after receiving each value
+4. Confirm `.env` is listed in `.gitignore` (add if missing)
+5. **Never** log, echo, print, or commit secret values
+6. Reference secrets by env var name only in all artifacts (brainstorm.md, tasks.md, spec.md)
 
 #### Step 5: Write QA playbook in brainstorm.md
 
@@ -94,12 +95,14 @@ For surfaces that don't need a harness (browser, curl, CLI):
 
 The planner must not proceed to Phase 5 (Synthesis) until every surface from Phase 1 has a QA playbook entry with a concrete method. This is a hard gate.
 
+**Escape hatch:** If the user and planner genuinely cannot find an automatable QA method after research, the user can explicitly accept "manual QA only" for that surface. The playbook entry documents the manual steps the reviewer should describe in log.md, but marks the surface as `Manual QA — not automatable`.
+
 ## What Stays the Same
 
 - **ralph.coder/SKILL.md** — no changes. Coder builds what acceptance criteria say.
 - **ralph.reviewer/SKILL.md** — no changes. Reviewer verifies acceptance criteria against live server. The QA playbook in brainstorm.md gives context, task acceptance criteria give orders.
 - **ralph-prompt.md** — no changes.
-- **brainstorm.md structure** — adds `## Live QA Playbook` section, rest unchanged.
+- **brainstorm.md structure** — `## Live QA Playbook` replaces the existing `## Test Strategy` section (same purpose, more concrete).
 
 ## Security: .env handling
 
