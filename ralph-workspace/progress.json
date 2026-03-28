@@ -1,1 +1,30 @@
-{"stories":[{"id":"001-test","title":"Test","status":"in_progress","tasks":[{"id":1,"name":"Test task","status":"coder_done"}]}]}
+{
+  "stories": [
+    {
+      "id": "001-add-todos",
+      "title": "Add Todos",
+      "status": "in_progress",
+      "tasks": [
+        { "id": 1, "name": "Database + addTodo Action", "status": "coder_done" },
+        { "id": 2, "name": "Page UI + Add Form + Browser Test", "status": "pending" }
+      ]
+    },
+    {
+      "id": "002-toggle-delete",
+      "title": "Toggle & Delete Todos",
+      "status": "pending",
+      "tasks": [
+        { "id": 1, "name": "Toggle + Delete Actions", "status": "pending" },
+        { "id": 2, "name": "Toggle + Delete UI + Browser Test", "status": "pending" }
+      ]
+    },
+    {
+      "id": "003-polish",
+      "title": "Polish & Edge Cases",
+      "status": "pending",
+      "tasks": [
+        { "id": 1, "name": "Empty State + Validation + Input UX + Browser Test", "status": "pending" }
+      ]
+    }
+  ]
+}
