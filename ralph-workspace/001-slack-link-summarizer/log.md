@@ -83,3 +83,15 @@
   - Summary never contains URLs or links: PASS (URL stripping applied to output)
   - Retries once on failure: PASS (tested retry succeeding and retry exhausting)
   - Returns specific error reason on final failure: PASS (API errors, empty responses)
+
+### [Reviewer] Round 4
+- **Task:** Gemini Summarization
+- **Status:** PASS
+- **Tests:** PASS — 30/30 tests pass (5 setup + 8 DB layer + 8 extractor + 9 summarizer)
+- **Lint/Typecheck/Build:** PASS — `tsc --noEmit` clean, `next build` clean
+- **QA — Live server:** Verified summarizer module against real Gemini API via tsx script. Short content (2 sentences) produced concise 1-sentence summary. Long content (12 sentences) produced multi-sentence summary. No URLs in output. Module loads and exports correctly. Note: dotenv must be imported before summarizer to set GEMINI_API_KEY — module-level GoogleGenAI instantiation reads env at import time (existing pattern, not a code bug).
+- **Code quality (simplify):** PASS — Three parallel review agents found no actionable issues. Discriminated union pattern shared with extractor.ts noted but only 2 instances — premature to extract shared type. All other findings (string constants, regex optimization) are style preferences with negligible impact.
+- **Security (manual):** PASS — No injection risks, no hardcoded secrets, no eval/dynamic code. User text passed safely to Gemini SDK. Error messages from SDK don't leak internals. URL stripping provides defense-in-depth.
+- **Design (gstack):** N/A — No UI component in this task
+- **Spec alignment:** PASS — Uses `@google/genai` with `gemini-3-flash-preview` per spec. Summary length scales (1-2 sentences short, 4-5 long). URL stripping ensures no links in output. Single retry on failure. Discriminated union return type matches extractor pattern. Architecture aligns with brainstorm.md.
+- **Task DONE**
