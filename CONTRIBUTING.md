@@ -29,11 +29,11 @@
 
 ```
 .claude/skills/          # Claude Code skills
-  ralph.planner/         # Interactive brainstorming
-  ralph.loop/            # Autonomous orchestrator
+  ralph.planner/         # Interactive brainstorming PM
   ralph.coder/           # TDD implementation teammate
   ralph.reviewer/        # QA/review teammate
-ralph/                   # Generated specs and tasks
+ralph-engine/            # Bash-driven orchestration engine
+ralph-workspace/         # Generated specs, tasks, and logs
 docs/                    # Design specs and plans
 ```
 
