@@ -72,6 +72,10 @@ echo ""
 echo "Stories:"
 jq -r '.stories[] | "  \(.id): \(.title) [\(.status)]"' "$WORKSPACE/progress.json"
 
+# --- Ensure logs directory ---
+
+mkdir -p "$WORKSPACE/logs"
+
 # --- Main loop ---
 
 for i in $(seq 1 $MAX_ITERATIONS); do
@@ -80,12 +84,15 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   echo "  Ralph Iteration $i of $MAX_ITERATIONS"
   echo "==============================================================="
 
-  # Pipe prompt to claude (no sed needed — paths are relative to repo root)
-  # Note: do NOT add set -o pipefail — || true must suppress non-zero claude exits
-  OUTPUT=$(claude --dangerously-skip-permissions --print < "$SCRIPT_DIR/ralph-prompt.md" 2>&1 | tee /dev/stderr) || true
+  # Stream JSON to log file and formatter for real-time visibility
+  LOG_FILE="$WORKSPACE/logs/iteration-$i.jsonl"
+  claude --dangerously-skip-permissions --print --verbose --output-format stream-json \
+    < "$SCRIPT_DIR/ralph-prompt.md" 2>>"$LOG_FILE.stderr" \
+    | tee "$LOG_FILE" \
+    | "$SCRIPT_DIR/ralph-format.sh" || true
 
-  # Check for completion signal
-  if echo "$OUTPUT" | grep -q "<promise>COMPLETE</promise>"; then
+  # Check for completion signal in assistant event text
+  if grep '"type":"assistant"' "$LOG_FILE" | grep -q '<promise>COMPLETE</promise>'; then
     echo ""
     echo "Ralph completed all tasks!"
     echo "Completed at iteration $i of $MAX_ITERATIONS"
