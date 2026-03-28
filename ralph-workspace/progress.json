@@ -16,10 +16,10 @@
     {
       "id": "002-web-link-list",
       "title": "Web Link List",
-      "status": "in_progress",
+      "status": "qa",
       "dependsOn": "001-slack-link-summarizer",
       "tasks": [
-        { "id": 1, "name": "Next.js Page — Link List", "status": "coder_done" }
+        { "id": 1, "name": "Next.js Page — Link List", "status": "reviewer_pass" }
       ]
     }
   ]
