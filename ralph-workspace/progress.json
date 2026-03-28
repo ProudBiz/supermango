@@ -12,7 +12,7 @@
     {
       "id": "002-toggle-delete",
       "title": "Toggle & Delete Todos",
-      "status": "qa",
+      "status": "done",
       "tasks": [
         { "id": 1, "name": "Toggle + Delete Actions", "status": "reviewer_pass" },
         { "id": 2, "name": "Toggle + Delete UI + Browser Test", "status": "reviewer_pass" }

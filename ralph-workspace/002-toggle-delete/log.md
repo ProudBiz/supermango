@@ -33,3 +33,15 @@
 - **Task:** Toggle + Delete UI + Browser Test
 - **Status:** PASS
 - **Task DONE**
+
+### [QA] Round 1
+- **Story:** 002-toggle-delete
+- **Status:** PASS
+- **Tests:** PASS — 19/19 tests pass
+- **Lint/Typecheck/Build:** PASS — typecheck clean, build succeeds
+- **QA — Live server:** PASS — Verified full flow: added todo, toggled complete (strikethrough + checked checkbox + opacity), toggled back (normal text + unchecked), deleted (removed from list). Screenshots saved.
+- **Code quality (simplify):** PASS — No actionable issues. Minor patterns (factory abstraction, type alias) are premature for this scope.
+- **Security (manual):** PASS — Parameterized queries via Drizzle, no injection risks, no secrets, React auto-escapes output.
+- **Design (gstack):** PASS — Clean minimal layout, clear visual feedback for completed state, intuitive controls.
+- **Spec alignment:** PASS — Completes CRUD operations, serves spec goals, no conflicts with other stories.
+- **Story DONE**
