@@ -39,3 +39,15 @@
 - **Security (manual):** PASS — changes are purely CSS classes and a derived count. No new user inputs, injection surfaces, or data flows.
 - **Design (gstack):** PASS — clean, minimal design with clear visual hierarchy. Completed todos visually distinct. Responsive layout works well.
 - **Spec alignment:** PASS — implementation matches spec requirements. No conflicts with other stories.
+
+### [Coder] Round 2
+- **Task:** Tailwind Styling and Edge States
+- **Status:** DONE
+- **Files changed:** app/page.tsx, __tests__/page.test.tsx
+- **What was done:** Fixed singular/plural grammar in item count footer. "1 item" when count is 1, "N items" otherwise. Added a failing test for the singular case first (TDD), then implemented the fix.
+- **Self-validation:**
+  - Item count footer uses correct singular "1 item" vs plural "N items": PASS
+  - All 42 tests pass: PASS
+  - `pnpm lint` passes: PASS
+  - `pnpm typecheck` passes: PASS
+  - `pnpm build` passes: PASS
