@@ -6,6 +6,7 @@ describe("Bot Entry Point and Process Scripts", () => {
   const pkg = JSON.parse(
     readFileSync(join(__dirname, "../../package.json"), "utf-8"),
   );
+  const entrySource = readFileSync(join(__dirname, "index.ts"), "utf-8");
 
   it("has pnpm bot script that runs the bolt entry point", () => {
     expect(pkg.scripts.bot).toBeDefined();
@@ -18,22 +19,14 @@ describe("Bot Entry Point and Process Scripts", () => {
     expect(pkg.scripts.dev).toContain("pnpm bot");
   });
 
-  it("entry point imports dotenv/config for env var loading", async () => {
-    const source = readFileSync(
-      join(__dirname, "index.ts"),
-      "utf-8",
-    );
-    expect(source).toContain('import "dotenv/config"');
+  it("entry point imports dotenv/config for env var loading", () => {
+    expect(entrySource).toContain('import "dotenv/config"');
   });
 
-  it("entry point starts the Bolt app with socket mode", async () => {
-    const source = readFileSync(
-      join(__dirname, "index.ts"),
-      "utf-8",
-    );
-    expect(source).toContain("socketMode: true");
-    expect(source).toContain("app.start()");
-    expect(source).toContain('console.log("Bolt app started")');
+  it("entry point starts the Bolt app with socket mode", () => {
+    expect(entrySource).toContain("socketMode: true");
+    expect(entrySource).toContain("app.start()");
+    expect(entrySource).toContain('console.log("Bolt app started")');
   });
 
   it("concurrently is installed as a dev dependency", () => {
