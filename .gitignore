@@ -16,3 +16,6 @@ next-env.d.ts
 
 # Runtime
 sqlite.db
+
+# Ralph loop logs
+ralph/logs/

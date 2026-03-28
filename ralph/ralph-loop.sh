@@ -71,6 +71,11 @@ echo ""
 echo "Stories:"
 jq -r '.stories[] | "  \(.id): \(.title) [\(.status)]"' "$SCRIPT_DIR/progress.json"
 
+# --- Log directory ---
+
+LOG_DIR="$SCRIPT_DIR/logs"
+mkdir -p "$LOG_DIR"
+
 # --- Main loop ---
 
 for i in $(seq 1 $MAX_ITERATIONS); do
@@ -79,12 +84,40 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   echo "  Ralph Iteration $i of $MAX_ITERATIONS"
   echo "==============================================================="
 
-  # Pipe prompt to claude (no sed needed — paths are relative to repo root)
-  # Note: do NOT add set -o pipefail — || true must suppress non-zero claude exits
-  OUTPUT=$(claude --dangerously-skip-permissions --print < "$SCRIPT_DIR/ralph-prompt.md" 2>&1 | tee /dev/stderr) || true
+  TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+  LOG_FILE="$LOG_DIR/iteration-${i}-${TIMESTAMP}.jsonl"
+  echo "  Log: $LOG_FILE"
+
+  # Stream JSON output — every tool call, result, and message is logged
+  claude --dangerously-skip-permissions -p \
+    --output-format stream-json --verbose \
+    < "$SCRIPT_DIR/ralph-prompt.md" \
+    > "$LOG_FILE" 2>&1 || true
+
+  # Render a human-readable summary to terminal
+  if [[ -f "$LOG_FILE" ]]; then
+    python3 -c "
+import json, sys
+for line in open('$LOG_FILE'):
+    line = line.strip()
+    if not line: continue
+    try: msg = json.loads(line)
+    except: continue
+    if msg.get('type') == 'assistant' and 'message' in msg:
+        for block in msg['message'].get('content', []):
+            if isinstance(block, dict):
+                if block.get('type') == 'text' and block['text'].strip():
+                    print(f\"⏺ {block['text'][:300]}\")
+                elif block.get('type') == 'tool_use':
+                    name = block.get('name','')
+                    inp = block.get('input',{})
+                    detail = inp.get('file_path','') or inp.get('command','')[:100] or inp.get('pattern','') or inp.get('description','') or inp.get('skill','') or ''
+                    print(f'  ⎿  {name}({detail})')
+" 2>/dev/null
+  fi
 
   # Check for completion signal
-  if echo "$OUTPUT" | grep -q "<promise>COMPLETE</promise>"; then
+  if grep -q "<promise>COMPLETE</promise>" "$LOG_FILE" 2>/dev/null; then
     echo ""
     echo "Ralph completed all tasks!"
     echo "Completed at iteration $i of $MAX_ITERATIONS"
