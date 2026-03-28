@@ -20,6 +20,7 @@ These are provided by the dispatch context:
 
 - Read project root `CLAUDE.md` for patterns and conventions
 - Read `ralph-workspace/spec.md` for feature context
+- Read `ralph-workspace/brainstorm.md` for design intent, tech stack rationale, and architecture decisions
 - Read `ralph-workspace/{story-id}/story.md` for user story details
 - Read `ralph-workspace/{story-id}/tasks.md` for the task description and acceptance criteria
 - Read `ralph-workspace/{story-id}/log.md` (if it exists) for previous rounds
