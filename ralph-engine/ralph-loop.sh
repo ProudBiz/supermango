@@ -8,6 +8,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+WORKSPACE="$REPO_DIR/ralph-workspace"
 
 # --- Arguments ---
 
@@ -27,19 +28,19 @@ done
 # --- Validate ---
 
 if [[ ! -f "$SCRIPT_DIR/ralph-prompt.md" ]]; then
-  echo "Error: ralph/ralph-prompt.md not found."
+  echo "Error: ralph-engine/ralph-prompt.md not found."
   echo "Use /ralph.planner to generate the feature spec first."
   exit 1
 fi
 
-if [[ ! -f "$SCRIPT_DIR/spec.md" ]]; then
-  echo "Error: ralph/spec.md not found."
+if [[ ! -f "$WORKSPACE/spec.md" ]]; then
+  echo "Error: ralph-workspace/spec.md not found."
   echo "Use /ralph.planner to generate the feature spec first."
   exit 1
 fi
 
-if [[ ! -f "$SCRIPT_DIR/progress.json" ]]; then
-  echo "Error: ralph/progress.json not found."
+if [[ ! -f "$WORKSPACE/progress.json" ]]; then
+  echo "Error: ralph-workspace/progress.json not found."
   echo "Use /ralph.planner to generate the feature spec first."
   exit 1
 fi
@@ -69,7 +70,7 @@ echo "Starting Ralph - Max iterations: $MAX_ITERATIONS"
 echo "  Repo root : $REPO_DIR"
 echo ""
 echo "Stories:"
-jq -r '.stories[] | "  \(.id): \(.title) [\(.status)]"' "$SCRIPT_DIR/progress.json"
+jq -r '.stories[] | "  \(.id): \(.title) [\(.status)]"' "$WORKSPACE/progress.json"
 
 # --- Main loop ---
 
@@ -97,5 +98,5 @@ done
 
 echo ""
 echo "Ralph reached max iterations ($MAX_ITERATIONS) without completing all tasks."
-echo "Check ralph/progress.json for status."
+echo "Check ralph-workspace/progress.json for status."
 exit 1
