@@ -8,17 +8,22 @@ import { todos } from "@/db/schema";
 export async function addTodoWithDb(
   database: ReturnType<typeof createDb>,
   title: string
-) {
+): Promise<{ error: string | null }> {
   const trimmed = title.trim();
-  if (!trimmed) return;
+  if (!trimmed) return { error: "Title cannot be empty" };
+  if (trimmed.length > 500) return { error: "Title must be 500 characters or less" };
 
   database.insert(todos).values({ title: trimmed }).run();
   revalidatePath("/");
+  return { error: null };
 }
 
-export async function addTodo(formData: FormData) {
+export async function addTodo(
+  _prevState: { error: string | null },
+  formData: FormData
+): Promise<{ error: string | null }> {
   const title = formData.get("title") as string;
-  await addTodoWithDb(db, title ?? "");
+  return addTodoWithDb(db, title ?? "");
 }
 
 export async function toggleTodoWithDb(

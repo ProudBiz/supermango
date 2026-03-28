@@ -33,20 +33,50 @@ describe("addTodo action", () => {
     expect(result).toHaveLength(1);
   });
 
-  it("handles empty title gracefully", async () => {
+  it("returns error for empty title", async () => {
     const { addTodoWithDb } = await import("@/app/actions");
-    await addTodoWithDb(db, "");
+    const result = await addTodoWithDb(db, "");
 
-    const result = db.select().from(todos).all();
-    expect(result).toHaveLength(0);
+    expect(result).toEqual({ error: "Title cannot be empty" });
+    const rows = db.select().from(todos).all();
+    expect(rows).toHaveLength(0);
   });
 
-  it("handles whitespace-only title gracefully", async () => {
+  it("returns error for whitespace-only title", async () => {
     const { addTodoWithDb } = await import("@/app/actions");
-    await addTodoWithDb(db, "   ");
+    const result = await addTodoWithDb(db, "   ");
 
-    const result = db.select().from(todos).all();
-    expect(result).toHaveLength(0);
+    expect(result).toEqual({ error: "Title cannot be empty" });
+    const rows = db.select().from(todos).all();
+    expect(rows).toHaveLength(0);
+  });
+
+  it("returns error for title over 500 characters", async () => {
+    const { addTodoWithDb } = await import("@/app/actions");
+    const longTitle = "a".repeat(501);
+    const result = await addTodoWithDb(db, longTitle);
+
+    expect(result).toEqual({ error: "Title must be 500 characters or less" });
+    const rows = db.select().from(todos).all();
+    expect(rows).toHaveLength(0);
+  });
+
+  it("accepts a title of exactly 500 characters", async () => {
+    const { addTodoWithDb } = await import("@/app/actions");
+    const title500 = "a".repeat(500);
+    const result = await addTodoWithDb(db, title500);
+
+    expect(result).toEqual({ error: null });
+    const rows = db.select().from(todos).all();
+    expect(rows).toHaveLength(1);
+    expect(rows[0].title).toBe(title500);
+  });
+
+  it("returns null error on successful add", async () => {
+    const { addTodoWithDb } = await import("@/app/actions");
+    const result = await addTodoWithDb(db, "Valid todo");
+
+    expect(result).toEqual({ error: null });
   });
 
   it("calls revalidatePath after adding", async () => {
