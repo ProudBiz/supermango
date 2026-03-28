@@ -130,6 +130,7 @@ Append (never edit or delete existing content) to `ralph-workspace/{story-id}/lo
 - **Security (manual):** {findings, or PASS}
 - **Design (gstack):** {findings, or N/A}
 - **Spec alignment:** {findings, or PASS}
+- **CLAUDE.md update:** {what was added} or N/A — {reason}
 ```
 
 **If Pass:**
@@ -138,6 +139,7 @@ Append (never edit or delete existing content) to `ralph-workspace/{story-id}/lo
 ### [Reviewer] Round N
 - **Task:** {task name}
 - **Status:** PASS
+- **CLAUDE.md update:** {what was added} or N/A — {reason}
 - **Task DONE**
 ```
 
@@ -145,7 +147,12 @@ Increment the round number from the last entry in log.md.
 
 ### 4. Update CLAUDE.md
 
-If you discover genuinely reusable patterns during review, append them to the project root `CLAUDE.md`.
+Check if you learned anything that would help future iterations. Append to the project root `CLAUDE.md` if you found:
+
+- **Project-specific patterns:** commands, config, naming conventions (e.g., "use `pnpm bot` to start the Slack bot", "SQLite path is `data/links.db`")
+- **Gotchas and pitfalls:** things that broke and the fix (e.g., "port 3000 conflicts with Next.js — bot uses 3001", "dev server must be stopped before restarting or tests hang")
+
+Record what you did in your log.md entry: `**CLAUDE.md update:** {what was added}` or `**CLAUDE.md update:** N/A — {reason}`.
 
 ## Important Rules
 

@@ -89,20 +89,19 @@ Append (never edit or delete existing content) to `ralph-workspace/{story-id}/lo
 - **Files changed:** {list of files created or modified}
 - **What was done:** {brief summary of implementation}
 - **Self-validation:** {results against each acceptance criterion}
+- **CLAUDE.md update:** {what was added} or N/A — {reason}
 ```
 
 Increment the round number from the last entry in log.md. If this is the first entry, use Round 1.
 
 ### 9. Update CLAUDE.md
 
-Before finishing, check if you discovered genuinely reusable knowledge:
+Before finishing, check if you learned anything that would help future iterations. Append to the project root `CLAUDE.md` if you found:
 
-- Code patterns and conventions specific to this project
-- Gotchas or non-obvious requirements
-- Testing approaches that worked well
-- Configuration or environment details
+- **Project-specific patterns:** commands, config, naming conventions (e.g., "use `pnpm bot` to start the Slack bot", "SQLite path is `data/links.db`", "Bolt uses Socket Mode not HTTP")
+- **Gotchas and pitfalls:** things that broke and the fix, so the next iteration doesn't repeat the mistake (e.g., "port 3000 conflicts with Next.js — bot uses 3001", "must call `app.start()` before registering listeners")
 
-If so, append to the project root `CLAUDE.md`. Not every task produces new learnings.
+Record what you did in your log.md entry: `**CLAUDE.md update:** {what was added}` or `**CLAUDE.md update:** N/A — {reason}`.
 
 ## Important Rules
 
