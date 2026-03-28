@@ -1,0 +1,26 @@
+{
+  "stories": [
+    {
+      "id": "001-slack-link-summarizer",
+      "title": "Slack Link Summarizer",
+      "status": "pending",
+      "tasks": [
+        { "id": 1, "name": "Project Setup", "status": "pending" },
+        { "id": 2, "name": "SQLite Database Layer", "status": "pending" },
+        { "id": 3, "name": "Link Content Extraction", "status": "pending" },
+        { "id": 4, "name": "Gemini Summarization", "status": "pending" },
+        { "id": 5, "name": "Slack Bot Core", "status": "pending" },
+        { "id": 6, "name": "Bot Entry Point and Process Scripts", "status": "pending" }
+      ]
+    },
+    {
+      "id": "002-web-link-list",
+      "title": "Web Link List",
+      "status": "pending",
+      "dependsOn": "001-slack-link-summarizer",
+      "tasks": [
+        { "id": 1, "name": "Next.js Page — Link List", "status": "pending" }
+      ]
+    }
+  ]
+}

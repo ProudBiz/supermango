@@ -22,3 +22,7 @@ Multi-agent orchestration system using Claude Code with bash-driven loop.
 - Coder and reviewer communicate via `ralph-workspace/NNN-{userstory}/log.md`
 - All log.md entries are append-only
 - Commit every modification with conventional commit messages
+- Package manager: pnpm
+- Two-process architecture: Bolt (Slack bot) + Next.js (web app), sharing SQLite
+- Env vars defined in `.env` (gitignored), template in `.env.example`
+- SQLite database uses WAL mode for concurrent access
