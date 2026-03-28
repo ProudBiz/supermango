@@ -146,3 +146,15 @@
 - **Design (gstack):** N/A — No UI component in this task
 - **Spec alignment:** PASS — Entry point uses dotenv for env loading, Socket Mode via @slack/bolt, `pnpm bot` and `pnpm dev` scripts match spec. Two-process architecture (Bolt + Next.js via concurrently) matches brainstorm.md.
 - **Task DONE**
+
+### [QA] Round 1
+- **Story:** 001-slack-link-summarizer
+- **Status:** PASS
+- **Tests:** PASS — 51/51 tests pass across all 6 test files
+- **Lint/Typecheck/Build:** PASS — `tsc --noEmit` clean, `next build` clean
+- **QA — Live server:** PASS — Bot starts and logs "Bolt app started" via Socket Mode. Cross-task integration verified against real SQLite: DB initializes with WAL mode, saveLink/findLinkByUrl/listLinks work correctly, handler processes URLs end-to-end (⏳→summary→✅→saved to DB), bot messages ignored, subtype messages ignored, duplicate URLs return cached summary, error flow posts "Couldn't summarize: HTTP 403" with ❌ reaction, multiple URLs produce separate thread replies. URL extraction handles all Slack formats (<url>, <url|text>, bare URLs).
+- **Code quality (simplify):** Added index on links.url column for efficient duplicate detection queries. All other findings (shared Result type, error normalization utility, config centralization) are premature for 2-instance patterns. Sequential URL processing is intentional for rate-limit safety.
+- **Security (manual):** PASS — All SQL parameterized, no injection risks, no hardcoded secrets. Bot self-triggering prevented (bot_id + subtype check + URL stripping in summaries). SSRF is by-design. linkedom doesn't execute JS. Error messages don't leak internals.
+- **Design (gstack):** N/A — No UI component in this story
+- **Spec alignment:** PASS — All 10 acceptance criteria verified: ⏳ reaction immediate, thread replies in plain text, summary length scales, ✅/❌ reaction swap, specific error reasons, bot filtering, no links in summaries, duplicate caching, multi-link support, SQLite persistence. Architecture matches brainstorm.md: two-process (Bolt + Next.js), Socket Mode, SQLite WAL, @mozilla/readability + linkedom, @google/genai with gemini-3-flash-preview. Demo scenario fully supported.
+- **Story DONE**
