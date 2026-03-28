@@ -120,9 +120,9 @@ Goal: Lock in tech stack, architecture, environment setup, and cross-surface int
    - Which actions on one surface trigger behavior on another?
    - Shared auth, shared state, event flows
 
-## Phase 4: Risk & Test Strategy (~15 min)
+## Phase 4: Risk & Live QA
 
-Goal: Identify what can go wrong and how to verify each surface works.
+Goal: Identify what can go wrong and resolve a concrete live QA method for every surface.
 
 ### Interactive Flow
 
@@ -132,16 +132,82 @@ Goal: Identify what can go wrong and how to verify each surface works.
    - Cross-surface risks (if one surface breaks, does the other?)
    - For each risk: likelihood, impact, mitigation
 
-2. **Test strategy per surface:**
-   - Webapp: standard TDD + browser QA via `/gstack`
-   - Slack bot / non-browser surfaces: specific test approach (mock API? real workspace? test channel?)
-   - Integration: how to verify cross-surface flows end-to-end?
-   - What can be automated vs what needs manual QA?
+2. **Live QA resolution per surface:**
 
-3. **Acceptance criteria sharpening:** Review each user story's acceptance criteria:
+   Go through each surface from Phase 1. One at a time.
+
+   **Classify the surface:**
+
+   | Surface type | Live QA method | Status |
+   |---|---|---|
+   | Browser-based (webapp, admin panel) | gstack (`$B` commands) | Already solved |
+   | API endpoint | curl | Already solved |
+   | Non-browser (Slack bot, Discord bot, CLI, webhook, etc.) | Needs resolution | Resolve below |
+
+   **For each non-browser surface, resolve the QA method:**
+
+   a. If you know a concrete method, propose it to the user:
+      - What tool/API enables programmatic interaction? (e.g., Slack Web API as a test user)
+      - What does the test do? (e.g., send message via API, poll for bot reply, check reactions)
+      - What command does the reviewer run? (e.g., `pnpm test:e2e:slack`)
+
+   b. If you don't know a method, research:
+      - Use `find-docs` (Context7) to look up the platform's test APIs
+      - Use web search if Context7 doesn't have it
+      - Present findings to user and brainstorm until a concrete method is locked in
+
+   c. **Concrete = the method answers:** "What exact command does the reviewer run, and what does it check?" If you can't answer this, keep brainstorming.
+
+3. **Collect prerequisites per surface:**
+
+   For each non-browser surface with a resolved QA method:
+   - **Env vars needed:** variable names and purpose (e.g., `SLACK_TEST_USER_TOKEN` — xoxp token for a test user)
+   - **External setup needed:** what must exist outside the codebase? (e.g., dedicated #bot-testing channel, test user account)
+   - **Test harness needed?** Does the coder need to build something? (e.g., `e2e/slack-bot.e2e.ts` with `pnpm test:e2e:slack`)
+
+4. **Collect secrets from user:**
+
+   For each env var identified above:
+   - Ask the user for the value — one secret at a time
+   - If the user doesn't have it yet, add a setup prerequisite task in tasks.md and write a placeholder: `VAR_NAME=# TODO: description of what to create`
+   - Write to `.env` immediately after receiving each value
+   - Confirm `.env` is in `.gitignore` (add if missing)
+   - **Never** log, echo, print, or commit secret values
+   - Reference secrets by env var name only in all artifacts
+
+5. **Write QA playbook:**
+
+   Build a `## Live QA Playbook` section (to be included in brainstorm.md during Phase 5) with an entry per surface:
+
+   ```
+   ### Surface: {name}
+   - **Method:** {concrete method}
+   - **Setup:** {commands to start the surface}
+   - **Env vars:** {VAR_NAME — purpose} (values in .env, never committed)
+   - **Verification:** {exact steps the reviewer follows}
+   - **Coder task:** {task name if a harness is needed, or N/A}
+   ```
+
+6. **Bake into task acceptance criteria:**
+
+   For surfaces that need a test harness:
+   - Add a coder task in tasks.md (e.g., "Build Slack e2e test harness")
+   - The task's acceptance criteria must include the live QA verification steps
+   - The task's TDD approach describes what the harness tests
+
+   For surfaces that don't need a harness (browser, curl, CLI):
+   - Add live QA verification steps to the acceptance criteria of the relevant feature tasks
+
+7. **Acceptance criteria sharpening:** Review each user story's acceptance criteria:
    - Is each criterion objectively verifiable?
-   - Can the reviewer actually test this?
+   - Can the reviewer actually test this with the resolved QA method?
    - What specific commands/actions prove it works?
+
+### Gate: No surface left behind
+
+Do NOT proceed to Phase 5 until every surface from Phase 1 has a QA playbook entry with a concrete method.
+
+**Escape hatch:** If no automatable method exists after research, the user can explicitly accept "manual QA only." The playbook entry documents the manual steps but marks the surface as `Manual QA — not automatable`.
 
 ## Phase 5: Synthesis & Context (~15 min)
 
