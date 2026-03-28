@@ -71,3 +71,15 @@
 - **Design (gstack):** N/A — No UI component in this task
 - **Spec alignment:** PASS — Implements `@mozilla/readability` + `linkedom` extraction per spec. Discriminated union supports the error flow (❌ with specific reason). Configurable timeout. Architecture matches brainstorm.md decisions.
 - **Task DONE**
+
+### [Coder] Round 4
+- **Task:** Gemini Summarization
+- **Status:** DONE
+- **Files changed:** src/lib/summarizer.ts, src/lib/summarizer.test.ts
+- **What was done:** Implemented `summarize()` function using `@google/genai` SDK with `gemini-3-flash-preview` model. Returns discriminated union (`{ ok: true, summary }` or `{ ok: false, error }`). Summary length scales with content — system instruction requests 1-2 sentences for short content (≤1000 chars) and 4-5 sentences for long content. Strips any URLs from Gemini's output. Retries once on API failure. Handles empty/null responses gracefully.
+- **Self-validation:**
+  - Generates a summary from text content using Gemini: PASS
+  - Summary length scales with content length: PASS (different system instructions for short vs long)
+  - Summary never contains URLs or links: PASS (URL stripping applied to output)
+  - Retries once on failure: PASS (tested retry succeeding and retry exhausting)
+  - Returns specific error reason on final failure: PASS (API errors, empty responses)
