@@ -46,3 +46,16 @@
 - **Design (gstack):** N/A — No UI component in this task
 - **Spec alignment:** PASS — Data model matches spec (single links table, all columns), WAL mode for concurrent access, findLinkByUrl supports duplicate detection, listLinks supports most-recent-first display, only successful summaries stored
 - **Task DONE**
+
+### [Coder] Round 3
+- **Task:** Link Content Extraction
+- **Status:** DONE
+- **Files changed:** src/lib/extractor.ts, src/lib/extractor.test.ts
+- **What was done:** Implemented `extractContent()` function that fetches HTML from a URL and extracts readable text and title using `@mozilla/readability` + `linkedom`. Returns a discriminated union: `{ ok: true, title, textContent }` on success or `{ ok: false, error }` on failure. Handles timeouts (via AbortSignal), non-200 status codes, empty responses, unparseable content, and network errors with specific error messages. Supports configurable timeout (default 10s).
+- **Self-validation:**
+  - Fetches HTML from a given URL: PASS
+  - Extracts readable text and title using readability: PASS
+  - Returns specific error reason for timeouts: PASS (tested AbortError → "Request timeout after Nms")
+  - Returns specific error reason for non-200 status codes: PASS (tested 403 → "HTTP 403", 500 → "HTTP 500")
+  - Returns specific error reason for empty/unparseable content: PASS (tested empty body, no-article HTML)
+  - Has a configurable timeout: PASS (ExtractOptions.timeoutMs, verified AbortSignal passed to fetch)
