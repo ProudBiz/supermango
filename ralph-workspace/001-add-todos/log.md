@@ -38,3 +38,16 @@
 - **Task:** Page UI + Add Form + Browser Test
 - **Status:** PASS
 - **Task DONE**
+
+### [QA] Round 1
+- **Story:** 001-add-todos
+- **Status:** PASS
+- **Tests:** PASS — 8/8 tests pass (5 action + 3 component)
+- **Lint/Typecheck/Build:** PASS — typecheck clean, build succeeds
+- **QA — Live server:** PASS — navigated to localhost:3000, added two todos ("Buy groceries", "Walk the dog"), verified newest-first ordering, form clears input field placeholder, centered layout renders correctly
+- **Code quality:** PASS — clean code, no unnecessary abstractions, proper separation of concerns
+- **Security:** PASS — Drizzle ORM parameterized queries, input trimming/validation, React auto-escaping, no hardcoded secrets
+- **Design:** PASS — centered max-w-lg container, clean typography, card-style todo items, good spacing and contrast
+- **Spec alignment:** PASS — delivers complete vertical slice (DB schema, server action, page UI, form, styling, tests) matching spec goals
+- **Screenshot:** qa-story-screenshot.png
+- **Story DONE**

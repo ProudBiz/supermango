@@ -3,7 +3,7 @@
     {
       "id": "001-add-todos",
       "title": "Add Todos",
-      "status": "qa",
+      "status": "done",
       "tasks": [
         { "id": 1, "name": "Database + addTodo Action", "status": "reviewer_pass" },
         { "id": 2, "name": "Page UI + Add Form + Browser Test", "status": "reviewer_pass" }
