@@ -14,7 +14,7 @@
       "title": "Toggle & Delete Todos",
       "status": "in_progress",
       "tasks": [
-        { "id": 1, "name": "Toggle + Delete Actions", "status": "coder_done" },
+        { "id": 1, "name": "Toggle + Delete Actions", "status": "reviewer_pass" },
         { "id": 2, "name": "Toggle + Delete UI + Browser Test", "status": "pending" }
       ]
     },

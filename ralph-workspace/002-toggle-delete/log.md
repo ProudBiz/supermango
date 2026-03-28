@@ -9,3 +9,8 @@
   - ✅ Both actions handle non-existent IDs gracefully (no crash)
   - ✅ Both actions call `revalidatePath('/')` after mutation
   - ✅ All 16 tests pass, typecheck clean, build succeeds
+
+### [Reviewer] Round 1
+- **Task:** Toggle + Delete Actions
+- **Status:** PASS
+- **Task DONE**
