@@ -25,7 +25,15 @@ These are provided by the dispatch context:
 - Read `ralph-workspace/{story-id}/tasks.md` for the task description and acceptance criteria
 - Read `ralph-workspace/{story-id}/log.md` (if it exists) for previous rounds
 
-### 2. Pre-flight
+### 2. Diagnose Issues (fix mode only)
+
+If this is a fix round (task status is `reviewer_issues` or this is a QA fix):
+
+Invoke the `systematic-debugging` skill before implementing any fix. Read the reviewer's or QA's findings in `log.md`, then follow the debugging skill's process to identify root cause before writing code.
+
+Skip this step for fresh tasks.
+
+### 3. Pre-flight
 
 Before doing anything new, verify the existing codebase is healthy:
 
@@ -34,7 +42,7 @@ Before doing anything new, verify the existing codebase is healthy:
 
 If pre-flight required fixes, commit them with a message like `fix: resolve pre-flight issues`.
 
-### 3. Implementation Planning
+### 4. Implementation Planning
 
 Analyze the codebase before writing code:
 
@@ -43,7 +51,7 @@ Analyze the codebase before writing code:
 - Plan TDD steps based on the task's acceptance criteria
 - When working with libraries, frameworks, or APIs, use the `find-docs` skill (Context7) to look up the latest documentation. Don't guess API signatures — verify them.
 
-### 4. TDD Loop
+### 5. TDD Loop
 
 For each requirement in the task:
 
@@ -55,7 +63,7 @@ For each requirement in the task:
 
 Repeat for all requirements.
 
-### 5. Pre-commit Gates
+### 6. Pre-commit Gates
 
 After implementation is complete, run the full quality suite:
 
@@ -66,11 +74,11 @@ After implementation is complete, run the full quality suite:
 
 Fix any issues. Commit fixes separately.
 
-### 6. Self-validate
+### 7. Self-validate
 
 Check your work against the task's acceptance criteria. Every criterion must pass. If something is missing, implement it now.
 
-### 7. Write to log.md
+### 8. Write to log.md
 
 Append (never edit or delete existing content) to `ralph-workspace/{story-id}/log.md`:
 
@@ -85,7 +93,7 @@ Append (never edit or delete existing content) to `ralph-workspace/{story-id}/lo
 
 Increment the round number from the last entry in log.md. If this is the first entry, use Round 1.
 
-### 8. Update CLAUDE.md
+### 9. Update CLAUDE.md
 
 Before finishing, check if you discovered genuinely reusable knowledge:
 
