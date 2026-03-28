@@ -4,7 +4,7 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 import { initDb, saveLink } from "../lib/db.js";
-import { getLinks } from "./links.js";
+import { getLinks, _resetDbCache } from "./links.js";
 
 const TEST_DB_PATH = path.join(os.tmpdir(), `supermango-links-test-${process.pid}.db`);
 
@@ -16,6 +16,7 @@ describe("getLinks", () => {
   });
 
   afterEach(() => {
+    _resetDbCache();
     db.close();
     for (const suffix of ["", "-wal", "-shm"]) {
       try { fs.unlinkSync(TEST_DB_PATH + suffix); } catch {}

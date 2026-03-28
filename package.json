@@ -4,7 +4,7 @@
   "private": true,
   "description": "Multi-agent orchestration system using Claude Code",
   "scripts": {
-    "next": "next dev",
+    "next": "next dev --webpack",
     "next:build": "next build",
     "bot": "npx tsx src/bolt/index.ts",
     "dev": "concurrently \"pnpm next\" \"pnpm bot\"",
