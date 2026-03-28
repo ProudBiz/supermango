@@ -6,7 +6,7 @@
       "status": "in_progress",
       "tasks": [
         { "id": 1, "name": "Database + addTodo Action", "status": "reviewer_pass" },
-        { "id": 2, "name": "Page UI + Add Form + Browser Test", "status": "pending" }
+        { "id": 2, "name": "Page UI + Add Form + Browser Test", "status": "coder_done" }
       ]
     },
     {

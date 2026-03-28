@@ -16,3 +16,20 @@
 - **Task:** Database + addTodo Action
 - **Status:** PASS
 - **Task DONE**
+
+### [Coder] Round 2
+- **Task:** Page UI + Add Form + Browser Test
+- **Status:** DONE
+- **Files changed:** app/globals.css, app/layout.tsx, app/page.tsx, __tests__/page.test.tsx
+- **What was done:** Created the main page as a Server Component that queries todos from DB (newest first) and renders them in a list. Added form with input + "Add" button that submits via addTodo server action. Styled with Tailwind: centered layout (max-w-lg), clean typography, card-style todo items. Created layout.tsx with HTML structure and Tailwind CSS setup. Component tests verify page title, form elements, and todo list rendering.
+- **Self-validation:**
+  - app/page.tsx is Server Component querying and rendering todos: PASS
+  - Form with input and "Add" button using addTodo action: PASS
+  - Todos displayed newest first (desc by createdAt): PASS
+  - Tailwind styling with centered container and clean layout: PASS
+  - app/layout.tsx with Tailwind CSS and HTML structure: PASS
+  - app/globals.css imports Tailwind: PASS
+  - 8/8 unit tests pass (5 action + 3 component): PASS
+  - Browser test: navigate, add todo, verify it appears in list: PASS
+  - Typecheck passes: PASS
+  - Build passes: PASS
