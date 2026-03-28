@@ -16,7 +16,7 @@ Create a task list so the user can track brainstorming progress. Create these ta
 1. **Phase 1: Product Vision** — User stories, demo scenario, non-goals
 2. **Phase 2: Design** — Visual direction, interaction states, AI slop check
 3. **Phase 3: Technical Foundation** — Tech stack, architecture, environment setup
-4. **Phase 4: Risk & Test Strategy** — Risks, test approach, acceptance criteria
+4. **Phase 4: Risk & Live QA** — Risks, live QA method per surface, secrets in .env
 5. **Phase 5: Synthesis & Context** — Generate artifacts, review, commit
 
 Mark each task as `in_progress` when starting the phase and `completed` when the phase is done.
