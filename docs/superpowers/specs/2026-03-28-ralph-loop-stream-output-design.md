@@ -60,12 +60,12 @@ if echo "$OUTPUT" | grep -q "<promise>COMPLETE</promise>"; then ...
 LOG_FILE="$WORKSPACE/logs/iteration-$i.jsonl"
 mkdir -p "$WORKSPACE/logs"
 claude --dangerously-skip-permissions --print --verbose --output-format stream-json \
-  < "$SCRIPT_DIR/ralph-prompt.md" 2>/dev/null \
+  < "$SCRIPT_DIR/ralph-prompt.md" 2>>"$LOG_FILE.stderr" \
   | tee "$LOG_FILE" \
   | "$SCRIPT_DIR/ralph-format.sh" || true
 
-if grep -q '"subtype":"success"' "$LOG_FILE" && \
-   grep '"result"' "$LOG_FILE" | grep -q '<promise>COMPLETE</promise>'; then ...
+# Completion signal appears in assistant event text, not result event
+if grep '"type":"assistant"' "$LOG_FILE" | grep -q '<promise>COMPLETE</promise>'; then ...
 ```
 
 ### ralph-once.sh
@@ -74,7 +74,7 @@ No changes — it runs interactive mode, not `--print`.
 
 ## New File
 
-`ralph-engine/ralph-format.sh` — ~50 lines of bash+jq that reads NDJSON from stdin and prints formatted lines to stdout.
+`ralph-engine/ralph-format.sh` — ~50 lines of bash+jq that reads NDJSON from stdin and prints formatted lines to stdout. Malformed lines (non-JSON) are silently skipped. Must be `chmod +x`.
 
 ## Non-Goals
 
