@@ -25,6 +25,11 @@ export default async function Home() {
         </button>
       </form>
 
+      {allTodos.length === 0 ? (
+        <p className="text-center text-gray-400 py-8">
+          No todos yet. Add one above!
+        </p>
+      ) : (
       <ul className="space-y-2">
         {allTodos.map((todo) => (
           <li
@@ -62,6 +67,7 @@ export default async function Home() {
           </li>
         ))}
       </ul>
+      )}
     </main>
   );
 }

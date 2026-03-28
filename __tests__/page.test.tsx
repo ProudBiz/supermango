@@ -92,6 +92,30 @@ describe("Home page", () => {
     expect(activeText).not.toHaveClass("opacity-50");
   });
 
+  it("shows empty state message when there are no todos", async () => {
+    mockAll.mockReturnValue([]);
+    const { default: Home } = await import("@/app/page");
+    const result = await Home();
+    render(result);
+
+    expect(
+      screen.getByText("No todos yet. Add one above!")
+    ).toBeInTheDocument();
+  });
+
+  it("does not show empty state message when there are todos", async () => {
+    mockAll.mockReturnValue([
+      { id: 1, title: "A todo", completed: 0, createdAt: "2026-01-01" },
+    ]);
+    const { default: Home } = await import("@/app/page");
+    const result = await Home();
+    render(result);
+
+    expect(
+      screen.queryByText("No todos yet. Add one above!")
+    ).not.toBeInTheDocument();
+  });
+
   it("toggle checkbox is checked for completed todos", async () => {
     mockAll.mockReturnValue([
       { id: 1, title: "Done task", completed: 1, createdAt: "2026-01-01" },
