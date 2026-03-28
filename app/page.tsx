@@ -50,7 +50,7 @@ export default function Page() {
             ))}
           </ul>
           <p className="text-sm text-gray-500 mt-4 text-center">
-            {allTodos.length} items, {completedCount} completed
+            {allTodos.length} {allTodos.length === 1 ? "item" : "items"}, {completedCount} completed
           </p>
         </>
       )}

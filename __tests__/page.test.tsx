@@ -140,6 +140,14 @@ describe("Page component", () => {
     expect(screen.getByText("3 items, 1 completed")).toBeDefined();
   });
 
+  it("renders singular 'item' when only 1 todo exists", () => {
+    mockDb.current!.insert(todos).values({ title: "Only one" }).run();
+
+    render(<Page />);
+
+    expect(screen.getByText("1 item, 0 completed")).toBeDefined();
+  });
+
   it("does not render item count when no todos exist", () => {
     render(<Page />);
 
