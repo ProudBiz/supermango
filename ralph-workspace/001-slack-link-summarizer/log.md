@@ -95,3 +95,20 @@
 - **Design (gstack):** N/A — No UI component in this task
 - **Spec alignment:** PASS — Uses `@google/genai` with `gemini-3-flash-preview` per spec. Summary length scales (1-2 sentences short, 4-5 long). URL stripping ensures no links in output. Single retry on failure. Discriminated union return type matches extractor pattern. Architecture aligns with brainstorm.md.
 - **Task DONE**
+
+### [Coder] Round 5
+- **Task:** Slack Bot Core
+- **Status:** DONE
+- **Files changed:** src/bolt/handler.ts, src/bolt/handler.test.ts, src/bolt/index.ts
+- **What was done:** Implemented the Slack bot core as a testable handler module (`handler.ts`) with dependency injection for DB, extractor, and summarizer. Created `extractUrls()` to parse URLs from Slack message text (handles `<url>`, `<url|text>`, and bare URLs). `handleMessage()` orchestrates the full flow: bot filtering, URL extraction, hourglass reaction, duplicate detection, content extraction, summarization, thread replies, reaction swapping, and DB persistence. Wired handler to Bolt app with Socket Mode in `index.ts`. 16 new tests covering all acceptance criteria.
+- **Self-validation:**
+  - Bot connects via Socket Mode: PASS (App configured with socketMode: true, appToken)
+  - Detects URLs in channel messages: PASS (extractUrls handles Slack-formatted and bare URLs)
+  - Ignores messages from bot users: PASS (checks bot_id and subtype, tested)
+  - Adds ⏳ reaction immediately: PASS (hourglass_flowing_sand added before processing)
+  - Posts plain text summary as thread reply: PASS (chat.postMessage with thread_ts)
+  - Swaps ⏳ to ✅ on success: PASS (removes hourglass, adds white_check_mark)
+  - Swaps ⏳ to ❌ on failure with specific error reason in thread: PASS (posts "Couldn't summarize: {error}")
+  - Returns cached summary for duplicate URLs: PASS (findLinkByUrl check, posts cached, skips extraction)
+  - Handles multiple links with separate replies: PASS (loops URLs, separate postMessage per URL)
+  - Saves each link to SQLite: PASS (saveLink called for each successful URL)
