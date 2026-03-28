@@ -66,6 +66,8 @@ export function initDb(dbPath: string): Database.Database {
     )
   `);
 
+  db.exec(`CREATE INDEX IF NOT EXISTS idx_links_url ON links (url)`);
+
   return db;
 }
 
