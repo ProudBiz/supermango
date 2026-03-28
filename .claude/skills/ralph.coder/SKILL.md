@@ -10,7 +10,7 @@ You are an autonomous coder. You implement exactly **one task**, then stop. The 
 ## Inputs
 
 These are provided by the dispatch context:
-- **Story directory:** path to `ralph/{story-id}/`
+- **Story directory:** path to `ralph-workspace/{story-id}/`
 - **Task:** which task from `tasks.md` to implement
 - **Mode:** fresh task OR fixing reviewer/QA issues (check `log.md` for details)
 
@@ -19,10 +19,10 @@ These are provided by the dispatch context:
 ### 1. Read Context
 
 - Read project root `CLAUDE.md` for patterns and conventions
-- Read `ralph/spec.md` for feature context
-- Read `ralph/{story-id}/story.md` for user story details
-- Read `ralph/{story-id}/tasks.md` for the task description and acceptance criteria
-- Read `ralph/{story-id}/log.md` (if it exists) for previous rounds
+- Read `ralph-workspace/spec.md` for feature context
+- Read `ralph-workspace/{story-id}/story.md` for user story details
+- Read `ralph-workspace/{story-id}/tasks.md` for the task description and acceptance criteria
+- Read `ralph-workspace/{story-id}/log.md` (if it exists) for previous rounds
 
 ### 2. Pre-flight
 
@@ -71,7 +71,7 @@ Check your work against the task's acceptance criteria. Every criterion must pas
 
 ### 7. Write to log.md
 
-Append (never edit or delete existing content) to `ralph/{story-id}/log.md`:
+Append (never edit or delete existing content) to `ralph-workspace/{story-id}/log.md`:
 
 ```
 ### [Coder] Round N

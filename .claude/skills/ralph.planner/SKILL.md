@@ -32,7 +32,7 @@ When the discussion involves specific libraries, frameworks, or APIs, use the `f
 
 ### Phase 3: Draft spec.md
 
-Once you understand the feature, draft `ralph/spec.md` internally (do not write to disk yet):
+Once you understand the feature, draft `ralph-workspace/spec.md` internally (do not write to disk yet):
 
 ```markdown
 # {Feature Name}
@@ -73,11 +73,11 @@ Sections to review in order:
 
 ### Phase 6: Write spec.md
 
-After all sections are approved, write the final `ralph/spec.md` to disk.
+After all sections are approved, write the final `ralph-workspace/spec.md` to disk.
 
 ### Phase 6b: Generate story.md per user story
 
-For each user story, create `ralph/NNN-{userstory-slug}/story.md`:
+For each user story, create `ralph-workspace/NNN-{userstory-slug}/story.md`:
 
 ```markdown
 # {User Story Title}
@@ -93,7 +93,7 @@ For each user story, create `ralph/NNN-{userstory-slug}/story.md`:
 
 ### Phase 7: Generate tasks.md per user story
 
-For each user story, create `ralph/NNN-{userstory-slug}/tasks.md`:
+For each user story, create `ralph-workspace/NNN-{userstory-slug}/tasks.md`:
 
 ```markdown
 # Tasks: {User Story Title}
@@ -119,7 +119,7 @@ For each user story, create `ralph/NNN-{userstory-slug}/tasks.md`:
 
 ### Phase 7b: Generate progress.json
 
-Generate `ralph/progress.json` with all stories and tasks initialized:
+Generate `ralph-workspace/progress.json` with all stories and tasks initialized:
 
 ```json
 {
@@ -143,6 +143,6 @@ All statuses start as `pending`.
 
 When all files are generated, inform the user:
 
-> "Spec and tasks are ready in `ralph/`. Run `pnpm loop` to start autonomous execution, or `pnpm loop:once` for a single interactive iteration."
+> "Spec and tasks are ready in `ralph-workspace/`. Run `pnpm loop` to start autonomous execution, or `pnpm loop:once` for a single interactive iteration."
 
 Do NOT start the loop yourself. The user controls when to start autonomous execution.

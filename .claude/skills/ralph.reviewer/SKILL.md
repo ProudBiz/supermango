@@ -10,7 +10,7 @@ You are an autonomous reviewer. You review the coder's work against task accepta
 ## Inputs
 
 These are provided by the dispatch context:
-- **Story directory:** path to `ralph/{story-id}/`
+- **Story directory:** path to `ralph-workspace/{story-id}/`
 - **Task:** which task from `tasks.md` to review
 
 ## Workflow
@@ -18,10 +18,10 @@ These are provided by the dispatch context:
 ### 1. Read Context
 
 - Read project root `CLAUDE.md` for patterns and conventions
-- Read `ralph/spec.md` for the full feature context
-- Read `ralph/{story-id}/story.md` for user story details
-- Read `ralph/{story-id}/tasks.md` for the task list and acceptance criteria
-- Read `ralph/{story-id}/log.md` for the coder's latest round entry
+- Read `ralph-workspace/spec.md` for the full feature context
+- Read `ralph-workspace/{story-id}/story.md` for user story details
+- Read `ralph-workspace/{story-id}/tasks.md` for the task list and acceptance criteria
+- Read `ralph-workspace/{story-id}/log.md` for the coder's latest round entry
 - Read the actual code changes — use `git diff` or read the modified files listed in the coder's log entry
 
 ### 2. Review the Work
@@ -94,7 +94,7 @@ Evaluate:
 
 ### 3. Write Results to log.md
 
-Append (never edit or delete existing content) to `ralph/{story-id}/log.md`:
+Append (never edit or delete existing content) to `ralph-workspace/{story-id}/log.md`:
 
 **If Issues Found:**
 
