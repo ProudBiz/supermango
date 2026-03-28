@@ -19,6 +19,7 @@ These are provided by the dispatch context:
 
 - Read project root `CLAUDE.md` for patterns and conventions
 - Read `ralph-workspace/spec.md` for the full feature context
+- Read `ralph-workspace/brainstorm.md` for design intent, architecture decisions, and demo scenario
 - Read `ralph-workspace/{story-id}/story.md` for user story details
 - Read `ralph-workspace/{story-id}/tasks.md` for the task list and acceptance criteria
 - Read `ralph-workspace/{story-id}/log.md` for the coder's latest round entry
@@ -98,16 +99,19 @@ $B screenshot ralph-workspace/{story-id}/design-screenshot.png
 $B responsive ralph-workspace/{story-id}/responsive    # mobile + tablet + desktop
 ```
 
-Evaluate:
+Evaluate against the design direction in `brainstorm.md`:
 - **Design quality:** Does it feel like a coherent whole?
 - **Originality:** Evidence of custom decisions, not template defaults?
 - **Craft:** Typography hierarchy, spacing consistency, color harmony, contrast ratios.
 - **Functionality:** Can users understand and complete tasks without guessing?
+- **Design intent:** Does the implementation match the design direction from brainstorm.md?
 
 #### Step 7: Spec Alignment
 
 - Does this task's implementation serve the broader goals in spec.md?
 - Does it conflict with or undermine other user stories?
+- Does the architecture match the decisions documented in brainstorm.md?
+- Does the demo scenario in brainstorm.md still work with this implementation?
 
 ### 3. Write Results to log.md
 
