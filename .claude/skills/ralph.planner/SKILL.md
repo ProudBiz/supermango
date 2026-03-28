@@ -139,6 +139,17 @@ Generate `ralph-workspace/progress.json` with all stories and tasks initialized:
 
 All statuses start as `pending`.
 
+### Phase 7c: Commit planning artifacts
+
+Commit all generated files to git:
+
+```
+git add ralph-workspace/
+git commit -m "chore: add planning artifacts for {feature-name}"
+```
+
+Use the spec.md title as `{feature-name}`.
+
 ### Phase 8: Done
 
 When all files are generated, inform the user:
