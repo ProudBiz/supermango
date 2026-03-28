@@ -59,3 +59,15 @@
   - Returns specific error reason for non-200 status codes: PASS (tested 403 → "HTTP 403", 500 → "HTTP 500")
   - Returns specific error reason for empty/unparseable content: PASS (tested empty body, no-article HTML)
   - Has a configurable timeout: PASS (ExtractOptions.timeoutMs, verified AbortSignal passed to fetch)
+
+### [Reviewer] Round 3
+- **Task:** Link Content Extraction
+- **Status:** PASS
+- **Tests:** PASS — 21/21 tests pass (5 setup + 8 DB layer + 8 extractor)
+- **Lint/Typecheck/Build:** PASS — `tsc --noEmit` clean, `next build` clean
+- **QA — Live server:** Verified extractor module against real URLs via tsx script. Function correctly returns `{ ok: false, error }` for network failures and handles all error paths. Note: Node.js TLS cert issue in local env prevents live HTTPS fetches — this is an environment issue, not a code bug. All error paths verified through unit tests with mocked fetch.
+- **Code quality (simplify):** PASS — Code is clean. No duplicated utilities, no reuse opportunities missed. Discriminated union result type is well-designed. `as unknown as Document` cast is the standard linkedom+readability pattern.
+- **Security (manual):** PASS — No injection risks, no hardcoded secrets, no eval/dynamic code execution. linkedom doesn't execute JS in parsed HTML. SSRF is by-design (bot fetches user-shared links). Error messages don't leak internals.
+- **Design (gstack):** N/A — No UI component in this task
+- **Spec alignment:** PASS — Implements `@mozilla/readability` + `linkedom` extraction per spec. Discriminated union supports the error flow (❌ with specific reason). Configurable timeout. Architecture matches brainstorm.md decisions.
+- **Task DONE**

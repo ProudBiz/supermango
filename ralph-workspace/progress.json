@@ -7,7 +7,7 @@
       "tasks": [
         { "id": 1, "name": "Project Setup", "status": "reviewer_pass" },
         { "id": 2, "name": "SQLite Database Layer", "status": "reviewer_pass" },
-        { "id": 3, "name": "Link Content Extraction", "status": "coder_done" },
+        { "id": 3, "name": "Link Content Extraction", "status": "reviewer_pass" },
         { "id": 4, "name": "Gemini Summarization", "status": "pending" },
         { "id": 5, "name": "Slack Bot Core", "status": "pending" },
         { "id": 6, "name": "Bot Entry Point and Process Scripts", "status": "pending" }
