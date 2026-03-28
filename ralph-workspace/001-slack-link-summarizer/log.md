@@ -22,3 +22,15 @@
 - **Design (gstack):** N/A — No UI component in this task
 - **Spec alignment:** PASS — All dependencies installed, two-process architecture set up, .env.example complete, TypeScript configured
 - **Task DONE**
+
+### [Coder] Round 2
+- **Task:** SQLite Database Layer
+- **Status:** DONE
+- **Files changed:** src/lib/db.ts, src/lib/db.test.ts
+- **What was done:** Implemented the SQLite database layer with WAL mode. Created `initDb()` to initialize the database and create the `links` table, `saveLink()` to insert records, `findLinkByUrl()` for duplicate detection, and `listLinks()` for chronological listing. Exported `LinkRecord` and `SaveLinkInput` types. Used `better-sqlite3` with snake_case DB columns mapped to camelCase TypeScript interfaces.
+- **Self-validation:**
+  - Database initializes with WAL mode enabled: PASS
+  - `saveLink()` inserts a new record: PASS
+  - `findLinkByUrl()` returns existing record or null: PASS
+  - `listLinks()` returns all links ordered by created_at descending: PASS
+  - Table schema matches the specified columns (id, url, title, summary, channel_id, channel_name, message_ts, slack_user_id, created_at): PASS
