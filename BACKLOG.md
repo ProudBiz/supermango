@@ -6,3 +6,4 @@
 - [ ] log (browser console, server log) check 
 - [ ] sysmetic-debug
 - [x] use context7 when planing and consider tech-stach
+- [ ] Use subagents to write files after brainstorming completes
