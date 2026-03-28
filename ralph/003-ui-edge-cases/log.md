@@ -17,3 +17,25 @@
   - All 41 tests pass: PASS
   - `pnpm lint` passes: PASS
   - `pnpm build` passes: PASS
+
+### [Reviewer] Round 1
+- **Task:** Tailwind Styling and Edge States
+- **Status:** ISSUES
+- **Tests:** PASS — all 41 tests pass
+- **Lint/Typecheck/Build:** PASS — lint, typecheck, and build all pass clean
+- **QA — Live server:** Tested all acceptance criteria against live dev server using headless browser.
+  - Centered container with `max-w-lg mx-auto`: PASS
+  - Page title styled as heading: PASS
+  - Add-form full-width input + button row with focus ring: PASS
+  - Todo list vertical stack with dividers: PASS
+  - Each todo row: toggle, title, delete "✕" aligned right: PASS
+  - Completed todos: line-through on title, opacity-50 on row: PASS
+  - Empty state "No todos yet. Add one above!" centered, muted: PASS
+  - Validation error red text below input: PASS
+  - Item count footer: ISSUE — displays "1 items, 0 completed" when there is only 1 todo. Should use correct singular/plural: "1 item" vs "2 items". The spec example uses "3 items, 1 completed" (plural), but singular case needs proper grammar.
+  - Responsive on all viewports: PASS — tested mobile (375px), tablet (768px), desktop (1280px)
+  - No console errors: PASS
+- **Code quality (simplify):** PASS — no issues in the styling diff scope. Pre-existing code patterns (actions.ts, focus timers) are out of scope.
+- **Security (manual):** PASS — changes are purely CSS classes and a derived count. No new user inputs, injection surfaces, or data flows.
+- **Design (gstack):** PASS — clean, minimal design with clear visual hierarchy. Completed todos visually distinct. Responsive layout works well.
+- **Spec alignment:** PASS — implementation matches spec requirements. No conflicts with other stories.
