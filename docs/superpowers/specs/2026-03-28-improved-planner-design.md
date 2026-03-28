@@ -17,6 +17,10 @@ Target: ~2 hour interactive brainstorming session that feeds a ~5 hour autonomou
 
 This is a prompt-only change. The planner SKILL.md is rewritten. The coder and reviewer SKILL.md files get minor updates to read `brainstorm.md`. The orchestration prompt `ralph-prompt.md` gets a minor update to pass `brainstorm.md` as context.
 
+## Progress Tracking
+
+The planner creates a task checklist at the start of the session using TaskCreate, one task per phase. Each task is marked `in_progress` when starting and `completed` when done. This gives the user a visible progress indicator (like the superpowers brainstorming skill's checklist) during the ~2 hour session.
+
 ## Phases
 
 ### Phase 1: Product Vision (~25 min)
