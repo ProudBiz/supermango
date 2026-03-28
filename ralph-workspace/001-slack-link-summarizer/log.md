@@ -134,3 +134,15 @@
   - `pnpm bot` starts the Slack bot and connects to Slack: PASS (script exists: `npx tsx src/bolt/index.ts`, entry point calls `app.start()` with socketMode)
   - `pnpm dev` runs both bot and Next.js web app concurrently: PASS (script exists: `concurrently "pnpm next" "pnpm bot"`)
   - Bot loads env vars from `.env`: PASS (`import "dotenv/config"` is first import in entry point)
+
+### [Reviewer] Round 6
+- **Task:** Bot Entry Point and Process Scripts
+- **Status:** PASS
+- **Tests:** PASS — 51/51 tests pass (5 setup + 8 DB layer + 8 extractor + 9 summarizer + 16 handler + 5 entrypoint)
+- **Lint/Typecheck/Build:** PASS — `tsc --noEmit` clean, `next build` clean
+- **QA — Live server:** PASS — `pnpm bot` starts and logs "Bolt app started" via Socket Mode. `pnpm dev` runs both bot and Next.js concurrently (verified both processes start). Bot loads env vars from `.env` (confirmed by successful Slack connection via `import "dotenv/config"` as first import).
+- **Code quality (simplify):** Fixed duplicate `index.ts` file reads in entrypoint tests (extracted to describe-level `entrySource`). Removed unnecessary `async` keywords on synchronous tests.
+- **Security (manual):** PASS — Test-only file, no secrets, no user input handling, no injection risks.
+- **Design (gstack):** N/A — No UI component in this task
+- **Spec alignment:** PASS — Entry point uses dotenv for env loading, Socket Mode via @slack/bolt, `pnpm bot` and `pnpm dev` scripts match spec. Two-process architecture (Bolt + Next.js via concurrently) matches brainstorm.md.
+- **Task DONE**
