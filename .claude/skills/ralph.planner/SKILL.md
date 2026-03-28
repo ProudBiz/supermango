@@ -241,8 +241,8 @@ Compile reasoning from all 4 phases into `ralph-workspace/brainstorm.md` (do not
 ## Risks & Mitigations
 {Known risks, dependencies, mitigations planned}
 
-## Test Strategy
-{How to test each surface, integration test approach}
+## Live QA Playbook
+{Copy from Phase 4 — one entry per surface with method, setup, env vars, verification steps}
 
 ## Demo Scenario
 {Concrete end-to-end scenario that proves "done"}
