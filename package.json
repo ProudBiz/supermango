@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "loop": "bash ralph-engine/ralph-loop.sh",
+    "start": "next start",
     "loop:once": "bash ralph-engine/ralph-once.sh"
   },
   "license": "MIT",
