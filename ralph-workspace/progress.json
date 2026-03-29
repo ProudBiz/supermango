@@ -1,0 +1,85 @@
+{
+  "stories": [
+    {
+      "id": "001-project-setup",
+      "title": "프로젝트 초기 설정",
+      "status": "pending",
+      "tasks": [
+        { "id": 1, "name": "Turborepo 모노레포 초기화", "status": "pending" },
+        { "id": 2, "name": "Supabase DB 스키마 설정", "status": "pending" },
+        { "id": 3, "name": "Shared 패키지 설정", "status": "pending" }
+      ]
+    },
+    {
+      "id": "002-slack-link-summary",
+      "title": "Slack 링크 자동 요약",
+      "status": "pending",
+      "tasks": [
+        { "id": 1, "name": "Slack Bot 기본 설정 및 링크 감지", "status": "pending" },
+        { "id": 2, "name": "Jina Reader 콘텐츠 추출", "status": "pending" },
+        { "id": 3, "name": "Gemini 요약 및 태그 생성", "status": "pending" },
+        { "id": 4, "name": "요약 파이프라인 통합 및 스레드 응답", "status": "pending" }
+      ]
+    },
+    {
+      "id": "003-card-news-generation",
+      "title": "카드뉴스 이미지 생성",
+      "status": "pending",
+      "tasks": [
+        { "id": 1, "name": "카드뉴스 이미지 생성 서비스", "status": "pending" },
+        { "id": 2, "name": "카드뉴스 업로드 및 Slack 게시", "status": "pending" }
+      ]
+    },
+    {
+      "id": "004-webapp-auth",
+      "title": "웹앱 Slack OAuth 로그인",
+      "status": "pending",
+      "tasks": [
+        { "id": 1, "name": "Supabase Auth + Slack OAuth 연동", "status": "pending" }
+      ]
+    },
+    {
+      "id": "005-webapp-feed",
+      "title": "웹앱 통합 피드",
+      "status": "pending",
+      "tasks": [
+        { "id": 1, "name": "피드 API 및 데이터 조회", "status": "pending" },
+        { "id": 2, "name": "피드 카드 UI 컴포넌트", "status": "pending" },
+        { "id": 3, "name": "무한스크롤 피드 페이지", "status": "pending" }
+      ]
+    },
+    {
+      "id": "006-webapp-filter",
+      "title": "웹앱 필터링",
+      "status": "pending",
+      "tasks": [
+        { "id": 1, "name": "필터 UI 및 API 연동", "status": "pending" }
+      ]
+    },
+    {
+      "id": "007-webapp-share",
+      "title": "웹앱 메시지 공유",
+      "status": "pending",
+      "tasks": [
+        { "id": 1, "name": "공유 링크 생성 API", "status": "pending" },
+        { "id": 2, "name": "공유 페이지 및 OG 메타태그", "status": "pending" }
+      ]
+    },
+    {
+      "id": "008-webapp-landing",
+      "title": "웹앱 랜딩페이지",
+      "status": "pending",
+      "tasks": [
+        { "id": 1, "name": "랜딩페이지 구현", "status": "pending" }
+      ]
+    },
+    {
+      "id": "009-slack-e2e-test",
+      "title": "Slack Bot e2e 테스트 스크립트",
+      "status": "pending",
+      "tasks": [
+        { "id": 1, "name": "Slack e2e 테스트 스크립트 작성", "status": "pending" }
+      ]
+    }
+  ]
+}
